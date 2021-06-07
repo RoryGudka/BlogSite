@@ -1,4 +1,6 @@
-module.exports = ({app, db, verifyToken, getAll}) => {
+const hash = require("hash-it");
+
+module.exports = ({app, db, verifyToken, getAll, generateToken}) => {
 /**
  * Handles the login process
  */
@@ -19,7 +21,11 @@ module.exports = ({app, db, verifyToken, getAll}) => {
             //Responds to the client with the token
             res.json({
               status: 200,
-              token,
+              data:{
+                token,
+                name:result.name,
+                email:result.email
+              },
             });
           } else {
             //Catches the case where the password is incorrect

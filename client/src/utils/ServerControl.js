@@ -1,5 +1,45 @@
 import axios from "axios";
 
+const login = (username, password) => {
+  return axios
+    .post("http://localhost:5000/login", {
+      username,
+      password
+    })
+    .then((res) => {
+      if (res.data.status === 200) return res.data.data;
+      else {
+        alert(res.data.message);
+        return false;
+      }
+    })
+    .catch((err) => {
+      alert("There was an error");
+      return false;
+    });
+}
+
+const signup = (username, password, name, email) => {
+  return axios
+      .post("http://localhost:5000/signup", {
+        username,
+        password,
+        name,
+        email
+      })
+      .then((res) => {
+        if (res.data.status === 200) return res.data.token;
+        else {
+          alert(res.data.message);
+          return false;
+        }
+      })
+      .catch((err) => {
+        alert("There was an error");
+        return false;
+      });
+}
+
 /**
  * Returns all blog posts and alerts any errors that arise - returns false if failed
  * @returns All blog posts : array
@@ -228,7 +268,10 @@ const deleteUser = (primary_key, user) => {
 };
 
 export {
+  login,
+  signup,
   getAllBlogPosts,
+  getBlogPost,
   getUsers,
   addUser,
   editUser,

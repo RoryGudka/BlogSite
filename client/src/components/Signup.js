@@ -1,11 +1,11 @@
 import "../styles/Login.css";
 import { useState, useContext, Fragment } from "react";
 import { useHistory, Link } from "react-router-dom";
-import axios from "axios";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import { UserContext } from "../contexts/UserContextProvider";
+import {signup} from '../utils/ServerControl';
 
 const Signup = (props) => {
   const history = useHistory();
@@ -30,24 +30,18 @@ const Signup = (props) => {
     else setPassword(password + val.substring(val.length - 1));
   };
 
-  const handleLogin = (e) => {
-    axios
-      .post("http://localhost:3001/login", {
-        username: username,
-        password: password,
-      })
-      .then((res) => {
-        if (res.data.status === 200) {
-          setUser({
-            username,
-            token: res.data.token,
-          });
-          history.push("/home");
-        } else alert(res.data.message);
-      })
-      .catch((err) => {
-        alert("There was an error");
-      });
+  const handleSignup = (e) => {
+    signup(username, password, name, email).then(res => {
+      if(res) {
+        setUser({
+          username,
+          token: res,
+          name,
+          email
+        });
+        history.push("/home");
+      }
+    });
   };
 
   const handleLogout = (e) => {
@@ -144,7 +138,7 @@ const Signup = (props) => {
                 style={{ width: "150px", height: "50px", borderRadius: "25px" }}
                 variant="contained"
                 color="primary"
-                onClick={token !== undefined ? handleLogout : handleLogin}
+                onClick={token !== undefined ? handleLogout : handleSignup}
               >
                 {token !== undefined ? "Log out" : "Sign up"}
               </Button>
