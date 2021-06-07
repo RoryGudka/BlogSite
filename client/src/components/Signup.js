@@ -7,11 +7,13 @@ import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import { UserContext } from "../contexts/UserContextProvider";
 
-const Login = (props) => {
+const Signup = (props) => {
   const history = useHistory();
   const { user, setUser } = useContext(UserContext);
   const [username, setUsername] = useState(user !== null ? user.uid : "");
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const token = user !== null ? user.token : undefined;
 
   const getDots = (password) => {
@@ -82,7 +84,7 @@ const Login = (props) => {
           Camille's Corner
         </p>
         <p style={{ color:"white", fontSize: "32px", marginBottom:"20px", marginTop:0, textAlign:"center"}}>
-          Log in
+          Sign up
         </p>
         <div id="signinWrapper">
         <Paper
@@ -99,9 +101,31 @@ const Login = (props) => {
                 style={{ margin: "10px 0" }}
                 variant="outlined"
                 fullWidth
+                label="Full name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+            <br></br>
+            <div className="use-passWrapper">
+              <TextField
+                style={{ margin: "10px 0" }}
+                variant="outlined"
+                fullWidth
                 label="Username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
+              />
+            </div>
+            <br></br>
+            <div className="use-passWrapper">
+              <TextField
+                style={{ margin: "10px 0" }}
+                variant="outlined"
+                fullWidth
+                label="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <br></br>
@@ -122,10 +146,10 @@ const Login = (props) => {
                 color="primary"
                 onClick={token !== undefined ? handleLogout : handleLogin}
               >
-                {token !== undefined ? "Log out" : "Log in"}
+                {token !== undefined ? "Log out" : "Sign up"}
               </Button>
             </div>
-            <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
+            <p>Already have an account? <Link to="/login">Log in</Link></p>
           </Paper>
           <Link to="/"><p style={{color:"white"}}><u>Return to home</u></p></Link>
         </div>
@@ -135,4 +159,4 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+export default Signup;
