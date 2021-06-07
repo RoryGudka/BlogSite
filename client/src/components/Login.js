@@ -1,14 +1,14 @@
-import "../Styles/Login.css";
+import "../styles/Login.css";
 import { useState, useContext, Fragment } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
-import { UserContext } from "../Contexts/UserContextProvider";
+import { UserContext } from "../contexts/UserContextProvider";
 
 const Login = (props) => {
-  const history = useHistory();
+  //const history = useHistory();
   const { user, setUser } = useContext(UserContext);
   const [username, setUsername] = useState(user !== null ? user.uid : "");
   const [password, setPassword] = useState("");
@@ -40,7 +40,7 @@ const Login = (props) => {
             username,
             token: res.data.token,
           });
-          history.push("/home");
+          //history.push("/home");
         } else alert(res.data.message);
       })
       .catch((err) => {
@@ -53,7 +53,8 @@ const Login = (props) => {
   };
 
   return (
-    <Fragment>
+    <div>
+      <Fragment>
       <img
         style={{
           position: "fixed",
@@ -140,7 +141,7 @@ const Login = (props) => {
         elevation={20}
       >
         <div id="signinWrapper">
-          <Paper
+        <Paper
             style={{
               display: "inline-block",
               width: "80%",
@@ -188,6 +189,7 @@ const Login = (props) => {
         </div>
       </Paper>
     </Fragment>
+    </div>
   );
 };
 
