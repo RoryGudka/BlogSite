@@ -5,12 +5,16 @@ import Nav from "react-bootstrap/Nav";
 import { UserContext } from "../contexts/UserContextProvider";
 import { Link } from "react-router-dom";
 import Button from '@material-ui/core/Button';
+import {ThemeContext} from '../contexts/ThemeContextProvider';
+import {MuiThemeProvider} from '@material-ui/core/styles';
 
 export default function NavBar() {
   const { user, setUser } = useContext(UserContext);
+  const {theme} = useContext(ThemeContext);
 
+  console.log('test');
   return (
-    <Navbar expand="lg" variant="light" style={{backgroundColor:"#b2b8f7"}}>
+    <Navbar expand="lg" variant="dark" style={{backgroundColor:"var(--Primary)"}}>
       <Navbar.Brand>
         <img
           alt=""
@@ -49,7 +53,9 @@ export default function NavBar() {
           </div>
           ) : (
             <Link to="/login">
-              <Button variant="contained" color="primary">Log in</Button>
+              <MuiThemeProvider theme={theme}>
+                <Button variant="contained" color="secondary">Log in</Button>
+              </MuiThemeProvider>
             </Link>
           )
         }

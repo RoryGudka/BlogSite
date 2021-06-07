@@ -1,8 +1,52 @@
 import axios from "axios";
 
+/**
+ * Returns all blog posts and alerts any errors that arise - returns false if failed
+ * @returns All blog posts : array
+ */
+const getAllBlogPosts = () => {
+  return axios
+    .get("http://localhost:5000/blog_posts/get_all")
+    .then((res) => {
+      if (res.data.status === 200) return res.data.data;
+      else {
+        alert(res.data.message);
+        return false;
+      }
+    })
+    .catch((err) => {
+      alert("An error has occurred");
+      return false;
+    });
+};
+
+/**
+ * Returns a single blog post based on primary_key and alerts any errors that arise - returns false if failed
+ * @returns All blog posts : array
+ */
+ const getBlogPost = (primary_key) => {
+  return axios
+    .get("http://localhost:5000/blog_posts/get", {
+      params: {
+        primary_key
+      },
+    })
+    .then((res) => {
+      if (res.data.status === 200) return res.data.data;
+      else {
+        alert(res.data.message);
+        return false;
+      }
+    })
+    .catch((err) => {
+      alert("An error has occurred");
+      return false;
+    });
+};
+
 const getTeacher = (primary_key, user) => {
   return axios
-    .get("http://localhost:3001/teachers/get", {
+    .get("http://localhost:5000/teachers/get", {
       params: {
         primary_key,
         ...user,
@@ -17,12 +61,13 @@ const getTeacher = (primary_key, user) => {
     })
     .catch((err) => {
       alert("An error has occurred");
+      return false;
     });
 };
 
 const getAllTeachers = (user) => {
   return axios
-    .get("http://localhost:3001/teachers/get_all", {
+    .get("http://localhost:5000/teachers/get_all", {
       params: {
         ...user,
       },
@@ -36,12 +81,13 @@ const getAllTeachers = (user) => {
     })
     .catch((err) => {
       alert("An error has occurred");
+      return false;
     });
 };
 
 const addTeacher = (data, user) => {
   return axios
-    .post("http://localhost:3001/teachers/add", {
+    .post("http://localhost:5000/teachers/add", {
       ...user,
       primary_key: data.employee_id,
       data,
@@ -55,12 +101,13 @@ const addTeacher = (data, user) => {
     })
     .catch((err) => {
       alert("An error has occurred");
+      return false;
     });
 };
 
 const editTeacher = (primary_key, data, user) => {
   return axios
-    .put("http://localhost:3001/teachers/edit", {
+    .put("http://localhost:5000/teachers/edit", {
       ...user,
       data,
       primary_key,
@@ -74,12 +121,13 @@ const editTeacher = (primary_key, data, user) => {
     })
     .catch((err) => {
       alert("An error has occurred");
+      return false;
     });
 };
 
 const deleteTeacher = (primary_key, user) => {
   return axios
-    .delete("http://localhost:3001/teachers/remove", {
+    .delete("http://localhost:5000/teachers/remove", {
       params: {
         ...user,
         primary_key,
@@ -94,12 +142,13 @@ const deleteTeacher = (primary_key, user) => {
     })
     .catch((err) => {
       alert("An error has occurred");
+      return false;
     });
 };
 
 const getUsers = (user) => {
   return axios
-    .get("http://localhost:3001/users/get", {
+    .get("http://localhost:5000/users/get", {
       params: {
         ...user,
       },
@@ -113,12 +162,13 @@ const getUsers = (user) => {
     })
     .catch((err) => {
       alert("An error has occurred");
+      return false;
     });
 };
 
 const addUser = (data, user) => {
   return axios
-    .post("http://localhost:3001/users/add", {
+    .post("http://localhost:5000/users/add", {
       ...user,
       primary_key: data.name,
       data,
@@ -132,12 +182,13 @@ const addUser = (data, user) => {
     })
     .catch((err) => {
       alert("An error has occurred");
+      return false;
     });
 };
 
 const editUser = (primary_key, data, user) => {
   return axios
-    .put("http://localhost:3001/users/edit", {
+    .put("http://localhost:5000/users/edit", {
       ...user,
       data,
       primary_key,
@@ -151,12 +202,13 @@ const editUser = (primary_key, data, user) => {
     })
     .catch((err) => {
       alert("An error has occurred");
+      return false;
     });
 };
 
 const deleteUser = (primary_key, user) => {
   return axios
-    .delete("http://localhost:3001/users/remove", {
+    .delete("http://localhost:5000/users/remove", {
       params: {
         ...user,
         primary_key,
@@ -171,10 +223,12 @@ const deleteUser = (primary_key, user) => {
     })
     .catch((err) => {
       alert("An error has occurred");
+      return false;
     });
 };
 
 export {
+  getAllBlogPosts,
   getUsers,
   addUser,
   editUser,
