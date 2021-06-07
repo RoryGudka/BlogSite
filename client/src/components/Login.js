@@ -8,7 +8,7 @@ import Paper from "@material-ui/core/Paper";
 import { UserContext } from "../contexts/UserContextProvider";
 
 const Login = (props) => {
-  //const history = useHistory();
+  const history = useHistory();
   const { user, setUser } = useContext(UserContext);
   const [username, setUsername] = useState(user !== null ? user.uid : "");
   const [password, setPassword] = useState("");
@@ -40,7 +40,7 @@ const Login = (props) => {
             username,
             token: res.data.token,
           });
-          //history.push("/home");
+          history.push("/home");
         } else alert(res.data.message);
       })
       .catch((err) => {
