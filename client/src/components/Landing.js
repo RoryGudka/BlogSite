@@ -8,7 +8,6 @@ const Landing = props => {
 
     useEffect(() => {
         getAllBlogPosts().then(res => {
-            console.log(res);
             setBlogPosts(res);
         })
     }, []);
@@ -17,7 +16,6 @@ const Landing = props => {
     let maxSaves = {val:-1, index:-1};
     let maxComments = {val:-1, index:-1};
     let mostRecent = {val:{_seconds:(new Date(0)).getTime() / 1000}, index:-1};
-    console.log(new Date(blogPosts[0]?.date._seconds * 1000));
     for(let i = 0; i < blogPosts.length; i++) {
         if(blogPosts[i].likes > maxLikes.val) {
             maxLikes.val = blogPosts[i].likes;
@@ -36,14 +34,10 @@ const Landing = props => {
             mostRecent.index = i;
         }
     }
-    console.log(maxLikes);
-    console.log(maxSaves);
-    console.log(maxComments);
-    console.log(mostRecent);
 
     const mostRecentHTML = (
         <Link to={`blog_posts/${blogPosts[mostRecent.index]?.doc}`}>
-            <div className="magazineItem" style={{width:"64vw", margin:"0.5vw 0.25vw 0.25vw 0"}}>
+            <div className="magazineItem" style={{width:"63vw", margin:"0.5vw 0.25vw 0.25vw 0"}}>
                 <p className="magazineTop">Most recent:</p>
                 <p className="magazineMiddle">{blogPosts[mostRecent.index]?.title}</p>
                 <p className="magazineBottom">Posted {(new Date(mostRecent.val._seconds * 1000)).toDateString()}</p>
@@ -73,7 +67,7 @@ const Landing = props => {
 
     const mostCommentsHTML = (
         <Link to={`blog_posts/${blogPosts[maxComments.index]?.doc}`}>
-            <div className="magazineItem" style={{width:"35vw", margin:"0.25vw 0.25vw 0.5vw 0.25vw"}}>
+            <div className="magazineItem" style={{width:"34vw", margin:"0.25vw 0.25vw 0.5vw 0.25vw"}}>
                 <p className="magazineTop">Most comments:</p>
                 <p className="magazineMiddle">{blogPosts[maxComments.index]?.title}</p>
                 <p className="magazineBottom">{maxComments.val} comments</p>

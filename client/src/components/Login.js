@@ -1,11 +1,11 @@
 import "../styles/Login.css";
 import { useState, useContext, Fragment } from "react";
 import { useHistory, Link } from "react-router-dom";
-import axios from "axios";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import { UserContext } from "../contexts/UserContextProvider";
+import {login} from '../utils/ServerControl';
 
 const Login = (props) => {
   const history = useHistory();
@@ -29,23 +29,21 @@ const Login = (props) => {
   };
 
   const handleLogin = (e) => {
-    axios
-      .post("http://localhost:3001/login", {
-        username: username,
-        password: password,
-      })
-      .then((res) => {
-        if (res.data.status === 200) {
-          setUser({
-            username,
-            token: res.data.token,
-          });
-          history.push("/home");
-        } else alert(res.data.message);
-      })
-      .catch((err) => {
-        alert("There was an error");
-      });
+    login(username, password).then(res => {
+      if(res) {
+        setUser({
+          username,
+          token:res.token,
+          name:res.name,
+          email:res.email
+        });
+        console.log({username,
+          token:res.token,
+          name:res.name,
+          email:res.email})
+        history.push("/home");
+      }
+    });
   };
 
   const handleLogout = (e) => {

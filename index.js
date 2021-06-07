@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const hash = require("hash-it");
 const jwt = require("jsonwebtoken");
 const { db } = require("./firebase.js");
 const secret = require("./secret.js");
@@ -65,7 +64,7 @@ const verifyToken = (username, token) => {
   return all;
 };
 
-const parameters = {app, db, verifyToken, getAll};
+const parameters = {app, db, verifyToken, getAll, generateToken};
 
 blog_posts_route(parameters);
 forum_posts_route(parameters);
