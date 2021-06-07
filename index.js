@@ -143,50 +143,34 @@ app.post("/login", (req, res) => {
     });
 });
 
-app.get("/students/get", (req, res) => {
-  if (verifyToken(req.query.username, req.query.token)) {
-    db.collection("students")
-      .doc(req.query.primary_key)
-      .get()
-      .then((resp) => {
-        res.json({
-          status: 200,
-          data: resp.data(),
-        });
-      })
-      .catch((err) => {
-        res.sendStatus(400);
+app.get("/blog_posts/get", (req, res) => {
+  db.collection("blog_posts")
+    .doc(req.query.primary_key)
+    .get()
+    .then((resp) => {
+      res.json({
+        status: 200,
+        data: resp.data(),
       });
-  } else {
-    //Catches the case where the token is invalid for the user
-    res.json({
-      status: 400,
-      message: "Invalid token",
+    })
+    .catch((err) => {
+      res.sendStatus(400);
     });
-  }
 });
 
 app.get("/blog_posts/get_all", (req, res) => {
-  if (verifyToken(req.query.username, req.query.token)) {
-    db.collection("blog_posts")
-      .get()
-      .then((resp) => {
-        results = getAll(resp);
-        res.json({
-          status: 200,
-          data: results,
-        });
-      })
-      .catch((err) => {
-        res.sendStatus(400);
+  db.collection("blog_posts")
+    .get()
+    .then((resp) => {
+      results = getAll(resp);
+      res.json({
+        status: 200,
+        data: results,
       });
-  } else {
-    //Catches the case where the token is invalid for the user
-    res.json({
-      status: 400,
-      message: "Invalid token",
+    })
+    .catch((err) => {
+      res.sendStatus(400);
     });
-  }
 });
 
 app.get("/forum_posts/get_all", (req, res) => {
@@ -436,6 +420,6 @@ app.delete("/users/remove", (req, res) => {
 /**
  * Initiates the server
  */
-app.listen(3001, () => {
-  console.log("Server started on port 3001");
+app.listen(5000, () => {
+  console.log("Server started on port 5000");
 });
