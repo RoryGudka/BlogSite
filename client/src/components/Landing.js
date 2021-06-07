@@ -8,6 +8,7 @@ const Landing = props => {
 
     useEffect(() => {
         getAllBlogPosts().then(res => {
+            console.log(res);
             setBlogPosts(res);
         })
     }, []);
