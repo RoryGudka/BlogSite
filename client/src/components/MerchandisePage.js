@@ -90,7 +90,7 @@ const MerchandisePage = () => {
   };
 
   return (
-    <div className="container">
+    <div className="merchandise-container">
       <div className="banner">
         <div className="opacity-layer">
           <h1 className="banner-text">Shop</h1>
