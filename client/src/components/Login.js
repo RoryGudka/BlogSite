@@ -5,7 +5,9 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import { UserContext } from "../contexts/UserContextProvider";
-import {login} from '../utils/UserControl';
+import {login} from '../utils/UserControls';
+import {useStyles} from '../styles/Button';
+import {likeComment, unlikeComment} from '../utils/CommentControls';
 
 const Login = (props) => {
   const history = useHistory();
@@ -35,7 +37,8 @@ const Login = (props) => {
           username,
           token:res.token,
           name:res.name,
-          email:res.email
+          email:res.email,
+          user_id:res.user_id
         });
         history.push("/forum");
       }

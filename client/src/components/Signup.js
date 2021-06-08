@@ -37,10 +37,16 @@ const Signup = (props) => {
       if(res) {
         setUser({
           username,
-          token: res,
+          token: res.token,
           name,
-          email
+          email,
+          user_id:res.user_id
         });
+        console.log({username,
+          token: res.token,
+          name,
+          email,
+          user_id:res.user_id})
         history.push("/home");
       }
     });

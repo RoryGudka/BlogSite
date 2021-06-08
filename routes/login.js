@@ -24,7 +24,8 @@ module.exports = ({app, db, verifyToken, getAll, generateToken}) => {
               data:{
                 token,
                 name:result.name,
-                email:result.email
+                email:result.email,
+                user_id:result.doc
               },
             });
           } else {

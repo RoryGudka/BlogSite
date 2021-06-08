@@ -26,4 +26,42 @@ const getCommentList = (comments, user) => {
     });
 };
 
-export {getCommentList}
+const likeComment = (comment_id, user) => {
+    return axios
+        .put("http://localhost:5000/comments/like", {
+            comment_id,
+            ...user,
+        })
+        .then((res) => {
+        if (res.data.status === 200) return true;
+        else {
+            alert(res.data.message);
+            return false;
+        }
+        })
+        .catch((err) => {
+        alert("An error has occurred");
+        return false;
+    });
+}
+
+const unlikeComment = (comment_id, user) => {
+    return axios
+        .put("http://localhost:5000/comments/unlike", {
+            comment_id,
+            ...user,
+        })
+        .then((res) => {
+        if (res.data.status === 200) return true;
+        else {
+            alert(res.data.message);
+            return false;
+        }
+        })
+        .catch((err) => {
+        alert("An error has occurred");
+        return false;
+    });
+}
+
+export {getCommentList, likeComment, unlikeComment}

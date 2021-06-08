@@ -28,7 +28,7 @@ const signup = (username, password, name, email) => {
             email
         })
         .then((res) => {
-            if (res.data.status === 200) return res.data.token;
+            if (res.data.status === 200) return res.data.data;
             else {
             alert(res.data.message);
             return false;
