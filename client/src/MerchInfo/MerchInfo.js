@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core';
+import {
+	makeStyles,
+	Grid,
+	Paper,
+	Typography,
+	ButtonBase,
+} from '@material-ui/core';
 import ItemImage from './Components/ItemImage';
 import SizeSelect from './Components/SizeSelect';
 import AddButton from './Components/AddButton';
 import Price from './Components/Price';
 import ProductTitle from './Components/ProductTitle';
+import Description from './Components/Description';
 //dummy data
 
 const data = [
@@ -39,6 +46,29 @@ const data = [
 	},
 ];
 
+//css styling for the grids in this page
+const gridStyles = makeStyles((theme) => ({
+	root: {
+		flexGrow: 1,
+	},
+	paper: {
+		padding: theme.spacing(2),
+		margin: 'auto',
+		maxWidth: 1000,
+	},
+	image: {
+		width: 128,
+		height: 128,
+	},
+	img: {
+		margin: 'auto',
+		display: 'block',
+		maxWidth: '100%',
+		maxHeight: '100%',
+	},
+}));
+
+//the styling for the elements of the grid
 const useStyles = makeStyles((theme) => ({
 	formControl: {
 		margin: theme.spacing(1),
@@ -49,27 +79,70 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
+/**
+ *
+ * @returns All of the components for the individual shopping site into one page.
+ *
+ */
 function MerchInfo() {
 	const merchData = data;
+	const [size, setSize] = useState('');
+	const gridClasses = gridStyles();
 	const classes = useStyles();
-	const [shoppingCart, setShoppingCart] = useState([]);
-
-	//title
-	//stars
-	//price
-	//add button
-	//size dropdown
-	//image for the item
-	//other picture options
+	const shoppingCart = []; //hardcoded to simulate a database collection of objects
 
 	return (
-		<div>
-			<ProductTitle merchData={merchData} />
-			<Price merchData={merchData} />
-			<ItemImage merchData={merchData} />
-			<SizeSelect merchData={merchData} classes={classes} />
-			<AddButton shoppingCart={shoppingCart} merchData={merchData} />
+		<div className={gridClasses.root}>
+			<Paper className={gridClasses.paper}>
+				<Grid container spacing={2}>
+					{' '}
+					<Grid item xs={14} sm={10}>
+						<Grid item container direction="column">
+							<ItemImage merchData={merchData} />
+						</Grid>
+					</Grid>
+					<Grid item xs={14} sm={6} direction="column">
+						<Paper>
+							<Grid item xs={12} sm container>
+								<Grid item xs container direction="column" spacing={2}>
+									<Grid item>
+										<Typography gutterBottom variant="subtitle1">
+											<ProductTitle merchData={merchData} />
+										</Typography>
+										<Grid item>
+											<Price merchData={merchData} />
+										</Grid>
+										<Typography variant="body2" gutterBottom>
+											<Description merchData={merchData} />
+										</Typography>
+										<SizeSelect
+											size={size}
+											setSize={setSize}
+											merchData={merchData}
+											classes={classes}
+										/>
+									</Grid>
+									<Grid item>
+										<AddButton
+											size={size}
+											shoppingCart={shoppingCart}
+											merchData={merchData}
+										/>
+									</Grid>
+								</Grid>
+							</Grid>
+						</Paper>
+					</Grid>
+				</Grid>
+			</Paper>
 		</div>
+
+		// <ProductTitle merchData={merchData} />
+		// <Description merchData={merchData} />
+		// <Price merchData={merchData} />
+		// <ItemImage merchData={merchData} />
+		// <SizeSelect merchData={merchData} classes={classes} />
+		// <AddButton shoppingCart={shoppingCart} merchData={merchData} />
 	);
 }
 

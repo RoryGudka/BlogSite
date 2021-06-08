@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import {
-	makeStyles,
-	Button,
-	Grid,
 	Select,
 	MenuItem,
-	NativeSelect,
 	InputLabel,
 	FormControl,
 	FormHelperText,
@@ -19,8 +15,8 @@ import {
  * @param {function} classes Theming/css.
  * @returns dropdown for size selection given a specific item
  */
-function SizeSelect({ merchData, classes }) {
-	const [size, setSize] = useState('');
+function SizeSelect({ merchData, classes, setSize, size }) {
+	// const [size, setSize] = useState('');
 	const item = merchData[1]; //simulate selection w hard coded data
 	const handleChange = (e) => {
 		setSize(e.target.value);

@@ -1,11 +1,25 @@
 import React, { useState } from 'react';
 import { Button } from '@material-ui/core';
 
-//-----add to cart-------
-function AddButton({ merchData, shoppingCart }) {
+/**
+ *
+ * @param {array} shoppingCart: an array to simulate the shopping cart of the item.
+ * @returns
+ */
+function AddButton({ shoppingCart, merchData, size }) {
+	const item = merchData[1];
+	const itemToAdd = {
+		doc_id: item.doc_id,
+		Price: item.Price,
+		Title: item.Title,
+		Image: item.Image,
+		Rating: item.Rating,
+		Size: size,
+		Description: item.Description,
+		Category: item.Category,
+	};
 	const onClick = (e) => {
-		// shoppingCart.push(data[2]);
-		console.log(shoppingCart);
+		size === '' ? alert('NO SIZE') : shoppingCart.push(itemToAdd);
 		e.preventDefault();
 	};
 	return (
