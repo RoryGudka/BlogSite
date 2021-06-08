@@ -44,4 +44,80 @@ const getBlogPost = (primary_key) => {
     });
 };
 
-export {getAllBlogPosts, getBlogPost}
+const likeBlogPost = (post_id, user) => {
+    return axios
+        .put("http://localhost:5000/blog_posts/like", {
+            post_id,
+            ...user,
+        })
+        .then((res) => {
+        if (res.data.status === 200) return true;
+        else {
+            alert(res.data.message);
+            return false;
+        }
+        })
+        .catch((err) => {
+        alert("An error has occurred");
+        return false;
+    });
+}
+
+const unlikeBlogPost = (post_id, user) => {
+    return axios
+        .put("http://localhost:5000/blog_posts/unlike", {
+            post_id,
+            ...user,
+        })
+        .then((res) => {
+        if (res.data.status === 200) return true;
+        else {
+            alert(res.data.message);
+            return false;
+        }
+        })
+        .catch((err) => {
+        alert("An error has occurred");
+        return false;
+    });
+}
+
+const saveBlogPost = (post_id, user) => {
+    return axios
+        .put("http://localhost:5000/blog_posts/save", {
+            post_id,
+            ...user,
+        })
+        .then((res) => {
+        if (res.data.status === 200) return true;
+        else {
+            alert(res.data.message);
+            return false;
+        }
+        })
+        .catch((err) => {
+        alert("An error has occurred");
+        return false;
+    });
+}
+
+const unsaveBlogPost = (post_id, user) => {
+    return axios
+        .put("http://localhost:5000/blog_posts/unsave", {
+            post_id,
+            ...user,
+        })
+        .then((res) => {
+        if (res.data.status === 200) return true;
+        else {
+            alert(res.data.message);
+            return false;
+        }
+        })
+        .catch((err) => {
+        alert("An error has occurred");
+        return false;
+    });
+}
+
+export {getAllBlogPosts, getBlogPost, likeBlogPost, unlikeBlogPost, saveBlogPost, unsaveBlogPost}

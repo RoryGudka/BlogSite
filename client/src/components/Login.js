@@ -6,8 +6,13 @@ import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import { UserContext } from "../contexts/UserContextProvider";
 import {login} from '../utils/UserControls';
+import {useStyles} from '../styles/Button';
+import {likeComment, unlikeComment, saveComment, unsaveComment} from '../utils/CommentControls';
+import {likeForumPost, unlikeForumPost, saveForumPost, unsaveForumPost} from '../utils/ForumPostControls';
+import {likeBlogPost, unlikeBlogPost, saveBlogPost, unsaveBlogPost} from '../utils/BlogPostControls';
 
 const Login = (props) => {
+  const classes = useStyles();
   const history = useHistory();
   const { user, setUser } = useContext(UserContext);
   const [username, setUsername] = useState(user !== null ? user.uid : "");
@@ -32,15 +37,11 @@ const Login = (props) => {
     login(username, password).then(res => {
       if(res) {
         setUser({
-          username,
-          token:res.token,
-          name:res.name,
-          email:res.email
+          ...res
         });
-        console.log({username,
-          token:res.token,
-          name:res.name,
-          email:res.email})
+        console.log({
+          ...res
+        })
         history.push("/home");
       }
     });
@@ -117,7 +118,7 @@ const Login = (props) => {
               <Button
                 style={{ width: "150px", height: "50px", borderRadius: "25px" }}
                 variant="contained"
-                color="primary"
+                classes={classes}
                 onClick={token !== undefined ? handleLogout : handleLogin}
               >
                 {token !== undefined ? "Log out" : "Log in"}

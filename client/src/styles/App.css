@@ -11,3 +11,16 @@ body {
   --Secondary: #48bf91;
   --Background: #cff4d2;
 }
+
+#bodyColor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(
+    to bottom right,
+    var(--Background),
+    var(--Secondary)
+  );
+}

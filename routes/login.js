@@ -19,12 +19,13 @@ module.exports = ({app, db, verifyToken, getAll, generateToken}) => {
           if (hash(req.body.password) === result.password) {
             const token = generateToken({ username: req.body.username });
             //Responds to the client with the token
+            const {password, doc, ...rest} = result;
             res.json({
               status: 200,
               data:{
                 token,
-                name:result.name,
-                email:result.email
+                ...rest,
+                user_id:doc
               },
             });
           } else {
