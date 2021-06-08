@@ -41,7 +41,7 @@ const Login = (props) => {
           token:res.token,
           name:res.name,
           email:res.email})
-        history.push("/home");
+        history.push("/forum");
       }
     });
   };

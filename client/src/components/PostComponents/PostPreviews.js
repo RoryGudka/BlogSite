@@ -1,4 +1,9 @@
 import {Card, CardContent, makeStyles, Grid } from '@material-ui/core';
+import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
+import BookmarkIcon from '@material-ui/icons/Bookmark';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 
 const useStyles = makeStyles(({
     blogRoot: {
@@ -7,7 +12,8 @@ const useStyles = makeStyles(({
     blogIcon: {
         marginRight: 10,
     },
-    body: {
+    blogBody: {
+        width: '80%',
     },
     footerIcon: {
         marginRight: 5,
@@ -22,6 +28,7 @@ const useStyles = makeStyles(({
     },
     forumRoot: {
         width: '50%',
+        marginLeft: '25%'
     },
     header: {
         marginBottom: 0,
@@ -37,12 +44,12 @@ const useStyles = makeStyles(({
 function BlogPreview ({BlogPost}) {
     const classes = useStyles();
     return (
-        <Card className={classes.root}>
+        <Card variant="outlined" className={classes.blogRoot}>
             <CardContent >
                 <Grid container justify="space-between">
-                    <Grid item>
+                    <Grid item className={classes.blogBody}>
                         <Grid container direction="column">
-                            <BlogHeader date={BlogPost.date} topic={BlogPost.topic}/>
+                            <BlogHeader date={"ex"} topic={"None"}/>
                             <PostContent title={BlogPost.title} content={BlogPost.content}/>
                             <BlogFooter/>
                         </Grid>
@@ -58,8 +65,8 @@ function BlogIcons () {
     const classes = useStyles();
     return (
         <Grid item>
-            <span className={classes.blogIcon}>{"<3"}</span>
-            <span className={classes.blogIcon}>{"||"}</span>
+            <FavoriteBorderIcon className={classes.blogIcon} />
+            <BookmarkBorderIcon className={classes.blogIcon} />
         </Grid>
     )
 }
@@ -88,12 +95,12 @@ function BlogFooter () {
 function ForumPreview ({ForumPost}) {
     const classes = useStyles();
     return (
-        <Card className={classes.forumRoot}>
+        <Card variant="outlined" className={classes.forumRoot}>
             <CardContent>
                 <Grid container direction="column">
-                    <ForumHeader date={ForumPost.date} topic={ForumPost.topic}/>
+                    <ForumHeader date={"ex"} topic={"None"}/>
                     <PostContent title={ForumPost.title} content={ForumPost.content}/>
-                    <ForumFooter likes={ForumPost.likes} shares={ForumPost.shares} comments={ForumPost.comments}/>
+                    <ForumFooter likes={ForumPost.likes} saves={ForumPost.saves} comments={ForumPost.comments}/>
                 </Grid>
             </CardContent>
         </Card>
@@ -101,7 +108,6 @@ function ForumPreview ({ForumPost}) {
 }
 
 function ForumHeader ({date, topic}) {
-    const classes = useStyles();
     return (
         <Grid item>
             {date} | {topic}
@@ -109,16 +115,16 @@ function ForumHeader ({date, topic}) {
     );
 }
 
-function ForumFooter ({likes, shares, comments}) {
+function ForumFooter ({likes, saves, comments}) {
     const classes = useStyles();
     return (
         <Grid item>
-            <span className={classes.footerIcon}>{"<3"}</span>
+            <FavoriteBorderIcon className={classes.footerIcon}/>
             <span className={classes.footerNumber}>{likes}</span>
-            <span className={classes.footerIcon}>{"||"}</span>
-            <span className={classes.footerNumber}>{shares}</span>
-            <span className={classes.footerIcon}>{"<>"}</span>
-            <span className={classes.footerNumber}>{comments} </span>
+            <BookmarkBorderIcon className={classes.footerIcon}/>
+            <span className={classes.footerNumber}>{saves}</span>
+            <ChatBubbleOutlineIcon className={classes.footerIcon}/>
+            <span className={classes.footerNumber}>{comments.length} </span>
         </Grid>
     );
 }
