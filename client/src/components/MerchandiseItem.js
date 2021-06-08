@@ -10,7 +10,7 @@ const MerchandiseItem = ({ item }) => {
         src={item.img}
         alt={item.name}
       />
-      <hr style={{ width: "150px" }} />
+      {/* <hr style={{ width: "150px" }} /> */}
       <h1 className="merchandise-component-title">{item.name}</h1>
       <h1 className="merchandise-component-data">${item.price}</h1>
     </div>

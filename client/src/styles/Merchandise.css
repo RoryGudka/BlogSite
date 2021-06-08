@@ -50,31 +50,34 @@ h1 {
 .merchandise-component {
   display: flex;
   flex-direction: column;
-  width: 256px;
+  width: 300px;
   height: 286px;
   justify-content: center;
   align-items: center;
-  padding: 50px;
+  padding: 25px;
+  padding-top: 0px;
 }
 
 .merchandise-component-image {
   /* border: 3px solid pink; */
-  width: 200px;
+  width: 250px;
   height: 137px;
   object-fit: cover;
   margin-bottom: 10px;
 }
 
 .merchandise-component-title {
-  font-weight: 450;
-  font-size: 24px;
+  font-weight: 400;
+  font-size: 16px;
   margin: 0;
-  text-align: center;
+  align-self: flex-start;
 }
 
 .merchandise-component-data {
   font-weight: 300;
-  font-size: 20px;
+  font-size: 14px;
+  align-self: flex-start;
+
   margin: 0;
 }
 
@@ -136,7 +139,7 @@ h1 {
   justify-content: space-between;
   margin-inline: 50px;
   margin-top: 25px;
-  margin-bottom: 25px;
+  /* margin-bottom: 25px; */
 }
 
 .item-link {
