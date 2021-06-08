@@ -1,0 +1,13 @@
+* {
+  position:relative;
+}
+
+body {
+  margin:0;
+}
+
+:root {
+  --Primary: #0076be;
+  --Secondary: #48bf91;
+  --Background: #CFF4D2;
+}
