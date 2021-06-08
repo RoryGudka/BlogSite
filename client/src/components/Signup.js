@@ -5,7 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import { UserContext } from "../contexts/UserContextProvider";
-import {signup} from '../utils/ServerControl';
+import {signup} from '../utils/UserControls';
 
 const Signup = (props) => {
   const history = useHistory();
@@ -59,9 +59,9 @@ const Signup = (props) => {
           width: "70%",
           height: "100vh",
           objectFit: "cover",
-          filter: "brightness(50%)",
+          filter: "brightness(100%)",
         }}
-        src="https://images.unsplash.com/photo-1588072432836-e10032774350?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1052&q=80"
+        src="https://images.unsplash.com/photo-1437719417032-8595fd9e9dc6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=667&q=80"
       />
       <Paper
         style={{
