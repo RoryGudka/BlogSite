@@ -1,0 +1,24 @@
+#navbarMain {
+    display:inline-block;
+    color:white;
+    margin:0;
+    transition:0.2s color;
+}
+
+#navbarMain:hover {
+    color:lightgrey;
+}
+
+.navLink {
+    color:lightgrey;
+    margin:0;
+    transition:0.1s color;
+}
+
+.navLink:hover {
+    color:white;
+}
+
+.active {
+    text-decoration:underline;
+}

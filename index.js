@@ -9,6 +9,7 @@ const forum_posts_route = require("./routes/forum_posts.js");
 const login_route = require("./routes/login.js");
 const signup_route = require("./routes/signup.js");
 const users_route = require("./routes/users.js");
+const merchandise_route = require('./routes/merchandise.js');
 
 //Makes sure the bodies of posts are legible
 app.use(express.json());
@@ -71,6 +72,7 @@ forum_posts_route(parameters);
 login_route(parameters);
 signup_route(parameters);
 users_route(parameters);
+merchandise_route(parameters);
 
 /**
  * Initiates the server
