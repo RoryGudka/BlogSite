@@ -103,3 +103,13 @@ h1 {
   margin-top: 25px;
   margin-bottom: 25px;
 }
+
+.item-link {
+  text-decoration: inherit;
+  color: inherit;
+}
+
+.item-link:hover {
+  text-decoration: inherit;
+  color: var(--Secondary);
+}

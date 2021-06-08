@@ -1,6 +1,7 @@
 import React from "react";
 import "../styles/Merchandise.css";
 import MerchandiseItem from "./MerchandiseItem";
+import { Link } from "react-router-dom";
 
 const MerchandisePage = () => {
   return (
@@ -15,20 +16,36 @@ const MerchandisePage = () => {
           <button>All</button>
           <button>Shirts</button>
           <button>Hats</button>
-          <button>Sunscreen</button>
+          <button>Skincare</button>
         </div>
         <button>Sort By</button>
       </div>
       <div className="merchandise-items-container">
         <div className="merchandise-items">
-          <MerchandiseItem />
-          <MerchandiseItem />
-          <MerchandiseItem />
-          <MerchandiseItem />
-          <MerchandiseItem />
-          <MerchandiseItem />
-          <MerchandiseItem />
-          <MerchandiseItem />
+          <Link to="/" className="item-link">
+            <MerchandiseItem />
+          </Link>
+          <Link to="/" className="item-link">
+            <MerchandiseItem />
+          </Link>
+          <Link to="/" className="item-link">
+            <MerchandiseItem />
+          </Link>
+          <Link to="/" className="item-link">
+            <MerchandiseItem />
+          </Link>
+          <Link to="/" className="item-link">
+            <MerchandiseItem />
+          </Link>
+          <Link to="/" className="item-link">
+            <MerchandiseItem />
+          </Link>
+          <Link to="/" className="item-link">
+            <MerchandiseItem />
+          </Link>
+          <Link to="/" className="item-link">
+            <MerchandiseItem />
+          </Link>
         </div>
       </div>
     </div>
