@@ -1,4 +1,4 @@
-import {Card, CardContent, makeStyles, Grid } from '@material-ui/core';
+import {Card, CardContent, makeStyles, Grid, IconButton } from '@material-ui/core';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
@@ -49,7 +49,7 @@ function BlogPreview ({BlogPost}) {
                 <Grid container justify="space-between">
                     <Grid item className={classes.blogBody}>
                         <Grid container direction="column">
-                            <BlogHeader date={"ex"} topic={"None"}/>
+                            <BlogHeader date={BlogPost.date} topic={"None"}/>
                             <PostContent title={BlogPost.title} content={BlogPost.content}/>
                             <BlogFooter/>
                         </Grid>
@@ -65,8 +65,8 @@ function BlogIcons () {
     const classes = useStyles();
     return (
         <Grid item>
-            <FavoriteBorderIcon className={classes.blogIcon} />
-            <BookmarkBorderIcon className={classes.blogIcon} />
+            <InteractableIcon interacted={true} type="favorite" className={classes.footerIcon}/>
+            <InteractableIcon interacted={true} type="bookmark" className={classes.footerIcon}/>
         </Grid>
     )
 }
@@ -76,7 +76,7 @@ function BlogHeader ({date, topic}) {
         <Grid item>
             <Grid container justify="space-around">
                 <Grid item>
-                    {date} | {topic}
+                    {new Date(date._seconds * 1000).toDateString()} | {topic}
                 </Grid>
             </Grid>
         </Grid>
@@ -119,11 +119,11 @@ function ForumFooter ({likes, saves, comments}) {
     const classes = useStyles();
     return (
         <Grid item>
-            <FavoriteBorderIcon className={classes.footerIcon}/>
+            <InteractableIcon interacted={false} type="favorite" className={classes.footerIcon}/>
             <span className={classes.footerNumber}>{likes}</span>
-            <BookmarkBorderIcon className={classes.footerIcon}/>
+            <InteractableIcon interacted={false} type="bookmark" className={classes.footerIcon}/>
             <span className={classes.footerNumber}>{saves}</span>
-            <ChatBubbleOutlineIcon className={classes.footerIcon}/>
+            <InteractableIcon interacted={false} type="chatbubble" className={classes.footerIcon}/>
             <span className={classes.footerNumber}>{comments.length} </span>
         </Grid>
     );
@@ -143,6 +143,20 @@ function PostContent ({title, content}) {
             </Grid>
         </Grid>
     );
+}
+
+// controlled interactable icon component
+function InteractableIcon ({interacted, handlePut, type}) {
+    return (
+        <IconButton>
+            {type==="favorite" ? 
+                (interacted ? <FavoriteIcon color="primary"/> : <FavoriteBorderIcon color="primary"/>) :
+            type==="bookmark" ? 
+                (interacted ? <BookmarkIcon color="primary"/> : <BookmarkBorderIcon color="primary"/>) :
+                <ChatBubbleOutlineIcon color="primary"/>
+            }
+        </IconButton>
+    )
 }
 
 export {BlogPreview, ForumPreview};

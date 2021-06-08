@@ -1,28 +1,15 @@
 import { useContext, useEffect, useState } from 'react';
 import {BlogPreview, ForumPreview} from './PostPreviews';
+import {getPosts, dateSort} from './../../utils/PostDashControls';
 import {UserContext} from './../../contexts/UserContextProvider';
-
-// asyncronously returns all posts of the type provided -- 'blog' or 'forum'
-const getPosts = async (type, username = "NA", token = "NA") => {
-    console.log("hello");
-    const url = new URL("http://localhost:5000/"+type+"_posts/get_all");
-    url.searchParams.append("username", username);
-    url.searchParams.append("token", token);
-    return fetch(url)
-        .then(resp => resp.json())
-        .then(resp => {
-            console.log(resp.status);
-            console.log(resp.message);
-            return resp.data;
-        });
-}
 
 function BlogDash() {
     const [blogPosts, setBlogPosts] = useState([]);
     useEffect(() => {
         getPosts("blog")
             .then(posts => {
-                setBlogPosts(posts);
+                const newPosts = dateSort(posts);
+                setBlogPosts(newPosts);
             });
     }, []);
 
