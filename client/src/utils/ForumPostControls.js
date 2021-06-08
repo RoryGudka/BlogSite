@@ -7,7 +7,7 @@ const likeForumPost = (post_id, user) => {
             ...user,
         })
         .then((res) => {
-        if (res.data.status === 200) return true;
+        if (res.data.status === 200) return res.data.data;
         else {
             alert(res.data.message);
             return false;
@@ -26,7 +26,7 @@ const unlikeForumPost = (post_id, user) => {
             ...user,
         })
         .then((res) => {
-        if (res.data.status === 200) return true;
+        if (res.data.status === 200) return res.data.data;
         else {
             alert(res.data.message);
             return false;
@@ -45,7 +45,7 @@ const saveForumPost = (post_id, user) => {
             ...user,
         })
         .then((res) => {
-        if (res.data.status === 200) return true;
+        if (res.data.status === 200) return res.data.data;
         else {
             alert(res.data.message);
             return false;
@@ -64,7 +64,7 @@ const unsaveForumPost = (post_id, user) => {
             ...user,
         })
         .then((res) => {
-        if (res.data.status === 200) return true;
+        if (res.data.status === 200) return res.data.data;
         else {
             alert(res.data.message);
             return false;

@@ -33,7 +33,7 @@ const likeComment = (comment_id, user) => {
             ...user,
         })
         .then((res) => {
-        if (res.data.status === 200) return true;
+        if (res.data.status === 200) return res.data.data;
         else {
             alert(res.data.message);
             return false;
@@ -52,7 +52,7 @@ const unlikeComment = (comment_id, user) => {
             ...user,
         })
         .then((res) => {
-        if (res.data.status === 200) return true;
+        if (res.data.status === 200) return res.data.data;
         else {
             alert(res.data.message);
             return false;
@@ -71,7 +71,7 @@ const saveComment = (comment_id, user) => {
             ...user,
         })
         .then((res) => {
-        if (res.data.status === 200) return true;
+        if (res.data.status === 200) return res.data.data;
         else {
             alert(res.data.message);
             return false;
@@ -90,7 +90,7 @@ const unsaveComment = (comment_id, user) => {
             ...user,
         })
         .then((res) => {
-        if (res.data.status === 200) return true;
+        if (res.data.status === 200) return res.data.data;
         else {
             alert(res.data.message);
             return false;
@@ -102,4 +102,33 @@ const unsaveComment = (comment_id, user) => {
     });
 }
 
-export {getCommentList, likeComment, unlikeComment, saveComment, unsaveComment}
+/**
+ * 
+ * @param {String} table one of three values: "blog_posts", "forum_posts", or "comments"
+ * @param {String} id id of the post or comment on to comment on
+ * @param {String} comment Content to add as a comment
+ * @param {*} user user variable
+ * @returns 
+ */
+const addComment = (table, id, comment, user) => {
+    return axios
+        .post("http://localhost:5000/comments/add", {
+            table,
+            id,
+            ...user,
+            comment,
+        })
+        .then((res) => {
+        if (res.data.status === 200) return true;
+        else {
+            alert(res.data.message);
+            return false;
+        }
+        })
+        .catch((err) => {
+        alert("An error has occurred");
+        return false;
+    });
+};
+
+export {getCommentList, likeComment, unlikeComment, saveComment, unsaveComment, addComment}
