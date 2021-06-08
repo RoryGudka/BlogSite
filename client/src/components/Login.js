@@ -6,8 +6,11 @@ import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import { UserContext } from "../contexts/UserContextProvider";
 import {login} from '../utils/UserControls';
+import {useStyles} from '../styles/Button';
+import {getCommentList} from '../utils/CommentControls';
 
 const Login = (props) => {
+  const classes = useStyles();
   const history = useHistory();
   const { user, setUser } = useContext(UserContext);
   const [username, setUsername] = useState(user !== null ? user.uid : "");
@@ -37,10 +40,6 @@ const Login = (props) => {
           name:res.name,
           email:res.email
         });
-        console.log({username,
-          token:res.token,
-          name:res.name,
-          email:res.email})
         history.push("/forum");
       }
     });
@@ -117,7 +116,7 @@ const Login = (props) => {
               <Button
                 style={{ width: "150px", height: "50px", borderRadius: "25px" }}
                 variant="contained"
-                color="primary"
+                classes={classes}
                 onClick={token !== undefined ? handleLogout : handleLogin}
               >
                 {token !== undefined ? "Log out" : "Log in"}

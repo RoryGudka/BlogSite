@@ -10,6 +10,7 @@ const login_route = require("./routes/login.js");
 const signup_route = require("./routes/signup.js");
 const users_route = require("./routes/users.js");
 const merchandise_route = require('./routes/merchandise.js');
+const comments_route = require('./routes/comments.js');
 
 //Makes sure the bodies of posts are legible
 app.use(express.json());
@@ -73,6 +74,7 @@ login_route(parameters);
 signup_route(parameters);
 users_route(parameters);
 merchandise_route(parameters);
+comments_route(parameters);
 
 /**
  * Initiates the server

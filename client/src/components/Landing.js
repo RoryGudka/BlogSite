@@ -2,7 +2,6 @@ import "../styles/Landing.css";
 import { useEffect, useState } from 'react';
 import {getAllBlogPosts} from '../utils/BlogPostControls';
 import {Link} from 'react-router-dom';
-import {getAllMerchandise} from '../utils/MerchandiseControls';
 
 const Landing = props => {
     const [blogPosts, setBlogPosts] = useState([]);
