@@ -7,7 +7,12 @@ import React from 'react';
 function Description({ merchData }) {
 	const item = merchData[1]; //dummy data (should really have the item passed in as context once the data is fetched)
 	const description = item.Description;
-	return <p>{description}</p>;
+	return (
+		<div>
+			<h3> Product description </h3>
+			<p> {description}</p>
+		</div>
+	);
 }
 
 export default Description;

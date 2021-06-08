@@ -12,6 +12,7 @@ import AddButton from './Components/AddButton';
 import Price from './Components/Price';
 import ProductTitle from './Components/ProductTitle';
 import Description from './Components/Description';
+import ProductRating from './Components/ProductRating';
 //dummy data
 
 const data = [
@@ -30,7 +31,7 @@ const data = [
 		Title: 'The Shirt',
 		Image:
 			'https://images.unsplash.com/photo-1563389234808-52344934935c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
-		Rating: '4',
+		Rating: '4.2',
 		Sizes: ['Small', 'Medium', 'Large'],
 		Description: 'A Really cool shirt',
 		Category: 'Apparel',
@@ -56,6 +57,8 @@ const gridStyles = makeStyles((theme) => ({
 		margin: 'auto',
 		maxWidth: 1000,
 	},
+	//-webkit-fill-available
+
 	image: {
 		width: 128,
 		height: 128,
@@ -65,6 +68,7 @@ const gridStyles = makeStyles((theme) => ({
 		display: 'block',
 		maxWidth: '100%',
 		maxHeight: '100%',
+		width: '-webkit-fill-available',
 	},
 }));
 
@@ -72,7 +76,7 @@ const gridStyles = makeStyles((theme) => ({
 const useStyles = makeStyles((theme) => ({
 	formControl: {
 		margin: theme.spacing(1),
-		minWidth: 120,
+		minWidth: 50,
 	},
 	selectEmpty: {
 		marginTop: theme.spacing(2),
@@ -96,13 +100,15 @@ function MerchInfo() {
 			<Paper className={gridClasses.paper}>
 				<Grid container spacing={2}>
 					{' '}
-					<Grid item xs={14} sm={10}>
+					<Grid item xs={14} sm={6}>
 						<Grid item container direction="column">
 							<ItemImage merchData={merchData} />
 						</Grid>
 					</Grid>
 					<Grid item xs={14} sm={6} direction="column">
 						<Paper>
+							{' '}
+							{/* made paper just to see outline */}
 							<Grid item xs={12} sm container>
 								<Grid item xs container direction="column" spacing={2}>
 									<Grid item>
@@ -112,9 +118,10 @@ function MerchInfo() {
 										<Grid item>
 											<Price merchData={merchData} />
 										</Grid>
-										<Typography variant="body2" gutterBottom>
-											<Description merchData={merchData} />
-										</Typography>
+										<Grid item>
+											<ProductRating merchData={merchData} />
+										</Grid>
+
 										<SizeSelect
 											size={size}
 											setSize={setSize}
@@ -128,6 +135,11 @@ function MerchInfo() {
 											shoppingCart={shoppingCart}
 											merchData={merchData}
 										/>
+									</Grid>
+									<Grid item>
+										<Typography variant="body2" gutterBottom>
+											<Description merchData={merchData} />
+										</Typography>
 									</Grid>
 								</Grid>
 							</Grid>
