@@ -30,7 +30,10 @@ module.exports = ({app, db, verifyToken, getAll, generateToken}) => {
               //Responds to the client with the token
               res.json({
                 status: 200,
-                token,
+                data: {
+                  token,
+                  user_id:resp.path.split('/')[1]
+                }
               });
             })
             .catch((err) => {
