@@ -1,6 +1,6 @@
 import React from "react";
-import buckethat from "./assets/buckethat1.jpg";
-import "./Merchandise.css";
+import buckethat from "../merchandise/assets/buckethat1.jpg";
+import "../styles/Merchandise.css";
 
 const MerchandiseItem = () => {
   return (

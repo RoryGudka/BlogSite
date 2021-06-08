@@ -1,5 +1,5 @@
 import React from "react";
-import "./Merchandise.css";
+import "../styles/Merchandise.css";
 import MerchandiseItem from "./MerchandiseItem";
 
 const MerchandisePage = () => {
@@ -7,7 +7,6 @@ const MerchandisePage = () => {
     <div className="container">
       <div className="banner">
         <div className="opacity-layer">
-          <br />
           <h1 className="banner-text">Merchandise</h1>
         </div>
       </div>
@@ -22,6 +21,7 @@ const MerchandisePage = () => {
       </div>
       <div className="merchandise-items-container">
         <div className="merchandise-items">
+          <MerchandiseItem />
           <MerchandiseItem />
           <MerchandiseItem />
           <MerchandiseItem />
