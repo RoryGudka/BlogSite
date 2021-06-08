@@ -6,19 +6,19 @@ import Nav from "react-bootstrap/Nav";
 import { UserContext } from "../contexts/UserContextProvider";
 import { Link } from "react-router-dom";
 import Button from '@material-ui/core/Button';
-import {ThemeContext} from '../contexts/ThemeContextProvider';
-import {MuiThemeProvider} from '@material-ui/core/styles';
 import {useLocation} from 'react-router-dom';
+import {useStyles} from '../styles/Button';
+
 
 export default function NavBar() {
   const { user, setUser } = useContext(UserContext);
-  const {theme} = useContext(ThemeContext);
   const location = useLocation();
   const firstPath = location.pathname.split('/')[1];
   const isHome = firstPath === "";
   const isBlog = firstPath === "blog";
   const isShop = firstPath === "shop";
   const isForum = firstPath === "forum";
+  const classes = useStyles();
 
   return (
     <Navbar expand="lg" variant="dark" style={{backgroundColor:"var(--Primary)"}}>
@@ -41,15 +41,15 @@ export default function NavBar() {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link href="/"><p className={"navLink" + (isHome ? " active" : "")}>Home</p></Nav.Link>
-          <Nav.Link href="/blog"><p className={"navLink" + (isBlog ?" active" : "")}>Blog</p></Nav.Link>
-          <Nav.Link href="/forum"><p className={"navLink" + (isForum ? " active" : "")}>Forum</p></Nav.Link>
-          <Nav.Link href="/shop"><p className={"navLink" + (isShop ? " active" : "")}>Shop</p></Nav.Link>
+          <Nav.Link><Link to="/"><p className={"navLink" + (isHome ? " active" : "")}>Home</p></Link></Nav.Link>
+          <Nav.Link><Link to="/blog"><p className={"navLink" + (isBlog ?" active" : "")}>Blog</p></Link></Nav.Link>
+          <Nav.Link><Link to="/forum"><p className={"navLink" + (isForum ? " active" : "")}>Forum</p></Link></Nav.Link>
+          <Nav.Link><Link to="/shop"><p className={"navLink" + (isShop ? " active" : "")}>Shop</p></Link></Nav.Link>
         </Nav>
         <Nav className="mr-auto" />
         {user !== null ? (
           <div style={{right:"1%", textAlign:"right", width:"30%"}}>
-            <Navbar.Text>Signed in as: {user.username}</Navbar.Text>
+            <Navbar.Text style={{color:"lightgrey"}}>Signed in as: {user.username}</Navbar.Text>
             <Navbar.Text style={{ marginLeft: "4%" }}>
               <Link to="/" onClick={() => {
                   setUser(null);
@@ -60,9 +60,7 @@ export default function NavBar() {
           </div>
           ) : (
             <Link to="/login">
-              <MuiThemeProvider theme={theme}>
-                <Button variant="contained" color="secondary">Log in</Button>
-              </MuiThemeProvider>
+              <Button variant="contained" classes={classes}>Log in</Button>
             </Link>
           )
         }
