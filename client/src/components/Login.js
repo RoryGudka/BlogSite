@@ -7,7 +7,7 @@ import Paper from "@material-ui/core/Paper";
 import { UserContext } from "../contexts/UserContextProvider";
 import {login} from '../utils/UserControls';
 import {useStyles} from '../styles/Button';
-import {getCommentList} from '../utils/CommentControls';
+import {likeComment, unlikeComment} from '../utils/CommentControls';
 
 const Login = (props) => {
   const classes = useStyles();
@@ -38,7 +38,8 @@ const Login = (props) => {
           username,
           token:res.token,
           name:res.name,
-          email:res.email
+          email:res.email,
+          user_id:res.user_id
         });
         history.push("/home");
       }
