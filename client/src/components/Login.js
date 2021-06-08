@@ -7,7 +7,7 @@ import Paper from "@material-ui/core/Paper";
 import { UserContext } from "../contexts/UserContextProvider";
 import {login} from '../utils/UserControls';
 import {useStyles} from '../styles/Button';
-import {likeComment, unlikeComment, saveComment, unsaveComment} from '../utils/CommentControls';
+import {likeComment, unlikeComment, saveComment, unsaveComment, addComment} from '../utils/CommentControls';
 import {likeForumPost, unlikeForumPost, saveForumPost, unsaveForumPost} from '../utils/ForumPostControls';
 import {likeBlogPost, unlikeBlogPost, saveBlogPost, unsaveBlogPost} from '../utils/BlogPostControls';
 
@@ -39,9 +39,6 @@ const Login = (props) => {
         setUser({
           ...res
         });
-        console.log({
-          ...res
-        })
         history.push("/home");
       }
     });

@@ -51,7 +51,7 @@ const likeBlogPost = (post_id, user) => {
             ...user,
         })
         .then((res) => {
-        if (res.data.status === 200) return true;
+        if (res.data.status === 200) return res.data.data;
         else {
             alert(res.data.message);
             return false;
@@ -70,7 +70,7 @@ const unlikeBlogPost = (post_id, user) => {
             ...user,
         })
         .then((res) => {
-        if (res.data.status === 200) return true;
+        if (res.data.status === 200) return res.data.data;
         else {
             alert(res.data.message);
             return false;
@@ -89,7 +89,7 @@ const saveBlogPost = (post_id, user) => {
             ...user,
         })
         .then((res) => {
-        if (res.data.status === 200) return true;
+        if (res.data.status === 200) return res.data.data;
         else {
             alert(res.data.message);
             return false;
@@ -108,7 +108,7 @@ const unsaveBlogPost = (post_id, user) => {
             ...user,
         })
         .then((res) => {
-        if (res.data.status === 200) return true;
+        if (res.data.status === 200) return res.data.data;
         else {
             alert(res.data.message);
             return false;
