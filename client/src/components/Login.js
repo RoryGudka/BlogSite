@@ -7,7 +7,9 @@ import Paper from "@material-ui/core/Paper";
 import { UserContext } from "../contexts/UserContextProvider";
 import {login} from '../utils/UserControls';
 import {useStyles} from '../styles/Button';
-import {likeComment, unlikeComment} from '../utils/CommentControls';
+import {likeComment, unlikeComment, saveComment, unsaveComment} from '../utils/CommentControls';
+import {likeForumPost, unlikeForumPost, saveForumPost, unsaveForumPost} from '../utils/ForumPostControls';
+import {likeBlogPost, unlikeBlogPost, saveBlogPost, unsaveBlogPost} from '../utils/BlogPostControls';
 
 const Login = (props) => {
   const history = useHistory();
@@ -34,12 +36,11 @@ const Login = (props) => {
     login(username, password).then(res => {
       if(res) {
         setUser({
-          username,
-          token:res.token,
-          name:res.name,
-          email:res.email,
-          user_id:res.user_id
+          ...res
         });
+        console.log({
+          ...res
+        })
         history.push("/forum");
       }
     });
