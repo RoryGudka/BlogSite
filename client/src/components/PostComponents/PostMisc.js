@@ -33,13 +33,13 @@ function PostContent ({title, content}) {
 }
 
 // controlled interactable icon component
-function InteractableIcon ({interacted, handlePut, type}) {
+function InteractableIcon ({interacted, handlePut, type, disabled=false}) {
     return (
-        <IconButton>
+        <IconButton disabled={disabled}>
             {type==="favorite" ? 
-                (interacted ? <FavoriteIcon color="primary"/> : <FavoriteBorderIcon color="primary"/>) :
+                (interacted ? <FavoriteIcon color="primary"/> : <FavoriteBorderIcon color={!disabled?"primary":"gray"}/>) :
             type==="bookmark" ? 
-                (interacted ? <BookmarkIcon color="primary"/> : <BookmarkBorderIcon color="primary"/>) :
+                (interacted ? <BookmarkIcon color="primary"/> : <BookmarkBorderIcon color={!disabled?"primary":"gray"}/>) :
                 <ChatBubbleOutlineIcon color="primary"/>
             }
         </IconButton>

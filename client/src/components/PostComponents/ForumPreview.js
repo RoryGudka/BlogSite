@@ -18,7 +18,7 @@ const useStyles = makeStyles(({
     },
 }));
 
-function ForumPreview ({ForumPost}) {
+function ForumPreview ({ForumPost, liked, saved}) {
     const classes = useStyles();
     return (
         <Card variant="outlined" className={classes.forumRoot}>
@@ -26,7 +26,8 @@ function ForumPreview ({ForumPost}) {
                 <Grid container direction="column">
                     <ForumHeader date={"ex"} topic={"None"}/>
                     <PostContent title={ForumPost.title} content={ForumPost.content}/>
-                    <ForumFooter likes={ForumPost.likes} saves={ForumPost.saves} comments={ForumPost.comments}/>
+                    <ForumFooter likes={ForumPost.likes} saves={ForumPost.saves} comments={ForumPost.comments} 
+                                liked={liked} saved={saved}/>
                 </Grid>
             </CardContent>
         </Card>
@@ -41,13 +42,13 @@ function ForumHeader ({date, topic}) {
     );
 }
 
-function ForumFooter ({likes, saves, comments}) {
+function ForumFooter ({likes, saves, comments, liked, saved}) {
     const classes = useStyles();
     return (
         <Grid item>
-            <InteractableIcon interacted={false} type="favorite" className={classes.footerIcon}/>
+            <InteractableIcon interacted={liked} type="favorite" className={classes.footerIcon}/>
             <span className={classes.footerNumber}>{likes}</span>
-            <InteractableIcon interacted={false} type="bookmark" className={classes.footerIcon}/>
+            <InteractableIcon interacted={saved} type="bookmark" className={classes.footerIcon}/>
             <span className={classes.footerNumber}>{saves}</span>
             <InteractableIcon interacted={false} type="chatbubble" className={classes.footerIcon}/>
             <span className={classes.footerNumber}>{comments.length} </span>

@@ -19,4 +19,8 @@ const dateSort = (posts) => {
     return newPosts;
 }
 
+const handleAsyncUserInteraction = () => {
+    
+}
+
 export {dateSort, getPosts};

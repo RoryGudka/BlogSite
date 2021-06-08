@@ -27,7 +27,7 @@ const useStyles = makeStyles(({
     },
 }));
 
-function BlogPreview ({BlogPost}) {
+function BlogPreview ({BlogPost, loggedIn, liked, saved}) {
     const classes = useStyles();
     return (
         <Card variant="outlined" className={classes.blogRoot}>
@@ -40,20 +40,20 @@ function BlogPreview ({BlogPost}) {
                             <BlogFooter/>
                         </Grid>
                     </Grid>
-                    <BlogIcons likes={BlogPost.likes} saves={BlogPost.saves}/>
+                    <BlogIcons likes={BlogPost.likes} saves={BlogPost.saves} loggedIn={loggedIn} liked={liked} saved={saved}/>
                 </Grid>
             </CardContent>
         </Card>
     );
 }
 
-function BlogIcons ({likes, saves}) {
+function BlogIcons ({likes, saves, loggedIn, liked, saved}) {
     const classes = useStyles();
     return (
         <Grid item>
-            <InteractableIcon interacted={true} type="favorite" className={classes.footerIcon}/>
+            <InteractableIcon interacted={liked} disabled={!loggedIn} type="favorite" className={classes.footerIcon}/>
             <span className={classes.footerNumber}>{likes}</span>
-            <InteractableIcon interacted={true} type="bookmark" className={classes.footerIcon}/>
+            <InteractableIcon interacted={saved} disabled={!loggedIn} type="bookmark" className={classes.footerIcon}/>
             <span className={classes.footerNumber}>{saves}</span>
         </Grid>
     )

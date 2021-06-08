@@ -6,6 +6,9 @@ import {UserContext} from './../../contexts/UserContextProvider';
 
 function BlogDash() {
     const [blogPosts, setBlogPosts] = useState([]);
+    const {user, setUser} = useContext(UserContext);
+    const [likedPosts, setLikedPosts] = useState(user===null?[]:user.blog_posts_liked);
+    const [savedPosts, setSavedPosts] = useState(user===null?[]:user.blog_posts_bookmarked);
     useEffect(() => {
         getPosts("blog")
             .then(posts => {
@@ -19,7 +22,9 @@ function BlogDash() {
         <div>
             {blogPosts.map((post, index) => {
                 return (
-                    <BlogPreview BlogPost={post}/>
+                    <BlogPreview BlogPost={post} loggedIn={user!==null} 
+                    liked={likedPosts.findIndex(p => p === post.doc)>-1?true:false} 
+                    saved={savedPosts.findIndex(p => p === post.doc)>-1?true:false}/>
                 );
             })}
         </div>
@@ -28,9 +33,12 @@ function BlogDash() {
 
 function ForumDash() {
     const [forumPosts, setForumPosts] = useState([]);
-    const {user} = useContext(UserContext);
+    const {user, setUser} = useContext(UserContext);
+    const [likedPosts, setLikedPosts] = useState(user===null?[]:user.forum_posts_liked);
+    const [savedPosts, setSavedPosts] = useState(user===null?[]:user.forum_posts_bookmarked);
     console.log(user);
     useEffect(() => {
+        console.log('useEffecting');
         if(user !== null) {
             getPosts("forum", user.username, user.token)
                 .then(posts => {
@@ -43,7 +51,8 @@ function ForumDash() {
         <div>
             {forumPosts.map((post, index) => {
                 return (
-                    <ForumPreview ForumPost={post}/>
+                    <ForumPreview ForumPost={post} liked={likedPosts.findIndex(p => p === post.doc)>-1?true:false} 
+                    saved={savedPosts.findIndex(p => p === post.doc)>-1?true:false}/>
                 );
             })}
         </div>
