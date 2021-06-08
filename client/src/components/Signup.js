@@ -5,13 +5,15 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import { UserContext } from "../contexts/UserContextProvider";
-import {login} from '../utils/ServerControl';
+import {signup} from '../utils/ServerControl';
 
-const Login = (props) => {
+const Signup = (props) => {
   const history = useHistory();
   const { user, setUser } = useContext(UserContext);
   const [username, setUsername] = useState(user !== null ? user.uid : "");
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const token = user !== null ? user.token : undefined;
 
   const getDots = (password) => {
@@ -28,19 +30,15 @@ const Login = (props) => {
     else setPassword(password + val.substring(val.length - 1));
   };
 
-  const handleLogin = (e) => {
-    login(username, password).then(res => {
+  const handleSignup = (e) => {
+    signup(username, password, name, email).then(res => {
       if(res) {
         setUser({
           username,
-          token:res.token,
-          name:res.name,
-          email:res.email
+          token: res,
+          name,
+          email
         });
-        console.log({username,
-          token:res.token,
-          name:res.name,
-          email:res.email})
         history.push("/home");
       }
     });
@@ -80,7 +78,7 @@ const Login = (props) => {
           Camille's Corner
         </p>
         <p style={{ color:"white", fontSize: "32px", marginBottom:"20px", marginTop:0, textAlign:"center"}}>
-          Log in
+          Sign up
         </p>
         <div id="signinWrapper">
         <Paper
@@ -97,9 +95,31 @@ const Login = (props) => {
                 style={{ margin: "10px 0" }}
                 variant="outlined"
                 fullWidth
+                label="Full name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+            <br></br>
+            <div className="use-passWrapper">
+              <TextField
+                style={{ margin: "10px 0" }}
+                variant="outlined"
+                fullWidth
                 label="Username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
+              />
+            </div>
+            <br></br>
+            <div className="use-passWrapper">
+              <TextField
+                style={{ margin: "10px 0" }}
+                variant="outlined"
+                fullWidth
+                label="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <br></br>
@@ -118,12 +138,12 @@ const Login = (props) => {
                 style={{ width: "150px", height: "50px", borderRadius: "25px" }}
                 variant="contained"
                 color="primary"
-                onClick={token !== undefined ? handleLogout : handleLogin}
+                onClick={token !== undefined ? handleLogout : handleSignup}
               >
-                {token !== undefined ? "Log out" : "Log in"}
+                {token !== undefined ? "Log out" : "Sign up"}
               </Button>
             </div>
-            <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
+            <p>Already have an account? <Link to="/login">Log in</Link></p>
           </Paper>
           <Link to="/"><p style={{color:"white"}}><u>Return to home</u></p></Link>
         </div>
@@ -133,4 +153,4 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+export default Signup;

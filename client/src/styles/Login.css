@@ -13,5 +13,5 @@
 }
 
 .MuiPaper-root.MuiPaper-elevation20.MuiPaper-rounded {
-  background-color: #004080;
+  background-color:var(--Primary);
 }
