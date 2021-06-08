@@ -13,10 +13,6 @@ const Landing = props => {
         })
     }, []);
 
-    getAllMerchandise().then(res => {
-        console.log(res);
-    })
-
     let maxLikes = {val:-1, index:-1}
     let maxSaves = {val:-1, index:-1};
     let maxComments = {val:-1, index:-1};
