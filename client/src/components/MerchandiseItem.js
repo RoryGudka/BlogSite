@@ -1,5 +1,4 @@
 import React from "react";
-import buckethat from "../merchandise/assets/buckethat1.jpg";
 import "../styles/Merchandise.css";
 
 const MerchandiseItem = ({ item }) => {
@@ -7,7 +6,8 @@ const MerchandiseItem = ({ item }) => {
     <div className="merchandise-component">
       <img
         className="merchandise-component-image"
-        src={URL(item.img)}
+        // src={new URL(item.img)}
+        src={item.img}
         alt={item.name}
       />
       <hr style={{ width: "150px" }} />
