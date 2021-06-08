@@ -38,6 +38,8 @@ const Landing = props => {
     const mostRecentHTML = (
         <Link to={`blog_posts/${blogPosts[mostRecent.index]?.doc}`}>
             <div className="magazineItem" style={{width:"63vw", margin:"0.5vw 0.25vw 0.25vw 0"}}>
+                <img className="magazineImg" src={blogPosts[mostRecent.index]?.img} />
+                <div className="magazineCover"></div>
                 <p className="magazineTop">Most recent:</p>
                 <p className="magazineMiddle">{blogPosts[mostRecent.index]?.title}</p>
                 <p className="magazineBottom">Posted {(new Date(mostRecent.val._seconds * 1000)).toDateString()}</p>
@@ -48,6 +50,8 @@ const Landing = props => {
     const mostLikesHTML = (
         <Link to={`blog_posts/${blogPosts[maxLikes.index]?.doc}`}>
             <div className="magazineItem" style={{width:"34.5vw", margin:"0.5vw 0 0.25vw 0.25vw"}}>
+                <img className="magazineImg" src={blogPosts[maxLikes.index]?.img} />
+                <div className="magazineCover"></div>
                 <p className="magazineTop">Most popular:</p>
                 <p className="magazineMiddle">{blogPosts[maxLikes.index]?.title}</p>
                 <p className="magazineBottom">{maxLikes.val} likes</p>
@@ -58,6 +62,8 @@ const Landing = props => {
     const mostSavesHTML = (
         <Link to={`blog_posts/${blogPosts[maxSaves.index]?.doc}`}>
             <div className="magazineItem" style={{width:"38vw", margin:"0.25vw 0.25vw 0.5vw 0"}}>
+                <img className="magazineImg" src={blogPosts[maxSaves.index]?.img} />
+                <div className="magazineCover"></div>
                 <p className="magazineTop">Most saves:</p>
                 <p className="magazineMiddle">{blogPosts[maxSaves.index]?.title}</p>
                 <p className="magazineBottom">{maxSaves.val} saves</p>
@@ -68,6 +74,8 @@ const Landing = props => {
     const mostCommentsHTML = (
         <Link to={`blog_posts/${blogPosts[maxComments.index]?.doc}`}>
             <div className="magazineItem" style={{width:"34vw", margin:"0.25vw 0.25vw 0.5vw 0.25vw"}}>
+                <img className="magazineImg" src={blogPosts[maxComments.index]?.img} />
+                <div className="magazineCover"></div>
                 <p className="magazineTop">Most comments:</p>
                 <p className="magazineMiddle">{blogPosts[maxComments.index]?.title}</p>
                 <p className="magazineBottom">{maxComments.val} comments</p>
@@ -78,6 +86,7 @@ const Landing = props => {
     const shopLink = (
         <Link to='/shop'>
             <div className="magazineItem" style={{width:"25vw", margin:"0.25vw 0 0.5vw 0.25vw"}}>
+                <img className="magazineImg" src="https://images.unsplash.com/photo-1454391304352-2bf4678b1a7a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80" />
                 <p className="magazineTop">New merch</p>
                 <p className="magazineMiddle">Summer collection</p>
             </div>
