@@ -5,12 +5,9 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import { UserContext } from "../contexts/UserContextProvider";
-import {login} from '../utils/UserControls';
-import {useStyles} from '../styles/Button';
-import {getCommentList} from '../utils/CommentControls';
+import {login} from '../utils/UserControl';
 
 const Login = (props) => {
-  const classes = useStyles();
   const history = useHistory();
   const { user, setUser } = useContext(UserContext);
   const [username, setUsername] = useState(user !== null ? user.uid : "");
@@ -60,9 +57,9 @@ const Login = (props) => {
           width: "70%",
           height: "100vh",
           objectFit: "cover",
-          filter:"brightness(100%)"
+          filter: "brightness(50%)",
         }}
-        src="https://images.unsplash.com/photo-1437719417032-8595fd9e9dc6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=667&q=80"
+        src="https://images.unsplash.com/photo-1588072432836-e10032774350?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1052&q=80"
       />
       <Paper
         style={{
@@ -116,7 +113,7 @@ const Login = (props) => {
               <Button
                 style={{ width: "150px", height: "50px", borderRadius: "25px" }}
                 variant="contained"
-                classes={classes}
+                color="primary"
                 onClick={token !== undefined ? handleLogout : handleLogin}
               >
                 {token !== undefined ? "Log out" : "Log in"}

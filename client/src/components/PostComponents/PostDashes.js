@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
-import {BlogPreview, ForumPreview} from './PostPreviews';
+import BlogPreview from './BlogPreview';
+import ForumPreview from './ForumPreview';
 import {getPosts, dateSort} from './../../utils/PostDashControls';
 import {UserContext} from './../../contexts/UserContextProvider';
 
@@ -8,6 +9,7 @@ function BlogDash() {
     useEffect(() => {
         getPosts("blog")
             .then(posts => {
+                console.log(posts);
                 const newPosts = dateSort(posts);
                 setBlogPosts(newPosts);
             });
@@ -29,7 +31,6 @@ function ForumDash() {
     const {user} = useContext(UserContext);
     console.log(user);
     useEffect(() => {
-        console.log('useeffecting');
         if(user !== null) {
             getPosts("forum", user.username, user.token)
                 .then(posts => {
