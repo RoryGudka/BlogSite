@@ -1,22 +1,26 @@
 * {
-  position:relative;
+  position: relative;
 }
 
 body {
-  margin:0;
+  margin: 0;
 }
 
 :root {
   --Primary: #0076be;
   --Secondary: #48bf91;
-  --Background: #CFF4D2;
+  --Background: #cff4d2;
 }
 
 #bodyColor {
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background-image:linear-gradient(to bottom right, var(--Background), var(--Secondary));
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(
+    to bottom right,
+    var(--Background),
+    var(--Secondary)
+  );
 }
