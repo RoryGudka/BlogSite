@@ -5,18 +5,17 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import { UserContext } from "../contexts/UserContextProvider";
-import {login} from '../utils/UserControls';
+import {signup} from '../utils/UserControls';
 import {useStyles} from '../styles/Button';
-import {likeComment, unlikeComment, saveComment, unsaveComment, addComment} from '../utils/CommentControls';
-import {likeForumPost, unlikeForumPost, saveForumPost, unsaveForumPost} from '../utils/ForumPostControls';
-import {likeBlogPost, unlikeBlogPost, saveBlogPost, unsaveBlogPost} from '../utils/BlogPostControls';
 
-const Login = (props) => {
+const Signup = (props) => {
   const classes = useStyles();
   const history = useHistory();
   const { user, setUser } = useContext(UserContext);
   const [username, setUsername] = useState(user !== null ? user.uid : "");
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const token = user !== null ? user.token : undefined;
 
   const getDots = (password) => {
@@ -33,13 +32,22 @@ const Login = (props) => {
     else setPassword(password + val.substring(val.length - 1));
   };
 
-  const handleLogin = (e) => {
-    login(username, password).then(res => {
+  const handleSignup = (e) => {
+    signup(username, password, name, email).then(res => {
       if(res) {
         setUser({
-          ...res
+          username,
+          token: res.token,
+          name,
+          email,
+          user_id:res.user_id
         });
-        history.push("/");
+        console.log({username,
+          token: res.token,
+          name,
+          email,
+          user_id:res.user_id})
+        history.push("/home");
       }
     });
   };
@@ -59,7 +67,7 @@ const Login = (props) => {
           width: "70%",
           height: "100vh",
           objectFit: "cover",
-          filter:"brightness(100%)",
+          filter: "brightness(100%)",
           zIndex:2
         }}
         src="https://images.unsplash.com/photo-1437719417032-8595fd9e9dc6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=667&q=80"
@@ -79,7 +87,7 @@ const Login = (props) => {
           Camille's Corner
         </p>
         <p style={{ color:"white", fontSize: "32px", marginBottom:"20px", marginTop:0, textAlign:"center"}}>
-          Log in
+          Sign up
         </p>
         <div id="signinWrapper">
         <Paper
@@ -96,9 +104,31 @@ const Login = (props) => {
                 style={{ margin: "10px 0" }}
                 variant="outlined"
                 fullWidth
+                label="Full name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+            <br></br>
+            <div className="use-passWrapper">
+              <TextField
+                style={{ margin: "10px 0" }}
+                variant="outlined"
+                fullWidth
                 label="Username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
+              />
+            </div>
+            <br></br>
+            <div className="use-passWrapper">
+              <TextField
+                style={{ margin: "10px 0" }}
+                variant="outlined"
+                fullWidth
+                label="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <br></br>
@@ -116,14 +146,13 @@ const Login = (props) => {
               <Button
                 style={{ width: "150px", height: "50px", borderRadius: "25px" }}
                 variant="contained"
-                color="primary"
-                onClick={token !== undefined ? handleLogout : handleLogin}
                 classes={classes}
+                onClick={token !== undefined ? handleLogout : handleSignup}
               >
-                {token !== undefined ? "Log out" : "Log in"}
+                {token !== undefined ? "Log out" : "Sign up"}
               </Button>
             </div>
-            <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
+            <p>Already have an account? <Link to="/login">Log in</Link></p>
           </Paper>
           <Link to="/"><p style={{color:"white"}}><u>Return to home</u></p></Link>
         </div>
@@ -133,4 +162,4 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+export default Signup;

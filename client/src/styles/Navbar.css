@@ -1,0 +1,44 @@
+#navbarMain {
+    display:inline-block;
+    color:white;
+    margin:0;
+    transition:0.2s color;
+}
+
+#navbarMain:hover {
+    color:lightgrey;
+}
+
+.navLink {
+    color:lightgrey;
+    margin:0;
+    transition:0.1s color;
+}
+
+.navLink:hover {
+    color:white;
+}
+
+.active {
+    text-decoration:underline;
+}
+
+#userMenu {
+    position:absolute;
+    top:40px;
+    right:40px;
+    background-color:white;
+    border-radius:5px;
+    z-index:3;
+    text-align:left;
+    padding:20px;
+}
+
+#userBtn {
+    color:white;
+    font-size:40px;
+    background-color:grey;
+    border-radius:20px;
+    width:40px;
+    height:40px;
+}
