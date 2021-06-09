@@ -4,6 +4,8 @@ import Landing from "./components/Landing";
 import MerchandisePage from "./components/MerchandisePage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import UserContextProvider from "./contexts/UserContextProvider";
+import Paper from '@material-ui/core/Paper';
+import MerchInfo from './MerchInfo/MerchInfo';
 import NavBar from "./components/Navbar";
 import Signup from "./components/Signup";
 import Footer from "./components/Footer";
@@ -18,6 +20,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={Landing}></Route>
           <Route path="/login" component={Login}></Route>
+          <Route path="/item" component={MerchInfo}></Route>
           <Route path="/signup" component={Signup}></Route>
           <Route path="/shop" component={MerchandisePage}></Route>
           <Route path="/blog" component={BlogDash}></Route>
