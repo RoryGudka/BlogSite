@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import BlogPreview from './BlogPreview';
 import ForumPreview from './ForumPreview';
-import {getPosts, dateSort} from './../../utils/PostDashControls';
+import {getPosts, dateSort, syncUserPostInteraction} from './../../utils/PostDashControls';
 import {UserContext} from './../../contexts/UserContextProvider';
 
 function BlogDash() {
@@ -18,13 +18,23 @@ function BlogDash() {
             });
     }, []);
 
+    const handleLike = (doc, toAdd) => {
+        syncUserPostInteraction(likedPosts, setLikedPosts, blogPosts, setBlogPosts, doc, toAdd, "likes");
+    }
+
+    const handleSave = (doc, toAdd) => {
+        syncUserPostInteraction(savedPosts, setSavedPosts, blogPosts, setBlogPosts, doc, toAdd, "saves");
+    }
+
     return(
         <div>
             {blogPosts.map((post, index) => {
+                const liked = likedPosts.findIndex(p => p === post.doc)>-1?true:false;
+                const saved = savedPosts.findIndex(p => p === post.doc)>-1?true:false;
                 return (
-                    <BlogPreview BlogPost={post} loggedIn={user!==null} 
-                    liked={likedPosts.findIndex(p => p === post.doc)>-1?true:false} 
-                    saved={savedPosts.findIndex(p => p === post.doc)>-1?true:false}/>
+                    <BlogPreview BlogPost={post} loggedIn={user!==null} liked={liked} saved={saved} 
+                        handleLike={()=>handleLike(post.doc, !liked)}
+                        handleSave={()=>handleSave(post.doc, !saved)}/>
                 );
             })}
         </div>
@@ -47,12 +57,23 @@ function ForumDash() {
         }
     }, [user]);
 
+    const handleLike = (doc, toAdd) => {
+        syncUserPostInteraction(likedPosts, setLikedPosts, forumPosts, setForumPosts, doc, toAdd, "likes");
+    }
+
+    const handleSave = (doc, toAdd) => {
+        syncUserPostInteraction(savedPosts, setSavedPosts, forumPosts, setForumPosts, doc, toAdd, "saves");
+    }
+
     return(
         <div>
             {forumPosts.map((post, index) => {
+                const liked = likedPosts.findIndex(p => p === post.doc)>-1?true:false;
+                const saved = savedPosts.findIndex(p => p === post.doc)>-1?true:false;
                 return (
-                    <ForumPreview ForumPost={post} liked={likedPosts.findIndex(p => p === post.doc)>-1?true:false} 
-                    saved={savedPosts.findIndex(p => p === post.doc)>-1?true:false}/>
+                    <ForumPreview ForumPost={post} liked={liked} saved={saved}
+                        handleLike={()=>handleLike(post.doc, !liked)} 
+                        handleSave={()=>handleSave(post.doc, !saved)}/>
                 );
             })}
         </div>

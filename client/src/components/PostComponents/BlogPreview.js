@@ -27,7 +27,7 @@ const useStyles = makeStyles(({
     },
 }));
 
-function BlogPreview ({BlogPost, loggedIn, liked, saved}) {
+function BlogPreview ({BlogPost, loggedIn, liked, saved, handleLike, handleSave}) {
     const classes = useStyles();
     return (
         <Card variant="outlined" className={classes.blogRoot}>
@@ -40,20 +40,23 @@ function BlogPreview ({BlogPost, loggedIn, liked, saved}) {
                             <BlogFooter/>
                         </Grid>
                     </Grid>
-                    <BlogIcons likes={BlogPost.likes} saves={BlogPost.saves} loggedIn={loggedIn} liked={liked} saved={saved}/>
+                    <BlogIcons likes={BlogPost.likes} saves={BlogPost.saves} loggedIn={loggedIn} 
+                        liked={liked} saved={saved} handleLike={handleLike} handleSave={handleSave}/>
                 </Grid>
             </CardContent>
         </Card>
     );
 }
 
-function BlogIcons ({likes, saves, loggedIn, liked, saved}) {
+function BlogIcons ({likes, saves, loggedIn, liked, saved, handleLike, handleSave}) {
     const classes = useStyles();
     return (
         <Grid item>
-            <InteractableIcon interacted={liked} disabled={!loggedIn} type="favorite" className={classes.footerIcon}/>
+            <InteractableIcon interacted={liked} disabled={!loggedIn} type="favorite" 
+                className={classes.footerIcon} handleInteract={handleLike}/>
             <span className={classes.footerNumber}>{likes}</span>
-            <InteractableIcon interacted={saved} disabled={!loggedIn} type="bookmark" className={classes.footerIcon}/>
+            <InteractableIcon interacted={saved} disabled={!loggedIn} type="bookmark" 
+                className={classes.footerIcon} handleInteract={handleSave}/>
             <span className={classes.footerNumber}>{saves}</span>
         </Grid>
     )

@@ -4,16 +4,17 @@ import Landing from "./components/Landing";
 import MerchandisePage from "./components/MerchandisePage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import UserContextProvider from "./contexts/UserContextProvider";
-import Navbar from "./components/Navbar";
+import NavBar from "./components/NavBar";
 import Signup from "./components/Signup";
 import Footer from "./components/Footer";
+import {BlogDash, ForumDash} from './components/PostComponents/PostDashes';
 
 function App() {
   return (
     <Router>
       <UserContextProvider>
         <div id="bodyColor"></div>
-        <Navbar />
+        <NavBar />
         <Switch>
           <Route path="/" exact component={Landing}></Route>
           <Route path="/login" component={Login}></Route>

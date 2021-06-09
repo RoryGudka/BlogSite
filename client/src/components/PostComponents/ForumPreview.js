@@ -18,7 +18,7 @@ const useStyles = makeStyles(({
     },
 }));
 
-function ForumPreview ({ForumPost, liked, saved}) {
+function ForumPreview ({ForumPost, liked, saved, handleLike, handleSave}) {
     const classes = useStyles();
     return (
         <Card variant="outlined" className={classes.forumRoot}>
@@ -27,7 +27,7 @@ function ForumPreview ({ForumPost, liked, saved}) {
                     <ForumHeader date={"ex"} topic={"None"}/>
                     <PostContent title={ForumPost.title} content={ForumPost.content}/>
                     <ForumFooter likes={ForumPost.likes} saves={ForumPost.saves} comments={ForumPost.comments} 
-                                liked={liked} saved={saved}/>
+                                liked={liked} saved={saved} handleLike={handleLike} handleSave={handleSave}/>
                 </Grid>
             </CardContent>
         </Card>
@@ -42,15 +42,18 @@ function ForumHeader ({date, topic}) {
     );
 }
 
-function ForumFooter ({likes, saves, comments, liked, saved}) {
+function ForumFooter ({likes, saves, comments, liked, saved, handleLike, handleSave}) {
     const classes = useStyles();
     return (
         <Grid item>
-            <InteractableIcon interacted={liked} type="favorite" className={classes.footerIcon}/>
+            <InteractableIcon interacted={liked} type="favorite" 
+                className={classes.footerIcon} handleInteract={handleLike}/>
             <span className={classes.footerNumber}>{likes}</span>
-            <InteractableIcon interacted={saved} type="bookmark" className={classes.footerIcon}/>
+            <InteractableIcon interacted={saved} type="bookmark" className={classes.footerIcon}
+                handleInteract={handleSave}/>
             <span className={classes.footerNumber}>{saves}</span>
-            <InteractableIcon interacted={false} type="chatbubble" className={classes.footerIcon}/>
+            <InteractableIcon interacted={false} type="chatbubble" className={classes.footerIcon}
+                handleInteract={()=>console.log('comment')}/>
             <span className={classes.footerNumber}>{comments.length} </span>
         </Grid>
     );

@@ -33,9 +33,9 @@ function PostContent ({title, content}) {
 }
 
 // controlled interactable icon component
-function InteractableIcon ({interacted, handlePut, type, disabled=false}) {
+function InteractableIcon ({interacted, handleInteract, type, disabled=false}) {
     return (
-        <IconButton disabled={disabled}>
+        <IconButton disabled={disabled} onClick={handleInteract}>
             {type==="favorite" ? 
                 (interacted ? <FavoriteIcon color="primary"/> : <FavoriteBorderIcon color={!disabled?"primary":"gray"}/>) :
             type==="bookmark" ? 
