@@ -13,6 +13,7 @@ import Price from './Components/Price';
 import ProductTitle from './Components/ProductTitle';
 import Description from './Components/Description';
 import ProductRating from './Components/ProductRating';
+import AllImages from './Components/AllImages';
 //dummy data
 
 const data = [
@@ -29,8 +30,10 @@ const data = [
 		doc_id: 'ei48rh33848h',
 		Price: '109.99',
 		Title: 'The Shirt',
-		Image:
+		Images: [
 			'https://images.unsplash.com/photo-1563389234808-52344934935c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
+			'https://images.unsplash.com/photo-1563389494935-83e181bd6767?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2581&q=80',
+		],
 		Rating: '4.2',
 		Sizes: ['Small', 'Medium', 'Large'],
 		Description: 'A Really cool shirt',
@@ -90,11 +93,13 @@ const useStyles = makeStyles((theme) => ({
  */
 function MerchInfo() {
 	const item = data[1]; //hardcoding what would be the fetch for the specific item
+	const [image, setImage] = useState(item.Images[0]);
 	const [size, setSize] = useState('');
 	const gridClasses = gridStyles();
 	const classes = useStyles();
 	const shoppingCart = []; //hardcoded to simulate a database collection of objects
 
+	const images = item.Images;
 	return (
 		<div className={gridClasses.root}>
 			<Paper className={gridClasses.paper}>
@@ -102,7 +107,7 @@ function MerchInfo() {
 					{' '}
 					<Grid item xs={14} sm={6}>
 						<Grid item container direction="column">
-							<ItemImage item={item} />
+							<ItemImage image={image} />
 						</Grid>
 					</Grid>
 					<Grid item xs={14} sm={6} direction="column">
@@ -144,6 +149,9 @@ function MerchInfo() {
 								</Grid>
 							</Grid>
 						</Paper>
+					</Grid>
+					<Grid item>
+						<AllImages item={item} images={images} />
 					</Grid>
 				</Grid>
 			</Paper>
