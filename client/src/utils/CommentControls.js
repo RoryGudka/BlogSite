@@ -1,5 +1,11 @@
 import axios from 'axios';
 
+/**
+ * Retrieves a list of comments based on the primary keys specified
+ * @param {Array} comments 
+ * @param {String} user 
+ * @returns 
+ */
 const getCommentList = (comments, user) => {
     if(comments && comments[0]) {
         return axios

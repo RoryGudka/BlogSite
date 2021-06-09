@@ -10,6 +10,7 @@ import NavBar from "./components/Navbar";
 import Signup from "./components/Signup";
 import Footer from "./components/Footer";
 import {BlogDash, ForumDash} from './components/PostComponents/PostDashes';
+import UserPage from './components/UserPage';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/shop" component={MerchandisePage}></Route>
           <Route path="/blog" component={BlogDash}></Route>
           <Route path="/forum" component={ForumDash}></Route>
+          <Route path="/user" component={UserPage}></Route>
         </Switch>
         <Footer />
       </UserContextProvider>
