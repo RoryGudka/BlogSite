@@ -15,9 +15,9 @@ import {
  * @param {function} classes Theming/css.
  * @returns dropdown for size selection given a specific item
  */
-function SizeSelect({ merchData, classes, setSize, size }) {
+function SizeSelect({ item, classes, setSize, size }) {
 	// const [size, setSize] = useState('');
-	const item = merchData[1]; //simulate selection w hard coded data
+	// const item = merchData[1]; //simulate selection w hard coded data
 	const handleChange = (e) => {
 		setSize(e.target.value);
 	};

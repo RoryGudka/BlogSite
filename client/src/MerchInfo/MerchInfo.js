@@ -89,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
  *
  */
 function MerchInfo() {
-	const merchData = data;
+	const item = data[1]; //hardcoding what would be the fetch for the specific item
 	const [size, setSize] = useState('');
 	const gridClasses = gridStyles();
 	const classes = useStyles();
@@ -102,7 +102,7 @@ function MerchInfo() {
 					{' '}
 					<Grid item xs={14} sm={6}>
 						<Grid item container direction="column">
-							<ItemImage merchData={merchData} />
+							<ItemImage item={item} />
 						</Grid>
 					</Grid>
 					<Grid item xs={14} sm={6} direction="column">
@@ -113,19 +113,19 @@ function MerchInfo() {
 								<Grid item xs container direction="column" spacing={2}>
 									<Grid item>
 										<Typography gutterBottom variant="subtitle1">
-											<ProductTitle merchData={merchData} />
+											<ProductTitle item={item} />
 										</Typography>
 										<Grid item>
-											<Price merchData={merchData} />
+											<Price item={item} />
 										</Grid>
 										<Grid item>
-											<ProductRating merchData={merchData} />
+											<ProductRating item={item} />
 										</Grid>
 
 										<SizeSelect
 											size={size}
 											setSize={setSize}
-											merchData={merchData}
+											item={item}
 											classes={classes}
 										/>
 									</Grid>
@@ -133,12 +133,12 @@ function MerchInfo() {
 										<AddButton
 											size={size}
 											shoppingCart={shoppingCart}
-											merchData={merchData}
+											item={item}
 										/>
 									</Grid>
 									<Grid item>
 										<Typography variant="body2" gutterBottom>
-											<Description merchData={merchData} />
+											<Description item={item} />
 										</Typography>
 									</Grid>
 								</Grid>

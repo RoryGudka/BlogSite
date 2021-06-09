@@ -6,8 +6,8 @@ import { Button } from '@material-ui/core';
  * @param {array} shoppingCart: an array to simulate the shopping cart of the item.
  * @returns
  */
-function AddButton({ shoppingCart, merchData, size }) {
-	const item = merchData[1];
+function AddButton({ shoppingCart, item, size }) {
+	// const item = merchData[1];
 	const itemToAdd = {
 		doc_id: item.doc_id,
 		Price: item.Price,
