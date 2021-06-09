@@ -10,6 +10,7 @@ import {useStyles} from '../styles/Button';
 import {likeComment, unlikeComment, saveComment, unsaveComment, addComment} from '../utils/CommentControls';
 import {likeForumPost, unlikeForumPost, saveForumPost, unsaveForumPost} from '../utils/ForumPostControls';
 import {likeBlogPost, unlikeBlogPost, saveBlogPost, unsaveBlogPost} from '../utils/BlogPostControls';
+import {getMerchandise} from '../utils/MerchandiseControls';
 
 const Login = (props) => {
   const classes = useStyles();
@@ -39,6 +40,9 @@ const Login = (props) => {
         setUser({
           ...res
         });
+        getMerchandise("skQjh67y72j1QLQ2xXTT", {...res}).then(res => {
+          console.log(res);
+        })
         history.push("/");
       }
     });
