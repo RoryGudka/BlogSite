@@ -2,7 +2,7 @@ module.exports = ({app, db, verifyToken, getAll}) => {
     /**
      * Returns a list of comments based on the ids provided
      */
-    app.get("/comments/get_list", (req, res) => {
+     app.get("/comments/get_list", (req, res) => {
         if (verifyToken(req.query.username, req.query.token)) {
             db.collection("comments")
             .get()
