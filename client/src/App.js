@@ -1,29 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import {Fragment} from 'react';
+import "./styles/App.css";
+import Login from "./components/Login";
+import Landing from './components/Landing';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import UserContextProvider from "./contexts/UserContextProvider";
+import Paper from '@material-ui/core/Paper';
 import MerchInfo from './MerchInfo/MerchInfo';
 
 function App() {
-	return (
-		// <div className="App">
-		//   <header className="App-header">
-		//     <img src={logo} className="App-logo" alt="logo" />
-		//     <p>
-		//       Edit <code>src/App.js</code> and save to reload.
-		//     </p>
-		//     <a
-		//       className="App-link"
-		//       href="https://reactjs.org"
-		//       target="_blank"
-		//       rel="noopener noreferrer"
-		//     >
-		//       Learn React
-		//     </a>
-		//   </header>
-		// </div>
-		<div>
-			<MerchInfo />
-		</div>
-	);
+  return (
+    <Fragment>
+      <Paper></Paper>
+      <Router>
+      <UserContextProvider>
+        <Switch>
+          <Route path="/" exact component={Landing}></Route>
+          <Route path="/login" component={Login}></Route>
+          <Route path="/item" component={MerchInfo}></Route>
+        </Switch>
+      </UserContextProvider>
+    </Router>
+    </Fragment>
+  );
 }
 
 export default App;

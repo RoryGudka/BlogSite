@@ -32,49 +32,6 @@ const generateToken = (user) => {
   return token;
 };
 
-app.get("/students/arr", async (req, res) => {
-  const studentsRef = db.collection("students");
-  const snapshot = await studentsRef.get();
-  const a = [];
-  snapshot.forEach((doc) => {
-    //console.log(doc.data);
-    a.push(doc.data());
-  });
-  //console.log(a);
-  res.send(a);
-});
-
-app.post("/students/grade", async (req, res) => {});
-
-/*
-Need to make each student's firestore id = their student_id
-*/ /*
-app.delete("/student/remove", async (req, res) => {
-	const c = req.body.class;
-	r = await db.collection("students").doc(req.body.id).delete();
-	res.sendStatus(200);
-});
-*/
-
-app.post("/", (req, res) => {
-  console.log(req.body);
-  console.log(hash(req.body));
-});
-
-app.get("/students", async (req, res) => {
-  const snapshot = await db.collection("students").get();
-
-  console.log(snapshot.docs);
-  res.json(snapshot.docs);
-});
-
-app.get("/teachers", async (req, res) => {
-  const snapshot = await db.collection("teachers").get();
-
-  console.log(snapshot.docs);
-  res.json(snapshot.docs);
-});
-
 /**
  * Verifies that the token is unaltered and matches the user
  * @param {String} uid
@@ -209,9 +166,9 @@ app.get("/students/get", (req, res) => {
   }
 });
 
-app.get("/students/get_all", (req, res) => {
+app.get("/blog_posts/get_all", (req, res) => {
   if (verifyToken(req.query.username, req.query.token)) {
-    db.collection("students")
+    db.collection("blog_posts")
       .get()
       .then((resp) => {
         results = getAll(resp);
@@ -232,63 +189,15 @@ app.get("/students/get_all", (req, res) => {
   }
 });
 
-app.post("/students/add", (req, res) => {
-  if (verifyToken(req.body.username, req.body.token)) {
-    db.collection("students")
-      .doc(req.body.data.student_id)
-      .set({
-        ...req.body.data,
-      })
-      .then((resp) => {
-        res.json({
-          status: 200,
-          data: resp,
-        });
-      })
-      .catch((err) => {
-        res.sendStatus(400);
-      });
-  } else {
-    //Catches the case where the token is invalid for the user
-    res.json({
-      status: 400,
-      message: "Invalid token",
-    });
-  }
-});
-
-app.put("/students/edit", (req, res) => {
-  if (verifyToken(req.body.username, req.body.token)) {
-    db.collection("students")
-      .doc(req.body.primary_key)
-      .set({
-        ...req.body.data,
-      })
-      .then((resp) => {
-        res.json({
-          status: 200,
-        });
-      })
-      .catch((err) => {
-        res.sendStatus(400);
-      });
-  } else {
-    //Catches the case where the token is invalid for the user
-    res.json({
-      status: 400,
-      message: "Invalid token",
-    });
-  }
-});
-
-app.delete("/students/remove", (req, res) => {
+app.get("/forum_posts/get_all", (req, res) => {
   if (verifyToken(req.query.username, req.query.token)) {
-    db.collection("students")
-      .doc(req.query.primary_key)
-      .delete()
+    db.collection("forum_posts")
+      .get()
       .then((resp) => {
+        results = getAll(resp);
         res.json({
           status: 200,
+          data: results,
         });
       })
       .catch((err) => {
@@ -401,216 +310,6 @@ app.put("/teachers/edit", (req, res) => {
 app.delete("/teachers/remove", (req, res) => {
   if (verifyToken(req.query.username, req.query.token)) {
     db.collection("teachers")
-      .doc(req.query.primary_key)
-      .delete()
-      .then((resp) => {
-        res.json({
-          status: 200,
-        });
-      })
-      .catch((err) => {
-        res.sendStatus(400);
-      });
-  } else {
-    //Catches the case where the token is invalid for the user
-    res.json({
-      status: 400,
-      message: "Invalid token",
-    });
-  }
-});
-
-app.get("/classes/get", (req, res) => {
-  if (verifyToken(req.query.username, req.query.token)) {
-    db.collection("classes")
-      .doc(req.query.primary_key)
-      .get()
-      .then((resp) => {
-        res.json({
-          status: 200,
-          data: resp.data(),
-        });
-      })
-      .catch((err) => {
-        res.sendStatus(400);
-      });
-  } else {
-    //Catches the case where the token is invalid for the user
-    res.json({
-      status: 400,
-      message: "Invalid token",
-    });
-  }
-});
-
-app.get("/classes/get_all", (req, res) => {
-  if (verifyToken(req.query.username, req.query.token)) {
-    db.collection("classes")
-      .get()
-      .then((resp) => {
-        results = getAll(resp);
-        res.json({
-          status: 200,
-          data: results,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-        res.sendStatus(400);
-      });
-  } else {
-    //Catches the case where the token is invalid for the user
-    res.json({
-      status: 400,
-      message: "Invalid token",
-    });
-  }
-});
-
-app.post("/classes/add", (req, res) => {
-  if (verifyToken(req.body.username, req.body.token)) {
-    db.collection("classes")
-      .doc(req.body.primary_key)
-      .set({
-        ...req.body.data,
-      })
-      .then((resp) => {
-        res.json({
-          status: 200,
-        });
-      })
-      .catch((err) => {
-        res.sendStatus(400);
-      });
-  } else {
-    //Catches the case where the token is invalid for the user
-    res.json({
-      status: 400,
-      message: "Invalid token",
-    });
-  }
-});
-
-app.put("/classes/edit", (req, res) => {
-  if (verifyToken(req.body.username, req.body.token)) {
-    db.collection("classes")
-      .doc(req.body.primary_key)
-      .set({
-        ...req.body.data,
-      })
-      .then((resp) => {
-        res.json({
-          status: 200,
-        });
-      })
-      .catch((err) => {
-        res.sendStatus(400);
-      });
-  } else {
-    //Catches the case where the token is invalid for the user
-    res.json({
-      status: 400,
-      message: "Invalid token",
-    });
-  }
-});
-
-app.delete("/classes/remove", (req, res) => {
-  if (verifyToken(req.query.username, req.query.token)) {
-    db.collection("classes")
-      .doc(req.query.primary_key)
-      .delete()
-      .then((resp) => {
-        res.json({
-          status: 200,
-        });
-      })
-      .catch((err) => {
-        res.sendStatus(400);
-      });
-  } else {
-    //Catches the case where the token is invalid for the user
-    res.json({
-      status: 400,
-      message: "Invalid token",
-    });
-  }
-});
-
-app.get("/events/get_all", (req, res) => {
-  if (verifyToken(req.query.username, req.query.token)) {
-    db.collection("events")
-      .get()
-      .then((resp) => {
-        results = getAll(resp);
-        res.json({
-          status: 200,
-          data: results,
-        });
-      })
-      .catch((err) => {
-        res.sendStatus(400);
-      });
-  } else {
-    //Catches the case where the token is invalid for the user
-    res.json({
-      status: 400,
-      message: "Invalid token",
-    });
-  }
-});
-
-app.post("/events/add", (req, res) => {
-  if (verifyToken(req.body.username, req.body.token)) {
-    db.collection("events")
-      .add({
-        ...req.body.data,
-      })
-      .then((resp) => {
-        res.json({
-          status: 200,
-          data: resp,
-        });
-      })
-      .catch((err) => {
-        res.sendStatus(400);
-      });
-  } else {
-    //Catches the case where the token is invalid for the user
-    res.json({
-      status: 400,
-      message: "Invalid token",
-    });
-  }
-});
-
-app.put("/events/edit", (req, res) => {
-  if (verifyToken(req.body.username, req.body.token)) {
-    db.collection("events")
-      .doc(req.body.primary_key)
-      .set({
-        ...req.body.data,
-      })
-      .then((resp) => {
-        res.json({
-          status: 200,
-        });
-      })
-      .catch((err) => {
-        res.sendStatus(400);
-      });
-  } else {
-    //Catches the case where the token is invalid for the user
-    res.json({
-      status: 400,
-      message: "Invalid token",
-    });
-  }
-});
-
-app.delete("/events/remove", (req, res) => {
-  if (verifyToken(req.query.username, req.query.token)) {
-    db.collection("events")
       .doc(req.query.primary_key)
       .delete()
       .then((resp) => {
