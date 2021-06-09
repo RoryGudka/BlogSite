@@ -4,7 +4,7 @@ const Footer = props => {
 
     return (
         <div style={{backgroundColor:"var(--Primary)", textAlign:'center'}}>
-            <p style={{color:'white', fontSize:"18px", paddingTop:"15px"}}>Camille Cooper</p>
+            <p style={{color:'white', fontSize:"18px", paddingTop:"5px", marginBottom:"9px"}}>Camille Cooper</p>
             <div>
                 <a className="footLinks fa fa-youtube" href="#"></a>
                 <a className="footLinks fab fa-tumblr" href="#"></a>

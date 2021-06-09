@@ -8,8 +8,18 @@ import { Link } from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import {useLocation} from 'react-router-dom';
 import {useStyles} from '../styles/Button';
+import UserAvatar from './UserAvatar';
 
-
+/*
+<Navbar.Text style={{color:"lightgrey"}}>Signed in as: {user.username}</Navbar.Text>
+            <Navbar.Text style={{ marginLeft: "4%" }}>
+              <Link to="/" onClick={() => {
+                  setUser(null);
+              }}>
+                Logout
+              </Link>
+            </Navbar.Text>
+            */
 export default function NavBar() {
   const { user, setUser } = useContext(UserContext);
   const location = useLocation();
@@ -49,14 +59,7 @@ export default function NavBar() {
         <Nav className="mr-auto" />
         {user !== null ? (
           <div style={{right:"1%", textAlign:"right", width:"30%"}}>
-            <Navbar.Text style={{color:"lightgrey"}}>Signed in as: {user.username}</Navbar.Text>
-            <Navbar.Text style={{ marginLeft: "4%" }}>
-              <Link to="/" onClick={() => {
-                  setUser(null);
-              }}>
-                Logout
-              </Link>
-            </Navbar.Text>
+            <UserAvatar />
           </div>
           ) : (
             <Link to="/login">
