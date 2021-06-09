@@ -38,7 +38,7 @@ const Login = (props) => {
         setUser({
           ...res
         });
-        history.push("/forum");
+        history.push("/");
       }
     });
   };
