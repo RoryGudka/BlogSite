@@ -7,6 +7,8 @@ import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 
 const useStyles = makeStyles(({
     body: {
+        maxHeight: 200,
+        overflow: 'hidden'
     },
     title: {
         fontSize: 45,
@@ -25,7 +27,17 @@ function PostContent ({title, content}) {
                     <h1 className={classes.title}>{title}</h1>
                 </Grid>
                 <Grid item>
-                    <p className={classes.body}>{content}</p>
+                    <div className={classes.body}>
+                        <p className={classes.body}>{content}</p>
+                        <div style={{
+                            position:"absolute",
+                            bottom:0,
+                            left:0,
+                            width:"100%",
+                            height:"30%",
+                            backgroundImage:"linear-gradient(to top, rgb(255, 255, 255, 1), rgb(255, 255, 255, 0)",
+                        }}/>
+                    </div>
                 </Grid>
             </Grid>
         </Grid>

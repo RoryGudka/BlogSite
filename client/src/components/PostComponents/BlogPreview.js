@@ -1,5 +1,6 @@
 import {Card, CardContent, makeStyles, Grid } from '@material-ui/core';
 import {InteractableIcon, PostContent} from './PostMisc';
+import {Link} from 'react-router-dom';
 
 const useStyles = makeStyles(({
     blogRoot: {
@@ -78,7 +79,7 @@ function BlogFooter () {
     const classes = useStyles();
     return (
         <Grid item>
-            <span className={classes.footerLink}>View comments / more</span>
+            <Link to="/" className={classes.footerLink}>View comments / more</Link>
         </Grid>
     )
 }
