@@ -10,6 +10,7 @@ import {useStyles} from '../styles/Button';
 import {likeComment, unlikeComment, saveComment, unsaveComment, addComment} from '../utils/CommentControls';
 import {likeForumPost, unlikeForumPost, saveForumPost, unsaveForumPost} from '../utils/ForumPostControls';
 import {likeBlogPost, unlikeBlogPost, saveBlogPost, unsaveBlogPost} from '../utils/BlogPostControls';
+import {getMerchandise} from '../utils/MerchandiseControls';
 
 const Login = (props) => {
   const classes = useStyles();
@@ -39,7 +40,10 @@ const Login = (props) => {
         setUser({
           ...res
         });
-        history.push("/home");
+        getMerchandise("skQjh67y72j1QLQ2xXTT", {...res}).then(res => {
+          console.log(res);
+        })
+        history.push("/");
       }
     });
   };
@@ -59,7 +63,8 @@ const Login = (props) => {
           width: "70%",
           height: "100vh",
           objectFit: "cover",
-          filter:"brightness(100%)"
+          filter:"brightness(100%)",
+          zIndex:2
         }}
         src="https://images.unsplash.com/photo-1437719417032-8595fd9e9dc6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=667&q=80"
       />
@@ -115,8 +120,9 @@ const Login = (props) => {
               <Button
                 style={{ width: "150px", height: "50px", borderRadius: "25px" }}
                 variant="contained"
-                classes={classes}
+                color="primary"
                 onClick={token !== undefined ? handleLogout : handleLogin}
+                classes={classes}
               >
                 {token !== undefined ? "Log out" : "Log in"}
               </Button>
