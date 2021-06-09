@@ -58,7 +58,8 @@ const Login = (props) => {
           width: "70%",
           height: "100vh",
           objectFit: "cover",
-          filter: "brightness(50%)",
+          filter:"brightness(100%)",
+          zIndex:2
         }}
         src="https://images.unsplash.com/photo-1588072432836-e10032774350?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1052&q=80"
       />
