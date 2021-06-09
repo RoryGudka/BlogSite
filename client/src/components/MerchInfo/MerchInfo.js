@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
 	makeStyles,
 	Grid,
@@ -13,7 +13,8 @@ import Price from './Components/Price';
 import ProductTitle from './Components/ProductTitle';
 import Description from './Components/Description';
 import ProductRating from './Components/ProductRating';
-import AllImages from './Components/AllImages';
+import { getAllMerchandise } from '../../utils/MerchandiseControls';
+import { getMerchandise } from '../../utils/MerchandiseControls';
 //dummy data
 
 const data = [
@@ -92,13 +93,21 @@ const useStyles = makeStyles((theme) => ({
  *
  */
 function MerchInfo() {
-	const item = data[1]; //hardcoding what would be the fetch for the specific item
-	const [image, setImage] = useState(item.Images[0]);
+	const [item, setItem] = useState();
+
+	useEffect(() => {
+		getMerchandise().then((res) => {
+			setItem(res);
+		});
+	}, []);
+
+	const [image, setImage] = useState('');
 	const [size, setSize] = useState('');
 	const gridClasses = gridStyles();
 	const classes = useStyles();
 	const shoppingCart = []; //hardcoded to simulate a database collection of objects
 
+	//need to conditionally set the image
 	const images = item.Images;
 	return (
 		<div className={gridClasses.root}>
@@ -107,7 +116,7 @@ function MerchInfo() {
 					{' '}
 					<Grid item xs={14} sm={6}>
 						<Grid item container direction="column">
-							<ItemImage image={image} />
+							<ItemImage item={item} />
 						</Grid>
 					</Grid>
 					<Grid item xs={14} sm={6} direction="column">
@@ -127,12 +136,12 @@ function MerchInfo() {
 											<ProductRating item={item} />
 										</Grid>
 
-										<SizeSelect
+										{/* <SizeSelect
 											size={size}
 											setSize={setSize}
 											item={item}
 											classes={classes}
-										/>
+										/> */}
 									</Grid>
 									<Grid item>
 										<AddButton
@@ -149,9 +158,6 @@ function MerchInfo() {
 								</Grid>
 							</Grid>
 						</Paper>
-					</Grid>
-					<Grid item>
-						<AllImages item={item} images={images} />
 					</Grid>
 				</Grid>
 			</Paper>

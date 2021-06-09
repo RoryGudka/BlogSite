@@ -10,13 +10,13 @@ function AddButton({ shoppingCart, item, size }) {
 	// const item = merchData[1];
 	const itemToAdd = {
 		doc_id: item.doc_id,
-		Price: item.Price,
-		Title: item.Title,
-		Image: item.Image,
-		Rating: item.Rating,
-		Size: size,
-		Description: item.Description,
-		Category: item.Category,
+		price: item.price,
+		name: item.name,
+		img: item.img,
+		rating: item.rating,
+		//Size: size,
+		description: item.description,
+		category: item.category,
 	};
 	const onClick = (e) => {
 		size === '' ? alert('NO SIZE') : shoppingCart.push(itemToAdd);
