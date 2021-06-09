@@ -24,7 +24,7 @@ function ForumPreview ({ForumPost, liked, saved, handleLike, handleSave}) {
         <Card variant="outlined" className={classes.forumRoot}>
             <CardContent>
                 <Grid container direction="column">
-                    <ForumHeader date={"ex"} topic={"None"}/>
+                    <ForumHeader date={ForumPost.date} topic={"None"}/>
                     <PostContent title={ForumPost.title} content={ForumPost.content}/>
                     <ForumFooter likes={ForumPost.likes} saves={ForumPost.saves} comments={ForumPost.comments} 
                                 liked={liked} saved={saved} handleLike={handleLike} handleSave={handleSave}/>
@@ -37,7 +37,7 @@ function ForumPreview ({ForumPost, liked, saved, handleLike, handleSave}) {
 function ForumHeader ({date, topic}) {
     return (
         <Grid item>
-            {date} | {topic}
+            {new Date(date._seconds * 1000).toDateString()} | {topic}
         </Grid>
     );
 }

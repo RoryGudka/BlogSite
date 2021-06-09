@@ -1,7 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
 import BlogPreview from './BlogPreview';
 import ForumPreview from './ForumPreview';
-import {getPosts, dateSort, syncUserPostInteraction} from './../../utils/PostDashControls';
+import {getPosts, dateSort, syncUserPostInteraction, asyncUserPostInteraction} from './../../utils/PostDashControls';
+import {likeBlogPost, unlikeBlogPost, saveBlogPost, unsaveBlogPost} from './../../utils/BlogPostControls';
+import {likeForumPost, unlikeForumPost, saveForumPost, unsaveForumPost} from './../../utils/ForumPostControls';
 import {UserContext} from './../../contexts/UserContextProvider';
 
 function BlogDash() {
@@ -20,10 +22,12 @@ function BlogDash() {
 
     const handleLike = (doc, toAdd) => {
         syncUserPostInteraction(likedPosts, setLikedPosts, blogPosts, setBlogPosts, doc, toAdd, "likes");
+        asyncUserPostInteraction(user, setUser, (toAdd ? likeBlogPost : unlikeBlogPost) , doc);
     }
 
     const handleSave = (doc, toAdd) => {
         syncUserPostInteraction(savedPosts, setSavedPosts, blogPosts, setBlogPosts, doc, toAdd, "saves");
+        asyncUserPostInteraction(user, setUser, (toAdd ? saveBlogPost : unsaveBlogPost) , doc);
     }
 
     return(
@@ -59,10 +63,12 @@ function ForumDash() {
 
     const handleLike = (doc, toAdd) => {
         syncUserPostInteraction(likedPosts, setLikedPosts, forumPosts, setForumPosts, doc, toAdd, "likes");
+        asyncUserPostInteraction(user, setUser, (toAdd ? likeForumPost : unlikeForumPost) , doc);
     }
 
     const handleSave = (doc, toAdd) => {
         syncUserPostInteraction(savedPosts, setSavedPosts, forumPosts, setForumPosts, doc, toAdd, "saves");
+        asyncUserPostInteraction(user, setUser, (toAdd ? saveForumPost : unsaveForumPost) , doc);
     }
 
     return(

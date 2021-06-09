@@ -44,7 +44,15 @@ const modifyAllPostList = (allPostList, setAllPostList, doc, toAdd, interType) =
 }
 
 const asyncUserPostInteraction = async (user, setUser, helperFunct, doc) => {
-    return;
+    helperFunct(doc, user).then(newUserData => {
+        if(newUserData === false) {
+            return false;
+        }
+        console.log(user);
+        console.log(newUserData);
+        setUser(newUserData);
+        return true;
+    });
 }
 
-export {dateSort, getPosts, syncUserPostInteraction};
+export {dateSort, getPosts, syncUserPostInteraction, asyncUserPostInteraction};
