@@ -4,7 +4,7 @@ import Landing from "./components/Landing";
 import MerchandisePage from "./components/MerchandisePage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import UserContextProvider from "./contexts/UserContextProvider";
-import NavBar from "./components/NavBar";
+import NavBar from "./components/Navbar";
 import Signup from "./components/Signup";
 import Footer from "./components/Footer";
 import {BlogDash, ForumDash} from './components/PostComponents/PostDashes';
