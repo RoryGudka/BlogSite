@@ -19,7 +19,7 @@ function App() {
           <Route path="/" exact component={Landing}></Route>
           <Route path="/login" component={Login}></Route>
           <Route path="/signup" component={Signup}></Route>
-          <Route path="/store" component={MerchandisePage}></Route>
+          <Route path="/shop" component={MerchandisePage}></Route>
           <Route path="/blog" component={BlogDash}></Route>
           <Route path="/forum" component={ForumDash}></Route>
         </Switch>

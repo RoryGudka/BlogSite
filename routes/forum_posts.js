@@ -137,8 +137,15 @@ module.exports = ({app, db, verifyToken, getAll}) => {
                         db.collection("users").doc(req.body.user_id).update({
                             forum_posts_liked
                         }).then(resp => {
+                            const {password, ...rest} = data;
                             res.json({
-                                status: 200
+                                status: 200,
+                                data:{
+                                    ...rest, 
+                                    forum_posts_liked, 
+                                    token:req.body.token,
+                                    user_id:req.body.user_id,
+                                }
                             });
                         })
                     })
@@ -166,14 +173,22 @@ module.exports = ({app, db, verifyToken, getAll}) => {
                     likes:resp.data().likes - 1,
                 }).then(resp => {
                     db.collection("users").doc(req.body.user_id).get().then(resp => {
-                        let forum_posts_liked = resp.data().forum_posts_liked;
+                        const data = resp.data();
+                        let forum_posts_liked = data.forum_posts_liked;
                         const index = forum_posts_liked.findIndex(comment => comment === req.body.post_id);
                         forum_posts_liked.splice(index, 1);
                         db.collection("users").doc(req.body.user_id).update({
                             forum_posts_liked
                         }).then(resp => {
+                            const {password, ...rest} = data;
                             res.json({
-                                status: 200
+                                status: 200,
+                                data:{
+                                    ...rest, 
+                                    forum_posts_liked, 
+                                    token:req.body.token,
+                                    user_id:req.body.user_id,
+                                }
                             });
                         })
                     })
@@ -208,8 +223,15 @@ module.exports = ({app, db, verifyToken, getAll}) => {
                         db.collection("users").doc(req.body.user_id).update({
                             forum_posts_saved
                         }).then(resp => {
+                            const {password, ...rest} = data;
                             res.json({
-                                status: 200
+                                status: 200,
+                                data:{
+                                    ...rest, 
+                                    forum_posts_saved, 
+                                    token:req.body.token,
+                                    user_id:req.body.user_id,
+                                }
                             });
                         })
                     })
@@ -237,14 +259,22 @@ module.exports = ({app, db, verifyToken, getAll}) => {
                     saves:resp.data().saves - 1,
                 }).then(resp => {
                     db.collection("users").doc(req.body.user_id).get().then(resp => {
-                        let forum_posts_saved = resp.data().forum_posts_saved;
+                        const data = resp.data();
+                        let forum_posts_saved = data.forum_posts_saved;
                         const index = forum_posts_saved.findIndex(comment => comment === req.body.post_id);
                         forum_posts_saved.splice(index, 1);
                         db.collection("users").doc(req.body.user_id).update({
                             forum_posts_saved
                         }).then(resp => {
+                            const {password, ...rest} = data;
                             res.json({
-                                status: 200
+                                status: 200,
+                                data:{
+                                    ...rest, 
+                                    forum_posts_saved, 
+                                    token:req.body.token,
+                                    user_id:req.body.user_id,
+                                }
                             });
                         })
                     })

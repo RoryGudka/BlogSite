@@ -48,8 +48,15 @@ module.exports = ({app, db, verifyToken, getAll}) => {
                         db.collection("users").doc(req.body.user_id).update({
                             comments_liked
                         }).then(resp => {
+                            const {password, ...rest} = data;
                             res.json({
-                                status: 200
+                                status: 200,
+                                data:{
+                                    ...rest, 
+                                    comments_liked, 
+                                    token:req.body.token,
+                                    user_id:req.body.user_id,
+                                }
                             });
                         })
                     })
@@ -77,14 +84,22 @@ module.exports = ({app, db, verifyToken, getAll}) => {
                     likes:resp.data().likes - 1,
                 }).then(resp => {
                     db.collection("users").doc(req.body.user_id).get().then(resp => {
-                        let comments_liked = resp.data().comments_liked;
+                        const data = resp.data();
+                        let comments_liked = data.comments_liked;
                         const index = comments_liked.findIndex(comment => comment === req.body.comment_id);
                         comments_liked.splice(index, 1);
                         db.collection("users").doc(req.body.user_id).update({
                             comments_liked
                         }).then(resp => {
+                            const {password, ...rest} = data;
                             res.json({
-                                status: 200
+                                status: 200,
+                                data:{
+                                    ...rest, 
+                                    comments_liked, 
+                                    token:req.body.token,
+                                    user_id:req.body.user_id,
+                                }
                             });
                         })
                     })
@@ -119,8 +134,15 @@ module.exports = ({app, db, verifyToken, getAll}) => {
                         db.collection("users").doc(req.body.user_id).update({
                             comments_saved
                         }).then(resp => {
+                            const {password, ...rest} = data;
                             res.json({
-                                status: 200
+                                status: 200,
+                                data:{
+                                    ...rest, 
+                                    comments_saved, 
+                                    token:req.body.token,
+                                    user_id:req.body.user_id,
+                                }
                             });
                         })
                     })
@@ -148,14 +170,22 @@ module.exports = ({app, db, verifyToken, getAll}) => {
                     saves:resp.data().saves - 1,
                 }).then(resp => {
                     db.collection("users").doc(req.body.user_id).get().then(resp => {
-                        let comments_saved = resp.data().comments_saved;
+                        const data = resp.data();
+                        let comments_saved = data.comments_saved;
                         const index = comments_saved.findIndex(comment => comment === req.body.comment_id);
                         comments_saved.splice(index, 1);
                         db.collection("users").doc(req.body.user_id).update({
                             comments_saved
                         }).then(resp => {
+                            const {password, ...rest} = data;
                             res.json({
-                                status: 200
+                                status: 200,
+                                data:{
+                                    ...rest, 
+                                    comments_saved, 
+                                    token:req.body.token,
+                                    user_id:req.body.user_id,
+                                }
                             });
                         })
                     })
@@ -165,6 +195,58 @@ module.exports = ({app, db, verifyToken, getAll}) => {
                 res.sendStatus(400);
             });
         } else {
+            //Catches the case where the token is invalid for the user
+            res.json({
+            status: 400,
+            message: "Invalid token",
+            });
+        }
+    });
+
+    app.post("/comments/add", (req, res) => {
+        if (verifyToken(req.body.username, req.body.token)) {
+            if(req.body.table === "blog_posts" || req.body.table === "comments" || req.body.table === "forum_posts") {
+                db.collection("comments")
+                    .add({
+                        user:req.body.username,
+                        content:req.body.comment,
+                        date:new Date(),
+                        likes:0,
+                        saves:0,
+                        comments:[]
+                    })
+                    .then((resp) => {
+                        const doc = resp.path.split('/')[1]
+                        db.collection(req.body.table).doc(req.body.id).get().then(resp => {
+                            const data = resp.data();
+                            let comments = [];
+                            if(Array.isArray(data.comments)) comments = [...data.comments, doc];
+                            else comments = [doc];
+                            db.collection(req.body.table).doc(req.body.id).update({
+                                comments
+                            }).then(resp => {
+                                res.json({
+                                    status: 200,
+                                    data: resp,
+                                });
+                            })
+                        }).catch(err => {
+                            res.sendStatus(400);
+                        })
+                    })
+                    .catch((err) => {
+                        res.sendStatus(400);
+                });
+            }
+            else {
+                //Catches the case where table is invalid
+                res.json({
+                    status: 400,
+                    message: "Invalid table",
+                });
+            }
+        } 
+        else {
             //Catches the case where the token is invalid for the user
             res.json({
             status: 400,
