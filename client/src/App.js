@@ -7,7 +7,8 @@ import UserContextProvider from "./contexts/UserContextProvider";
 import NavBar from "./components/NavBar";
 import Signup from "./components/Signup";
 import Footer from "./components/Footer";
-import {BlogDash, ForumDash} from './components/PostComponents/PostDashes';
+import {ForumDash} from './components/PostComponents/PostDashes';
+import BlogSideBar from './components/PostComponents/BlogSideBar';
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
           <Route path="/login" component={Login}></Route>
           <Route path="/signup" component={Signup}></Route>
           <Route path="/shop" component={MerchandisePage}></Route>
-          <Route path="/blog" component={BlogDash}></Route>
+          <Route path="/blog" component={BlogSideBar}></Route>
           <Route path="/forum" component={ForumDash}></Route>
         </Switch>
         <Footer />
