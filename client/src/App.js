@@ -12,6 +12,8 @@ import Footer from "./components/Footer";
 import {BlogDash, ForumDash} from './components/PostComponents/PostDashes';
 import UserPage from './components/UserPage';
 import ForumPostPage from "./components/ForumPostPage";
+import BlogPostPage from './components/BlogPostPage';
+import CommentPage from './components/CommentPage';
 
 function App() {
   return (
@@ -27,12 +29,11 @@ function App() {
           <Route path="/shop" component={MerchandisePage}></Route>
           <Route path="/blog" component={BlogDash}></Route>
           <Route path="/forum" component={ForumDash}></Route>
-          <Route path="/forum_posts" component={ForumDash}></Route>
-          <Route path="/blog_posts" component={ForumDash}></Route>
-          <Route path="/comments" component={ForumDash}></Route>
+          <Route path="/forum_posts" component={ForumPostPage}></Route>
+          <Route path="/blog_posts" component={BlogPostPage}></Route>
+          <Route path="/comments" component={CommentPage}></Route>
           <Route path="/user" component={UserPage}></Route>
         </Switch>
-        <ForumPostPage/>
         <Footer />
       </UserContextProvider>
     </Router>

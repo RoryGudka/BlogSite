@@ -10,19 +10,19 @@ import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 import ReplyIcon from '@material-ui/icons/Reply';
 import { getCommentList, likeComment, unlikeComment, saveComment, unsaveComment } from "../utils/CommentControls";
 import { 
-    getForumPost, 
-    getAllForumPosts, 
-    likeForumPost, 
-    unlikeForumPost, 
-    saveForumPost, 
-    unsaveForumPost } from "../utils/ForumPostControls";
+    getBlogPost, 
+    getAllB, 
+    likeBlogPost, 
+    unlikeBlogPost, 
+    saveBlogPost, 
+    unsaveBlogPost } from "../utils/BlogPostControls";
 import { UserContext } from "../contexts/UserContextProvider";
-import {useHistory, Redirect} from 'react-router-dom';
+import {useLocation, useHistory} from 'react-router-dom';
 
-function ForumPostPage() {
-    const location = window.location.pathname.split('/')[2];
+function BlogPostPage() {
     const history = useHistory();
-
+    const location = window.location.pathname.split('/')[2];
+    
     const {user, setUser} = useContext(UserContext);
     const [post, setPost] = useState(null);
     const [postID, setPostID] = useState("");
@@ -40,28 +40,21 @@ function ForumPostPage() {
 
     //gets and displays main post and first level comments
     useEffect(() => {
-        console.log(location);
-        console.log(user);
-        if(user !== null) {
-            //fetchForumPosts();
-            getForumPost(location, user).then((res) => {
-                console.log(res);
-                setPostID(location);
+        //fetchBlogPosts();
+        getBlogPost(location, user).then((res) => {
+            setPostID(location);
+            //console.log(res);
+            getCommentList(res.comments, user).then((res) => {
                 //console.log(res);
-                getCommentList(res.comments, user).then((res) => {
-                    //console.log(res);
-                    setComments(res);
-                });
-                setPost(res);
+                setComments(res);
             });
-        }
+            setPost(res);
+            });
     }, [location, user, updated, clickedLike, clickedSave])
-
-    if(user === null)  return <Redirect to='/' />
 
     //functionality to buttons on post
     const handleLike = () => {
-        likeForumPost(postID, user).then((res) => {
+        likeBlogPost(postID, user).then((res) => {
             console.log(res);
             if (updated === false) {
                 setUpdated(true);
@@ -74,7 +67,7 @@ function ForumPostPage() {
     }
 
     const handleSave = () => {
-        saveForumPost(postID, user).then((res) => {
+        saveBlogPost(postID, user).then((res) => {
             console.log(res);
             if (updated === false) {
                 setUpdated(true);
@@ -87,7 +80,7 @@ function ForumPostPage() {
     }
 
     const handleUnlike = () => {
-        unlikeForumPost(postID, user).then((res) => {
+        unlikeBlogPost(postID, user).then((res) => {
             console.log(res);
             if (updated === false) {
                 setUpdated(true);
@@ -100,7 +93,7 @@ function ForumPostPage() {
     }
 
     const handleUnsave= () => {
-        unsaveForumPost(postID, user).then((res) => {
+        unsaveBlogPost(postID, user).then((res) => {
             console.log(res);
             if (updated === false) {
                 setUpdated(true);
@@ -175,20 +168,16 @@ function ForumPostPage() {
     }
 
     const item = post;
-
     return (
         <div>
             <div>
                 { post !== null && post.date !== undefined &&
                     <Paper className='post'>
-                        <div style={{display:'inline-block'}}>
-                            <Avatar src=''></Avatar>
-                        </div>
                         {item.topic === undefined && item.user !== undefined && <p className="usernamePMain">@{item.user} | {(new Date(item.date._seconds * 1000)).toDateString()}</p>} 
                         {item.topic !== undefined && <p className="topicPMain">@{item.user} | {item.topic} | {(new Date(item.date._seconds * 1000)).toDateString()}</p>}
                         {item.title !== undefined && item.topic === undefined && <p className="topicPMain">{(new Date(item.date._seconds * 1000)).toDateString()}</p>} 
                         {item.title !== undefined && <p className="titlePMain"><b>{item.title}</b></p>} 
-                        <p>{post.content}</p>
+                        <div className="innerHTML" dangerouslySetInnerHTML={{__html:post.content}}></div>
                         <p>
                         {!clickedLike ? <IconButton onClick={()=>handleLike()}><FavoriteBorderIcon/></IconButton> : <IconButton onClick={()=>handleUnlike()}><FavoriteIcon/></IconButton>}{post.likes}
                         {!clickedSave ? <IconButton onClick={()=>handleSave()}><BookmarkBorderIcon/></IconButton> : <IconButton onClick={()=>handleUnsave()}><BookmarkIcon/></IconButton>}{post.saves} 
@@ -231,4 +220,4 @@ function ForumPostPage() {
     )
 }
 
-export default ForumPostPage
+export default BlogPostPage

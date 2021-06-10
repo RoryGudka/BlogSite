@@ -10,19 +10,14 @@ import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 import ReplyIcon from '@material-ui/icons/Reply';
 import { getCommentList, likeComment, unlikeComment, saveComment, unsaveComment } from "../utils/CommentControls";
 import { 
-    getForumPost, 
-    getAllForumPosts, 
-    likeForumPost, 
-    unlikeForumPost, 
-    saveForumPost, 
-    unsaveForumPost } from "../utils/ForumPostControls";
+    getComment} from "../utils/CommentControls";
 import { UserContext } from "../contexts/UserContextProvider";
-import {useHistory, Redirect} from 'react-router-dom';
+import {useLocation, useHistory} from 'react-router-dom';
 
-function ForumPostPage() {
-    const location = window.location.pathname.split('/')[2];
+function CommentPage() {
     const history = useHistory();
-
+    const location = window.location.pathname.split('/')[2];
+    
     const {user, setUser} = useContext(UserContext);
     const [post, setPost] = useState(null);
     const [postID, setPostID] = useState("");
@@ -40,28 +35,22 @@ function ForumPostPage() {
 
     //gets and displays main post and first level comments
     useEffect(() => {
-        console.log(location);
-        console.log(user);
-        if(user !== null) {
-            //fetchForumPosts();
-            getForumPost(location, user).then((res) => {
-                console.log(res);
-                setPostID(location);
+        //fetchComments();
+        getComment(location, user).then((res) => {
+            setPostID(location);
+            //console.log(res);
+            getCommentList(res.comments, user).then((res) => {
                 //console.log(res);
-                getCommentList(res.comments, user).then((res) => {
-                    //console.log(res);
-                    setComments(res);
-                });
-                setPost(res);
+                setComments(res);
             });
-        }
+            setPost(res);
+        });
     }, [location, user, updated, clickedLike, clickedSave])
 
-    if(user === null)  return <Redirect to='/' />
 
     //functionality to buttons on post
     const handleLike = () => {
-        likeForumPost(postID, user).then((res) => {
+        likeComment(postID, user).then((res) => {
             console.log(res);
             if (updated === false) {
                 setUpdated(true);
@@ -74,7 +63,7 @@ function ForumPostPage() {
     }
 
     const handleSave = () => {
-        saveForumPost(postID, user).then((res) => {
+        saveComment(postID, user).then((res) => {
             console.log(res);
             if (updated === false) {
                 setUpdated(true);
@@ -87,7 +76,7 @@ function ForumPostPage() {
     }
 
     const handleUnlike = () => {
-        unlikeForumPost(postID, user).then((res) => {
+        unlikeComment(postID, user).then((res) => {
             console.log(res);
             if (updated === false) {
                 setUpdated(true);
@@ -100,7 +89,7 @@ function ForumPostPage() {
     }
 
     const handleUnsave= () => {
-        unsaveForumPost(postID, user).then((res) => {
+        unsaveComment(postID, user).then((res) => {
             console.log(res);
             if (updated === false) {
                 setUpdated(true);
@@ -175,7 +164,6 @@ function ForumPostPage() {
     }
 
     const item = post;
-
     return (
         <div>
             <div>
@@ -231,4 +219,4 @@ function ForumPostPage() {
     )
 }
 
-export default ForumPostPage
+export default CommentPage
