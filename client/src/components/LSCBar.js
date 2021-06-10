@@ -55,7 +55,7 @@ const LSCBar = ({item, likes, saves, comments, liked, saved}) => {
     }
 
     const handleChatClick = () => {
-        history.push('/post/' + item.doc);
+        history.push('/' + item.type + 's/' + item.doc);
     }
 
     return (
