@@ -41,7 +41,7 @@
   justify-content: center;
 }
 .banner {
-  border: 3px solid pink;
+  /* border: 3px solid pink; */
   margin-bottom: 50px;
   background: url(../assets/banner-photo.png);
   position: relative;

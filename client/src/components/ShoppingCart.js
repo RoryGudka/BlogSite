@@ -1,10 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import ShoppingCartItem from "./ShoppingCartItem";
 import "../styles/ShoppingCart.css";
-import UserContext from "../contexts/UserContextProvider";
 
 const ShoppingCart = () => {
-  //   const { user } = useContext(UserContext);
   const tempData = [
     {
       category: "shirts",

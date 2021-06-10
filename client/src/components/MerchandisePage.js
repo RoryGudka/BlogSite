@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "../styles/Merchandise.css";
 import MerchandiseItem from "./MerchandiseItem";
 import { getAllMerchandise } from "../utils/MerchandiseControls";
+import UserContext from "../contexts/UserContextProvider";
 
 const MerchandisePage = () => {
   const [merchList, setMerchList] = useState(null);
@@ -11,6 +12,9 @@ const MerchandisePage = () => {
   const [renderSkincare, setRenderSkincare] = useState(false);
 
   const [sortBy, setSortBy] = useState("Featured");
+
+  //   const { user, setUser } = useContext(UserContext);
+
   /**
    * gets all merchandise from Firestore database and stores it into the state variable: merchList
    */
