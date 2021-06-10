@@ -7,6 +7,7 @@ import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
+import ReplyIcon from '@material-ui/icons/Reply';
 import { getCommentList, likeComment, unlikeComment, saveComment, unsaveComment } from "../utils/CommentControls";
 import { 
     getForumPost, 
@@ -30,6 +31,8 @@ function ForumPostPage() {
 
     const [clickedLikeComment, setClickedLikeComment] = useState(false);
     const [clickedSaveComment, setClickedSaveComment] = useState(false);
+
+    const [reply, setReply] = useState(false);
 
     //gets and displays main post and first level comments
     useEffect(() => {
@@ -151,6 +154,15 @@ function ForumPostPage() {
         setClickedSaveComment(false);
     }
 
+    const handleShow = (comments, number) => {
+
+        console.log('alskdfj')
+    }
+
+    const handleHide = (comments, number) => {
+        console.log('alsdkfja')
+    }
+
     return (
         <div>
             <div>
@@ -165,6 +177,7 @@ function ForumPostPage() {
                             <IconButton>
                                 <ChatBubbleOutlineIcon/>
                             </IconButton>{post.comments.length}
+                            <IconButton><ReplyIcon/></IconButton>
                         </p>
                     </Paper>
                 }    
@@ -179,10 +192,13 @@ function ForumPostPage() {
                             <p>
                                 {!clickedLikeComment ? <IconButton onClick={()=>handleLikeComment(comment.doc)}><FavoriteBorderIcon/></IconButton> : <IconButton onClick={()=>handleUnlikeComment(comment.doc)}><FavoriteIcon/></IconButton>}{comment.likes}
                                 {!clickedSaveComment ? <IconButton onClick={()=>handleSaveComment(comment.doc)}><BookmarkBorderIcon/></IconButton> : <IconButton onClick={()=>handleUnsaveComment(comment.doc)}><BookmarkIcon/></IconButton>}{comment.saves} 
-                                {!clickedShow ? <IconButton onClick={()=>handleShow(comment.comments, 2)}><ChatBubbleOutlineIcon/></IconButton> : <IconButton onClick={()=>handleHide(comment.comments)}><ChatBubbleIcon/></IconButton>}{comment.comments.length}
-                                {comment.comments > 0 && subComments.length !== 0 && 
+                                {/* {!clickedShow ? <IconButton onClick={()=>handleShow(comment.comments, 2)}><ChatBubbleOutlineIcon/></IconButton> : <IconButton onClick={()=>handleHide(comment.comments)}><ChatBubbleIcon/></IconButton>}{comment.comments.length} */}
+                                <IconButton><ChatBubbleOutlineIcon/></IconButton>{comment.comments.length}
+                                <IconButton><ReplyIcon/></IconButton>
+                                {}
+                                {/* {comment.comments > 0 && subComments.length !== 0 && 
                                     subComments
-                                }
+                                } */}
                             </p>
                         </Paper>
                     ))
