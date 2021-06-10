@@ -32,6 +32,39 @@ const getCommentList = (comments, user) => {
     });
 };
 
+/**
+ * Retrieves a list of comments based on the primary keys specified
+ * @param {Array} comments 
+ * @param {String} user 
+ * @returns 
+ */
+ const getComment = (comments, user) => {
+    if(comments && comments[0]) {
+        return axios
+            .get("http://localhost:5000/comments/get_list", {
+            params: {
+                comments:[comments],
+                ...user
+            },
+            })
+            .then((res) => {
+            if (res.data.status === 200) return res.data.data[0];
+            else {
+                alert(res.data.message);
+                return false;
+            }
+            })
+            .catch((err) => {
+            alert("An error has occurred");
+            return false;
+        });
+    }
+    else return new Promise((resolve, reject) => {
+        resolve(false);
+    });
+};
+
+
 const likeComment = (comment_id, user) => {
     return axios
         .put("http://localhost:5000/comments/like", {
@@ -137,4 +170,4 @@ const addComment = (table, id, comment, user) => {
     });
 };
 
-export {getCommentList, likeComment, unlikeComment, saveComment, unsaveComment, addComment}
+export {getCommentList, getComment, likeComment, unlikeComment, saveComment, unsaveComment, addComment}

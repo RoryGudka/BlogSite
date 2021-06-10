@@ -4,6 +4,9 @@ import BookmarkIcon from '@material-ui/icons/Bookmark';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
+import WatchLaterIcon from '@material-ui/icons/WatchLater';
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import {useButtonStyles} from './../../styles/Buttons';
 
 const useStyles = makeStyles(({
     body: {
@@ -45,14 +48,20 @@ function PostContent ({title, content}) {
 }
 
 // controlled interactable icon component
-function InteractableIcon ({interacted, handleInteract, type, disabled=false}) {
+function InteractableIcon ({interacted, handleInteract, type, disabled=false, size="default"}) {
+    const classes = useButtonStyles();
     return (
         <IconButton disabled={disabled} onClick={handleInteract}>
             {type==="favorite" ? 
-                (interacted ? <FavoriteIcon color="primary"/> : <FavoriteBorderIcon color={!disabled?"primary":"gray"}/>) :
-            type==="bookmark" ? 
-                (interacted ? <BookmarkIcon color="primary"/> : <BookmarkBorderIcon color={!disabled?"primary":"gray"}/>) :
-                <ChatBubbleOutlineIcon color="primary"/>
+                (interacted ? <FavoriteIcon className={classes.secondaryIcon} fontSize={size}/> : 
+                    <FavoriteBorderIcon fontSize={size} className={!disabled?classes.secondaryIcon : classes.disabledRoot}/>)
+                : type==="bookmark" ? 
+                (interacted ? <BookmarkIcon className={classes.secondaryIcon} fontSize={size}/> : 
+                    <BookmarkBorderIcon fontSize={size} className={!disabled?classes.secondaryIcon : classes.disabledRoot}/>) 
+                : type==="recent" ?
+                (interacted ? <WatchLaterIcon className={classes.secondaryIcon} fontSize={size}/> : 
+                    <AccessTimeIcon fontSize={size} className={!disabled?classes.secondaryIcon : classes.disabledRoot}/>) 
+                : <ChatBubbleOutlineIcon fontSize={size} className={classes.secondaryIcon}/> 
             }
         </IconButton>
     )
