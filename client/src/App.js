@@ -4,16 +4,17 @@ import Landing from "./components/Landing";
 import MerchandisePage from "./components/MerchandisePage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import UserContextProvider from "./contexts/UserContextProvider";
-import Paper from '@material-ui/core/Paper';
-import MerchInfo from './MerchInfo/MerchInfo';
-import NavBar from "./components/Navbar";
+import Paper from "@material-ui/core/Paper";
+import MerchInfo from "./MerchInfo/MerchInfo";
+import NavBar from "./components/NavBar";
 import Signup from "./components/Signup";
 import Footer from "./components/Footer";
-import {BlogDash, ForumDash} from './components/PostComponents/PostDashes';
-import UserPage from './components/UserPage';
+import ShoppingCart from "./components/ShoppingCart";
+import { BlogDash, ForumDash } from "./components/PostComponents/PostDashes";
+import UserPage from "./components/UserPage";
 import ForumPostPage from "./components/ForumPostPage";
-import BlogPostPage from './components/BlogPostPage';
-import CommentPage from './components/CommentPage';
+import BlogPostPage from "./components/BlogPostPage";
+import CommentPage from "./components/CommentPage";
 
 function App() {
   return (
