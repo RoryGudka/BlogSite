@@ -1,12 +1,14 @@
 import Paper from '@material-ui/core/Paper';
 import LSCBar from './LSCBar';
+import {useHistory} from 'react-router-dom';
 
 const UserPageItem = ({item, likes, saves}) => {
+    const history = useHistory();
     const liked = likes.find(p => p.doc === item.doc);
     const saved = saves.find(p => p.doc === item.doc);
 
     const handleClick = () => {
-        
+        history.push('/post/' + item.doc);
     }
 
     return (

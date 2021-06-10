@@ -5,13 +5,14 @@ import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import ChatBubbleBorderIcon from '@material-ui/icons/ChatBubbleOutline';
 import IconButton from '@material-ui/core/IconButton';
 import {useState, useContext} from 'react';
-import ItemImage from '../MerchInfo/Components/ItemImage';
 import { likeComment, saveComment, unlikeComment, unsaveComment } from '../utils/CommentControls';
 import {UserContext} from '../contexts/UserContextProvider';
 import { likeBlogPost, saveBlogPost, unlikeBlogPost, unsaveBlogPost } from '../utils/BlogPostControls';
 import { likeForumPost, saveForumPost, unlikeForumPost, unsaveForumPost } from '../utils/ForumPostControls';
+import {useHistory} from 'react-router-dom';
 
 const LSCBar = ({item, likes, saves, comments, liked, saved}) => {
+    const history = useHistory();
     const {user} = useContext(UserContext);
     const [likedStat, setLiked] = useState(liked);
     const [savedStat, setSaved] = useState(saved);
@@ -54,7 +55,7 @@ const LSCBar = ({item, likes, saves, comments, liked, saved}) => {
     }
 
     const handleChatClick = () => {
-        
+        history.push('/post/' + item.doc);
     }
 
     return (
