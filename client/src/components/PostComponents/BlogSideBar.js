@@ -7,7 +7,7 @@ import {Grid, makeStyles, List, ListItem, Button} from '@material-ui/core';
 
 const useStyles = makeStyles({
     sideBarRoot: {
-        width: '20%',
+        width: '100%',
     },
     sideBarList: {
         maxHeight: '100%',
@@ -23,7 +23,9 @@ const useStyles = makeStyles({
         paddingLeft: 25,
     }
 });
-function BlogSideBar() {
+
+function BlogSideBar({setPost}) {
+    console.log(setPost);
     const [blogPosts, setBlogPosts] = useState([]);
     const [visiblePostsIndex, setVisiblePostsIndex] = useState(0);
     const [selected, setSelected] = useState("");
@@ -48,6 +50,7 @@ function BlogSideBar() {
             .then(posts => {
                 const newPosts = baseSort(posts, curSort);
                 setBlogPosts(newPosts);
+                setPost(newPosts[0].doc)
                 if(selected === "") {
                     setSelected(newPosts[0].doc);
                 }
@@ -64,7 +67,7 @@ function BlogSideBar() {
                     return (
                         <ListItem className={classes.sideBarThumbnail}>
                             <BlogThumbnail BlogPost={post} selected={selected===post.doc} 
-                                handleSelect={()=>setSelected(post.doc)}/>
+                                handleSelect={()=>{setSelected(post.doc); setPost(post.doc)}}/>
                         </ListItem>
                     );
                 })}
