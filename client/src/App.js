@@ -14,6 +14,8 @@ import UserPage from './components/UserPage';
 import ForumPostPage from "./components/ForumPostPage";
 import BlogPostPage from './components/BlogPostPage';
 import CommentPage from './components/CommentPage';
+import {ForumDash} from './components/PostComponents/PostDashes';
+import BlogSideBar from './components/PostComponents/BlogSideBar';
 
 function App() {
   return (
@@ -27,7 +29,7 @@ function App() {
           <Route path="/item" component={MerchInfo}></Route>
           <Route path="/signup" component={Signup}></Route>
           <Route path="/shop" component={MerchandisePage}></Route>
-          <Route path="/blog" component={BlogDash}></Route>
+          <Route path="/blog" component={BlogSideBar}></Route>
           <Route path="/forum" component={ForumDash}></Route>
           <Route path="/forum_posts" component={ForumPostPage}></Route>
           <Route path="/blog_posts" component={BlogPostPage}></Route>

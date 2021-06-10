@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import BlogPreview from './BlogPreview';
 import ForumPreview from './ForumPreview';
-import {getPosts, dateSort, syncUserPostInteraction, asyncUserPostInteraction} from './../../utils/PostDashControls';
+import {getPosts, baseSort, syncUserPostInteraction, asyncUserPostInteraction} from './../../utils/PostDashControls';
 import {likeBlogPost, unlikeBlogPost, saveBlogPost, unsaveBlogPost} from './../../utils/BlogPostControls';
 import {likeForumPost, unlikeForumPost, saveForumPost, unsaveForumPost} from './../../utils/ForumPostControls';
 import {UserContext} from './../../contexts/UserContextProvider';
@@ -15,10 +15,10 @@ function BlogDash() {
         getPosts("blog")
             .then(posts => {
                 console.log(posts);
-                const newPosts = dateSort(posts);
+                const newPosts = baseSort(posts, "date");
                 setBlogPosts(newPosts);
             });
-    }, []);
+    }, [user]);
 
     const handleLike = (doc, toAdd) => {
         syncUserPostInteraction(likedPosts, setLikedPosts, blogPosts, setBlogPosts, doc, toAdd, "likes");

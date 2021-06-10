@@ -17,6 +17,16 @@ const dateSort = (posts) => {
     return newPosts;
 }
 
+// sorts the given posts according to the property name provided in propName (sends 'date' sorts to dateSort funct)
+const baseSort = (posts, propName) => {
+    const newPosts = posts.slice();
+    if(propName === "date") {
+        return dateSort(newPosts);
+    }
+    newPosts.sort((post1, post2) => post1[propName] < post2[propName] ? 1 : -1);
+    return newPosts;
+}
+
 /** performs the local, synchronous aspect of user-post interactions
  * 
  * @param {Array} userPostList - list of posts the user has interacted with ('liked' or 'saved' posts)  
@@ -72,4 +82,4 @@ const asyncUserPostInteraction = async (user, setUser, helperFunct, doc) => {
     });
 }
 
-export {dateSort, getPosts, syncUserPostInteraction, asyncUserPostInteraction};
+export {baseSort, getPosts, syncUserPostInteraction, asyncUserPostInteraction};
