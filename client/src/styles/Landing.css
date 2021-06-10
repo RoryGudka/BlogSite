@@ -52,7 +52,7 @@
     color:lightgrey;
     transition:0.1s color;
     font-size:20px;
-    padding:0 10px 20px 10px
+    padding:0 10px 10px 10px;
 }
 
 .footLinks:hover {

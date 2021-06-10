@@ -10,7 +10,7 @@ function BlogDash() {
     const [blogPosts, setBlogPosts] = useState([]);
     const {user, setUser} = useContext(UserContext);
     const [likedPosts, setLikedPosts] = useState(user===null?[]:user.blog_posts_liked);
-    const [savedPosts, setSavedPosts] = useState(user===null?[]:user.blog_posts_bookmarked);
+    const [savedPosts, setSavedPosts] = useState(user===null?[]:user.blog_posts_saved);
     useEffect(() => {
         getPosts("blog")
             .then(posts => {
@@ -49,10 +49,8 @@ function ForumDash() {
     const [forumPosts, setForumPosts] = useState([]);
     const {user, setUser} = useContext(UserContext);
     const [likedPosts, setLikedPosts] = useState(user===null?[]:user.forum_posts_liked);
-    const [savedPosts, setSavedPosts] = useState(user===null?[]:user.forum_posts_bookmarked);
-    console.log(user);
+    const [savedPosts, setSavedPosts] = useState(user===null?[]:user.forum_posts_saved);
     useEffect(() => {
-        console.log('useEffecting');
         if(user !== null) {
             getPosts("forum", user.username, user.token)
                 .then(posts => {

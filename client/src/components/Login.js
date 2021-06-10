@@ -10,8 +10,10 @@ import {useStyles} from '../styles/Button';
 import {likeComment, unlikeComment, saveComment, unsaveComment, addComment} from '../utils/CommentControls';
 import {likeForumPost, unlikeForumPost, saveForumPost, unsaveForumPost} from '../utils/ForumPostControls';
 import {likeBlogPost, unlikeBlogPost, saveBlogPost, unsaveBlogPost} from '../utils/BlogPostControls';
+import {getMerchandise} from '../utils/MerchandiseControls';
 
 const Login = (props) => {
+  const classes = useStyles();
   const history = useHistory();
   const { user, setUser } = useContext(UserContext);
   const [username, setUsername] = useState(user !== null ? user.uid : "");
@@ -38,6 +40,9 @@ const Login = (props) => {
         setUser({
           ...res
         });
+        getMerchandise("skQjh67y72j1QLQ2xXTT", {...res}).then(res => {
+          console.log(res);
+        })
         history.push("/");
       }
     });
@@ -61,7 +66,7 @@ const Login = (props) => {
           filter:"brightness(100%)",
           zIndex:2
         }}
-        src="https://images.unsplash.com/photo-1588072432836-e10032774350?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1052&q=80"
+        src="https://images.unsplash.com/photo-1437719417032-8595fd9e9dc6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=667&q=80"
       />
       <Paper
         style={{
@@ -117,6 +122,7 @@ const Login = (props) => {
                 variant="contained"
                 color="primary"
                 onClick={token !== undefined ? handleLogout : handleLogin}
+                classes={classes}
               >
                 {token !== undefined ? "Log out" : "Log in"}
               </Button>
