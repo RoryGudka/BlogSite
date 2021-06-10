@@ -10,16 +10,6 @@ import {useLocation} from 'react-router-dom';
 import {useStyles} from '../styles/Button';
 import UserAvatar from './UserAvatar';
 
-/*
-<Navbar.Text style={{color:"lightgrey"}}>Signed in as: {user.username}</Navbar.Text>
-            <Navbar.Text style={{ marginLeft: "4%" }}>
-              <Link to="/" onClick={() => {
-                  setUser(null);
-              }}>
-                Logout
-              </Link>
-            </Navbar.Text>
-            */
 export default function NavBar() {
   const { user, setUser } = useContext(UserContext);
   const location = useLocation();
