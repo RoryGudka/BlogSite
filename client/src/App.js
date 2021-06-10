@@ -5,7 +5,7 @@ import MerchandisePage from "./components/MerchandisePage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import UserContextProvider from "./contexts/UserContextProvider";
 import Paper from "@material-ui/core/Paper";
-import MerchInfo from "./MerchInfo/MerchInfo";
+import MerchInfo from "./components/MerchInfo/MerchInfo";
 import NavBar from "./components/NavBar";
 import Signup from "./components/Signup";
 import Footer from "./components/Footer";
@@ -15,17 +15,18 @@ import UserPage from "./components/UserPage";
 import ForumPostPage from "./components/ForumPostPage";
 import BlogPostPage from "./components/BlogPostPage";
 import CommentPage from "./components/CommentPage";
+import BlogWrapper from "./components/BlogWrapper";
 
 function App() {
   return (
     <Router>
       <UserContextProvider>
         <div id="bodyColor"></div>
-        <Navbar />
+        <NavBar />
         <Switch>
           <Route path="/" exact component={Landing}></Route>
           <Route path="/login" component={Login}></Route>
-          <Route path="/item" component={MerchInfo}></Route>
+          <Route path="/item/:itemId" component={MerchInfo}></Route>
           <Route path="/signup" component={Signup}></Route>
           <Route path="/shop" component={MerchandisePage}></Route>
           <Route path="/blog" component={BlogWrapper}></Route>
