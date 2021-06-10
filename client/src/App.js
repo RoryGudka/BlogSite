@@ -11,6 +11,7 @@ import Signup from "./components/Signup";
 import Footer from "./components/Footer";
 import {BlogDash, ForumDash} from './components/PostComponents/PostDashes';
 import UserPage from './components/UserPage';
+import ForumPostPage from "./components/ForumPostPage";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path="/comments" component={ForumDash}></Route>
           <Route path="/user" component={UserPage}></Route>
         </Switch>
+        <ForumPostPage/>
         <Footer />
       </UserContextProvider>
     </Router>
