@@ -1,0 +1,51 @@
+.titleP {
+    font-size:24px;
+    margin-top:0;
+    margin-bottom:10px;
+}
+
+.usernameP {
+    font-size:14px;
+    color:grey;
+    margin-bottom:10px;
+}
+
+.topicP {
+    font-size:14px;
+    color:grey;
+    margin-bottom:0px
+}
+
+.innerHTML P {
+    margin:10px 0;
+}
+
+.innerHTML IMG {
+    width:100%;
+    margin:20px 0;
+}
+
+.contentWrapper {
+    height:200px;
+    overflow:hidden;
+}
+
+.contentCover {
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:30%;
+    background-image:linear-gradient(to top, rgb(255, 255, 255, 1), rgb(255, 255, 255, 0));
+}
+
+.viewMore {
+    text-align:center;
+    font-size:16px;
+    color:grey;
+    margin:0;
+}
+
+.viewMore:hover {
+    cursor:pointer;
+}

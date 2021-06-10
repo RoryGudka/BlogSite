@@ -16,6 +16,8 @@ import {getCommentList} from '../utils/CommentControls';
 import {getBlogPostList} from '../utils/BlogPostControls';
 import {getForumPostList} from '../utils/ForumPostControls';
 import PostPreview from './PostComponents/ForumPreview';
+import UserPageItem from './UserPageItem';
+import '../styles/UserPage.css';
 
 
 
@@ -23,6 +25,8 @@ const UserPage = props => {
     const [likes, setLikes] = useState([]);
     const [saves, setSaves] = useState([]);
     const [comments, setComments] = useState([]);
+    const [blogPosts, setBlogPosts] = useState([]);
+    const [forumPosts, setForumPosts] = useState([]);
     const [selected, setSelected] = useState(0);
     const {user} = useContext(UserContext);
 
@@ -30,22 +34,40 @@ const UserPage = props => {
         if(user !== null) {
             let newLikes = [];
             getCommentList(user.comments_liked, user).then(res => {
-                if(res) newLikes = [...newLikes, ...res];
+                if(res) {
+                    newLikes = [...newLikes, ...res];
+                    setComments([...comments, ...res]);
+                }
                 getBlogPostList(user.blog_posts_liked, user).then(res => {
-                    if(res) newLikes = [...newLikes, ...res];
+                    if(res) {
+                        newLikes = [...newLikes, ...res];
+                        setBlogPosts([...blogPosts, ...res]);
+                    }
                     getForumPostList(user.forum_posts_liked, user).then(res => {
-                        if(res) newLikes = [...newLikes, ...res];
+                        if(res) {
+                            newLikes = [...newLikes, ...res];
+                            setForumPosts([...forumPosts, ...res]);
+                        }
                         setLikes(newLikes)
                     });
                 })
             });
             let newSaves = [];
             getCommentList(user.comments_saved, user).then(res => {
-                if(res) newSaves = [...newSaves, ...res];
+                if(res) {
+                    newSaves = [...newSaves, ...res];
+                    setComments([...comments, ...res]);
+                }
                 getBlogPostList(user.blog_posts_saved, user).then(res => {
-                    if(res) newSaves = [...newSaves, ...res];
+                    if(res) {
+                        newSaves = [...newSaves, ...res];
+                        setBlogPosts([...blogPosts, ...res]);
+                    }
                     getForumPostList(user.forum_posts_saved, user).then(res => {
-                        if(res) newSaves = [...newSaves, ...res];
+                        if(res) {
+                            newSaves = [...newSaves, ...res];
+                            setForumPosts([...forumPosts, ...res]);
+                        }
                         setSaves(newSaves)
                     });
                 })
@@ -57,17 +79,13 @@ const UserPage = props => {
 
     const likesHTML = likes.map(item => {
         return (
-            <Paper>
-                <p>{item.content}</p>
-            </Paper>
+            <UserPageItem item={item} likes={likes} saves={saves} />
         )
     })
 
     const savesHTML = saves.map(item => {
         return (
-            <Paper>
-                <p>{item.content}</p>
-            </Paper>
+            <UserPageItem item={item} likes={likes} saves={saves} />
         )
     })
 
