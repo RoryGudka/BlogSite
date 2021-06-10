@@ -25,8 +25,8 @@
 
 #userMenu {
     position:absolute;
-    top:40px;
-    right:40px;
+    top:55px;
+    right:0px;
     background-color:white;
     border-radius:5px;
     z-index:3;

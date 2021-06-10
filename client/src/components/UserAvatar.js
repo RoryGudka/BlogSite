@@ -25,9 +25,9 @@ const UserAvatar = props => {
             </IconButton>
             {menuOpen && (
                 <div id="userMenu">
-                    <Link to="/users"><p>Profile</p></Link>
-                    <Link to="/cart"><p>Shopping Cart</p></Link>
-                    <Link to="/" onClick={() => setUser(null)}><p>Log out</p></Link>
+                    <Link to="/user" onClick={() => setMenuOpen(false)}><p>Profile</p></Link>
+                    <Link to="/cart" onClick={() => setMenuOpen(false)}><p>Shopping Cart</p></Link>
+                    <Link to="/" onClick={() => {setMenuOpen(false);setUser(null)}}><p>Log out</p></Link>
                 </div>
             )}
         </Fragment>
