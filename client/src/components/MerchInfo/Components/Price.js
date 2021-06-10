@@ -6,7 +6,7 @@ import { Typography } from '@material-ui/core';
  * @returns the custom tag showing the price of the item
  */
 function Price({ item }) {
-	const price = item.Price;
+	const price = item.price;
 	return <Typography variant="subtitle1"> ${price}</Typography>;
 }
 

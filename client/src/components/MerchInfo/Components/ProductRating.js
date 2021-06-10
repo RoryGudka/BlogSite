@@ -8,7 +8,7 @@ import { Rating } from '@material-ui/lab';
  */
 function ProductRating({ item }) {
 	//once again hard coding the simulation of a given item.
-	const rating = item.Rating;
+	const rating = item.rating;
 	return (
 		<Rating
 			name="half-rating-read"
