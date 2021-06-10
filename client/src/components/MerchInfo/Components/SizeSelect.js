@@ -35,7 +35,7 @@ function SizeSelect({ item, classes, setSize, size }) {
 					<MenuItem value="">
 						<em>None</em>
 					</MenuItem>
-					{item.Sizes.map((size) => {
+					{item.sizes.map((size) => {
 						return <MenuItem value={size}> {size} </MenuItem>;
 					})}
 				</Select>

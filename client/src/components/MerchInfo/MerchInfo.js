@@ -29,25 +29,13 @@ const data = [
 	},
 	{
 		doc_id: 'ei48rh33848h',
-		Price: '109.99',
-		Title: 'The Shirt',
-		Images: [
-			'https://images.unsplash.com/photo-1563389234808-52344934935c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
-			'https://images.unsplash.com/photo-1563389494935-83e181bd6767?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2581&q=80',
-		],
-		Rating: '4.2',
-		Sizes: ['Small', 'Medium', 'Large'],
-		Description: 'A Really cool shirt',
-		Category: 'Apparel',
-	},
-	{
-		doc_id: 'u38r7843422',
-		Price: '22.99',
-		Image: 'url',
-		Rating: '2.7',
-		Sizes: ['One Size Fits All'],
-		Description: 'A lame hat',
-		Category: 'Hats',
+		price: '109.99',
+		name: 'The Shirt',
+		img: 'https://images.unsplash.com/photo-1563389234808-52344934935c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
+		rating: '4.2',
+		sizes: ['Small', 'Medium', 'Large'],
+		description: 'A Really cool shirt',
+		category: 'Apparel',
 	},
 ];
 
@@ -93,13 +81,14 @@ const useStyles = makeStyles((theme) => ({
  *
  */
 function MerchInfo() {
-	const [item, setItem] = useState();
-
-	useEffect(() => {
-		getMerchandise().then((res) => {
-			setItem(res);
-		});
-	}, []);
+	// const [item, setItem] = useState();
+	const item = data[1];
+	// setItem(data);
+	// useEffect(() => {
+	// 	getMerchandise().then((res) => {
+	// 		setItem(res);
+	// 	});
+	// }, []);
 
 	const [image, setImage] = useState('');
 	const [size, setSize] = useState('');
@@ -108,7 +97,7 @@ function MerchInfo() {
 	const shoppingCart = []; //hardcoded to simulate a database collection of objects
 
 	//need to conditionally set the image
-	const images = item.Images;
+	// const images = item.Images;
 	return (
 		<div className={gridClasses.root}>
 			<Paper className={gridClasses.paper}>
@@ -136,12 +125,12 @@ function MerchInfo() {
 											<ProductRating item={item} />
 										</Grid>
 
-										{/* <SizeSelect
+										<SizeSelect
 											size={size}
 											setSize={setSize}
 											item={item}
 											classes={classes}
-										/> */}
+										/>
 									</Grid>
 									<Grid item>
 										<AddButton
