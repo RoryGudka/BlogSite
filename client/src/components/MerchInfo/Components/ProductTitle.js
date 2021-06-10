@@ -8,7 +8,7 @@ import ItemImage from './ItemImage';
 function ProductTitle({ item }) {
 	// const item = merchData[1];
 
-	return <h1>{item.Title}</h1>;
+	return <h1>{item.name}</h1>;
 }
 
 export default ProductTitle;

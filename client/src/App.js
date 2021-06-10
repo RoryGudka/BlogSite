@@ -21,14 +21,14 @@ function App() {
     <Router>
       <UserContextProvider>
         <div id="bodyColor"></div>
-        <NavBar />
+        <Navbar />
         <Switch>
           <Route path="/" exact component={Landing}></Route>
           <Route path="/login" component={Login}></Route>
           <Route path="/item" component={MerchInfo}></Route>
           <Route path="/signup" component={Signup}></Route>
           <Route path="/shop" component={MerchandisePage}></Route>
-          <Route path="/blog" component={BlogDash}></Route>
+          <Route path="/blog" component={BlogWrapper}></Route>
           <Route path="/forum" component={ForumDash}></Route>
           <Route path="/forum_posts" component={ForumPostPage}></Route>
           <Route path="/blog_posts" component={BlogPostPage}></Route>

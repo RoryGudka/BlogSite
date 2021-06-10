@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import {
 	makeStyles,
 	Grid,
@@ -13,42 +14,10 @@ import Price from './Components/Price';
 import ProductTitle from './Components/ProductTitle';
 import Description from './Components/Description';
 import ProductRating from './Components/ProductRating';
-import AllImages from './Components/AllImages';
-//dummy data
+import { getAllMerchandise } from '../../utils/MerchandiseControls';
+import { getMerchandise } from '../../utils/MerchandiseControls';
 
-const data = [
-	{
-		doc_id: 'IHRhv392840h',
-		Price: '99.99',
-		Image: 'url',
-		Rating: '3.9',
-		Sizes: ['One Size Fits All'],
-		Description: 'A cool hat',
-		Category: 'Hats',
-	},
-	{
-		doc_id: 'ei48rh33848h',
-		Price: '109.99',
-		Title: 'The Shirt',
-		Images: [
-			'https://images.unsplash.com/photo-1563389234808-52344934935c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
-			'https://images.unsplash.com/photo-1563389494935-83e181bd6767?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2581&q=80',
-		],
-		Rating: '4.2',
-		Sizes: ['Small', 'Medium', 'Large'],
-		Description: 'A Really cool shirt',
-		Category: 'Apparel',
-	},
-	{
-		doc_id: 'u38r7843422',
-		Price: '22.99',
-		Image: 'url',
-		Rating: '2.7',
-		Sizes: ['One Size Fits All'],
-		Description: 'A lame hat',
-		Category: 'Hats',
-	},
-];
+//dummy data
 
 //css styling for the grids in this page
 const gridStyles = makeStyles((theme) => ({
@@ -91,15 +60,35 @@ const useStyles = makeStyles((theme) => ({
  * @returns All of the components for the individual shopping site into one page.
  *
  */
+
 function MerchInfo() {
-	const item = data[1]; //hardcoding what would be the fetch for the specific item
-	const [image, setImage] = useState(item.Images[0]);
+	const { itemId } = useParams();
+	const [item, setItem] = useState();
+	//const item = data[1];
+	// setItem(data);
+
+	useEffect(() => {
+		console.log(itemId);
+		getMerchandise(itemId).then((response) => {
+			setItem(response);
+		});
+
+		// getMerchandise().then((res) => {
+		// 	setItem(res);
+		// });
+	}, []);
+
+	const [image, setImage] = useState('');
 	const [size, setSize] = useState('');
 	const gridClasses = gridStyles();
 	const classes = useStyles();
 	const shoppingCart = []; //hardcoded to simulate a database collection of objects
 
-	const images = item.Images;
+	//need to conditionally set the image
+	// const images = item.Images;
+	if (!item) {
+		return <h1> Loading... </h1>;
+	}
 	return (
 		<div className={gridClasses.root}>
 			<Paper className={gridClasses.paper}>
@@ -107,51 +96,50 @@ function MerchInfo() {
 					{' '}
 					<Grid item xs={14} sm={6}>
 						<Grid item container direction="column">
-							<ItemImage image={image} />
+							<ItemImage item={item} />
 						</Grid>
 					</Grid>
 					<Grid item xs={14} sm={6} direction="column">
-						<Paper>
-							{' '}
-							{/* made paper just to see outline */}
-							<Grid item xs={12} sm container>
-								<Grid item xs container direction="column" spacing={2}>
+						{' '}
+						{/* made paper just to see outline */}
+						<Grid item xs={12} sm container>
+							<Grid item xs container direction="column" spacing={2}>
+								<Grid item>
+									<Typography gutterBottom variant="subtitle1">
+										<ProductTitle item={item} />
+									</Typography>
 									<Grid item>
-										<Typography gutterBottom variant="subtitle1">
-											<ProductTitle item={item} />
-										</Typography>
-										<Grid item>
-											<Price item={item} />
-										</Grid>
-										<Grid item>
-											<ProductRating item={item} />
-										</Grid>
+										<Price item={item} />
+									</Grid>
+									<Grid item>
+										<ProductRating item={item} />
+									</Grid>
 
+									{item.sizes && (
 										<SizeSelect
 											size={size}
 											setSize={setSize}
 											item={item}
 											classes={classes}
 										/>
-									</Grid>
-									<Grid item>
-										<AddButton
-											size={size}
-											shoppingCart={shoppingCart}
-											item={item}
-										/>
-									</Grid>
-									<Grid item>
+									)}
+								</Grid>
+								<Grid item>
+									<AddButton
+										size={size}
+										shoppingCart={shoppingCart}
+										item={item}
+									/>
+								</Grid>
+								<Grid item>
+									<Paper>
 										<Typography variant="body2" gutterBottom>
 											<Description item={item} />
 										</Typography>
-									</Grid>
+									</Paper>
 								</Grid>
 							</Grid>
-						</Paper>
-					</Grid>
-					<Grid item>
-						<AllImages item={item} images={images} />
+						</Grid>
 					</Grid>
 				</Grid>
 			</Paper>
