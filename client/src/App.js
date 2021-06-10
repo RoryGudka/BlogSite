@@ -14,7 +14,6 @@ import UserPage from './components/UserPage';
 import ForumPostPage from "./components/ForumPostPage";
 import BlogPostPage from './components/BlogPostPage';
 import CommentPage from './components/CommentPage';
-import {ForumDash} from './components/PostComponents/PostDashes';
 import BlogSideBar from './components/PostComponents/BlogSideBar';
 
 function App() {
