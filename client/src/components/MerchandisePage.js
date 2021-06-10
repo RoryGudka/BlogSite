@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../styles/Merchandise.css";
 import MerchandiseItem from "./MerchandiseItem";
-import { Link } from "react-router-dom";
 import { getAllMerchandise } from "../utils/MerchandiseControls";
 
 const MerchandisePage = () => {
@@ -127,41 +126,41 @@ const MerchandisePage = () => {
         </form>
       </div>
       {merchList && (
-        <div className="merchandise-items-container">
+        <div>
           {renderAll && (
-            <div className="merchandise-items">
-              {merchList.map((item, key) => (
-                <Link to={`/item/${item.doc}`} key={key} className="item-link">
+            <div className="merchandise-items-container">
+              <div className="merchandise-items">
+                {merchList.map((item, key) => (
                   <MerchandiseItem item={item} key={key} />
-                </Link>
-              ))}
+                ))}
+              </div>
             </div>
           )}
           {renderHats && (
-            <div className="merchandise-items">
-              {getAllHats().map((item, key) => (
-                <Link to={`/item/${item.doc}`} key={key} className="item-link">
+            <div className="merchandise-items-container">
+              <div className="merchandise-items">
+                {getAllHats().map((item, key) => (
                   <MerchandiseItem item={item} key={key} />
-                </Link>
-              ))}
+                ))}
+              </div>
             </div>
           )}
           {renderShirts && (
-            <div className="merchandise-items">
-              {getAllShirts().map((item, key) => (
-                <Link to={`/item/${item.doc}`} key={key} className="item-link">
+            <div className="merchandise-items-container">
+              <div className="merchandise-items">
+                {getAllShirts().map((item, key) => (
                   <MerchandiseItem item={item} key={key} />
-                </Link>
-              ))}
+                ))}
+              </div>
             </div>
           )}
           {renderSkincare && (
-            <div className="merchandise-items">
-              {getAllSkincare().map((item, key) => (
-                <Link to={`/item/${item.doc}`} key={key} className="item-link">
+            <div className="merchandise-items-container">
+              <div className="merchandise-items">
+                {getAllSkincare().map((item, key) => (
                   <MerchandiseItem item={item} key={key} />
-                </Link>
-              ))}
+                ))}
+              </div>
             </div>
           )}
         </div>

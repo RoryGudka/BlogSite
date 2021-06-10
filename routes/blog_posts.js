@@ -1,5 +1,37 @@
 module.exports = ({app, db, verifyToken, getAll}) => {
     /**
+     * Returns a list of posts based on the ids provided
+     */
+     app.get("/blog_posts/get_list", (req, res) => {
+        if (verifyToken(req.query.username, req.query.token)) {
+            db.collection("blog_posts")
+            .get()
+            .then((resp) => {
+                results = getAll(resp);
+                let total = [];
+                for(let i = 0; i < results.length; i++) {
+                    for(let j = 0; j < req.query.posts.length; j++) {
+                        if(results[i].doc === req.query.posts[j]) total.push(results[i])
+                    }
+                }
+                res.json({
+                    status:200,
+                    data:total
+                });
+            })
+            .catch((err) => {
+                res.sendStatus(400);
+            });
+        } else {
+            //Catches the case where the token is invalid for the user
+            res.json({
+                status: 400,
+                message: "Invalid token",
+            });
+        }
+    });
+
+    /**
      * Returns an individual blog post
      */
     app.get("/blog_posts/get", (req, res) => {
