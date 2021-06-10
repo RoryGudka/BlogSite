@@ -1,15 +1,7 @@
-<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
 import '../styles/Merchandise.css';
 import MerchandiseItem from './MerchandiseItem';
-import { Link } from 'react-router-dom';
 import { getAllMerchandise } from '../utils/MerchandiseControls';
-=======
-import React, { useState, useEffect } from "react";
-import "../styles/Merchandise.css";
-import MerchandiseItem from "./MerchandiseItem";
-import { getAllMerchandise } from "../utils/MerchandiseControls";
->>>>>>> origin/master
 
 const MerchandisePage = () => {
 	const [merchList, setMerchList] = useState(null);
@@ -96,85 +88,85 @@ const MerchandisePage = () => {
 		setRenderSkincare(type === 'skincare' ? true : false);
 	};
 
-  return (
-    <div className="merchandise-container">
-      <div className="banner">
-        <div className="opacity-layer">
-          <h1 className="banner-text">Shop</h1>
-        </div>
-      </div>
-      <div className="merchandise-options">
-        <div className="mechandise-categories">
-          <button onClick={() => handleOrgClick("all")}>All</button>
-          <button onClick={() => handleOrgClick("shirts")}>Shirts</button>
-          <button onClick={() => handleOrgClick("hats")}>Hats</button>
-          <button onClick={() => handleOrgClick("skincare")}>Skincare</button>
-        </div>
-        <form>
-          <label for="sort">Sort by: </label>
-          <select
-            value={sortBy}
-            onChange={(e) => {
-              setSortBy(e.target.value);
-              if (e.target.value === "featured") setMerchList(sortFeatured());
-              else if (e.target.value === "price-ascending")
-                setMerchList(sortAscendingPrice());
-              else if (e.target.value === "price-descending")
-                setMerchList(sortDescendingPrice());
-              else setMerchList(sortTopRated());
-            }}
-            name="sort"
-            id="sort"
-          >
-            <option value="featured">Featured</option>
-            <option value="price-ascending">Price: Low To High</option>
-            <option value="price-descending">Price: High To Low</option>
-            <option value="top-rated">Top Rated</option>
-          </select>
-        </form>
-      </div>
-      {merchList && (
-        <div>
-          {renderAll && (
-            <div className="merchandise-items-container">
-              <div className="merchandise-items">
-                {merchList.map((item, key) => (
-                  <MerchandiseItem item={item} key={key} />
-                ))}
-              </div>
-            </div>
-          )}
-          {renderHats && (
-            <div className="merchandise-items-container">
-              <div className="merchandise-items">
-                {getAllHats().map((item, key) => (
-                  <MerchandiseItem item={item} key={key} />
-                ))}
-              </div>
-            </div>
-          )}
-          {renderShirts && (
-            <div className="merchandise-items-container">
-              <div className="merchandise-items">
-                {getAllShirts().map((item, key) => (
-                  <MerchandiseItem item={item} key={key} />
-                ))}
-              </div>
-            </div>
-          )}
-          {renderSkincare && (
-            <div className="merchandise-items-container">
-              <div className="merchandise-items">
-                {getAllSkincare().map((item, key) => (
-                  <MerchandiseItem item={item} key={key} />
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-      )}
-    </div>
-  );
+	return (
+		<div className="merchandise-container">
+			<div className="banner">
+				<div className="opacity-layer">
+					<h1 className="banner-text">Shop</h1>
+				</div>
+			</div>
+			<div className="merchandise-options">
+				<div className="mechandise-categories">
+					<button onClick={() => handleOrgClick('all')}>All</button>
+					<button onClick={() => handleOrgClick('shirts')}>Shirts</button>
+					<button onClick={() => handleOrgClick('hats')}>Hats</button>
+					<button onClick={() => handleOrgClick('skincare')}>Skincare</button>
+				</div>
+				<form>
+					<label for="sort">Sort by: </label>
+					<select
+						value={sortBy}
+						onChange={(e) => {
+							setSortBy(e.target.value);
+							if (e.target.value === 'featured') setMerchList(sortFeatured());
+							else if (e.target.value === 'price-ascending')
+								setMerchList(sortAscendingPrice());
+							else if (e.target.value === 'price-descending')
+								setMerchList(sortDescendingPrice());
+							else setMerchList(sortTopRated());
+						}}
+						name="sort"
+						id="sort"
+					>
+						<option value="featured">Featured</option>
+						<option value="price-ascending">Price: Low To High</option>
+						<option value="price-descending">Price: High To Low</option>
+						<option value="top-rated">Top Rated</option>
+					</select>
+				</form>
+			</div>
+			{merchList && (
+				<div>
+					{renderAll && (
+						<div className="merchandise-items-container">
+							<div className="merchandise-items">
+								{merchList.map((item, key) => (
+									<MerchandiseItem item={item} key={key} />
+								))}
+							</div>
+						</div>
+					)}
+					{renderHats && (
+						<div className="merchandise-items-container">
+							<div className="merchandise-items">
+								{getAllHats().map((item, key) => (
+									<MerchandiseItem item={item} key={key} />
+								))}
+							</div>
+						</div>
+					)}
+					{renderShirts && (
+						<div className="merchandise-items-container">
+							<div className="merchandise-items">
+								{getAllShirts().map((item, key) => (
+									<MerchandiseItem item={item} key={key} />
+								))}
+							</div>
+						</div>
+					)}
+					{renderSkincare && (
+						<div className="merchandise-items-container">
+							<div className="merchandise-items">
+								{getAllSkincare().map((item, key) => (
+									<MerchandiseItem item={item} key={key} />
+								))}
+							</div>
+						</div>
+					)}
+				</div>
+			)}
+		</div>
+	);
 };
 
 export default MerchandisePage;

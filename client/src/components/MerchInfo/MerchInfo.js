@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import {
 	makeStyles,
 	Grid,
@@ -15,29 +16,8 @@ import Description from './Components/Description';
 import ProductRating from './Components/ProductRating';
 import { getAllMerchandise } from '../../utils/MerchandiseControls';
 import { getMerchandise } from '../../utils/MerchandiseControls';
-//dummy data
 
-const data = [
-	{
-		doc_id: 'IHRhv392840h',
-		Price: '99.99',
-		Image: 'url',
-		Rating: '3.9',
-		Sizes: ['One Size Fits All'],
-		Description: 'A cool hat',
-		Category: 'Hats',
-	},
-	{
-		doc_id: 'ei48rh33848h',
-		price: '109.99',
-		name: 'The Shirt',
-		img: 'https://images.unsplash.com/photo-1563389234808-52344934935c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
-		rating: '4.2',
-		sizes: ['Small', 'Medium', 'Large'],
-		description: 'A Really cool shirt',
-		category: 'Apparel',
-	},
-];
+//dummy data
 
 //css styling for the grids in this page
 const gridStyles = makeStyles((theme) => ({
@@ -80,15 +60,23 @@ const useStyles = makeStyles((theme) => ({
  * @returns All of the components for the individual shopping site into one page.
  *
  */
+
 function MerchInfo() {
-	// const [item, setItem] = useState();
-	const item = data[1];
+	const { itemId } = useParams();
+	const [item, setItem] = useState();
+	//const item = data[1];
 	// setItem(data);
-	// useEffect(() => {
-	// 	getMerchandise().then((res) => {
-	// 		setItem(res);
-	// 	});
-	// }, []);
+
+	useEffect(() => {
+		console.log(itemId);
+		getMerchandise(itemId).then((response) => {
+			setItem(response);
+		});
+
+		// getMerchandise().then((res) => {
+		// 	setItem(res);
+		// });
+	}, []);
 
 	const [image, setImage] = useState('');
 	const [size, setSize] = useState('');
@@ -98,6 +86,9 @@ function MerchInfo() {
 
 	//need to conditionally set the image
 	// const images = item.Images;
+	if (!item) {
+		return <h1> Loading... </h1>;
+	}
 	return (
 		<div className={gridClasses.root}>
 			<Paper className={gridClasses.paper}>
@@ -109,44 +100,46 @@ function MerchInfo() {
 						</Grid>
 					</Grid>
 					<Grid item xs={14} sm={6} direction="column">
-						<Paper>
-							{' '}
-							{/* made paper just to see outline */}
-							<Grid item xs={12} sm container>
-								<Grid item xs container direction="column" spacing={2}>
+						{' '}
+						{/* made paper just to see outline */}
+						<Grid item xs={12} sm container>
+							<Grid item xs container direction="column" spacing={2}>
+								<Grid item>
+									<Typography gutterBottom variant="subtitle1">
+										<ProductTitle item={item} />
+									</Typography>
 									<Grid item>
-										<Typography gutterBottom variant="subtitle1">
-											<ProductTitle item={item} />
-										</Typography>
-										<Grid item>
-											<Price item={item} />
-										</Grid>
-										<Grid item>
-											<ProductRating item={item} />
-										</Grid>
+										<Price item={item} />
+									</Grid>
+									<Grid item>
+										<ProductRating item={item} />
+									</Grid>
 
+									{item.sizes && (
 										<SizeSelect
 											size={size}
 											setSize={setSize}
 											item={item}
 											classes={classes}
 										/>
-									</Grid>
-									<Grid item>
-										<AddButton
-											size={size}
-											shoppingCart={shoppingCart}
-											item={item}
-										/>
-									</Grid>
-									<Grid item>
+									)}
+								</Grid>
+								<Grid item>
+									<AddButton
+										size={size}
+										shoppingCart={shoppingCart}
+										item={item}
+									/>
+								</Grid>
+								<Grid item>
+									<Paper>
 										<Typography variant="body2" gutterBottom>
 											<Description item={item} />
 										</Typography>
-									</Grid>
+									</Paper>
 								</Grid>
 							</Grid>
-						</Paper>
+						</Grid>
 					</Grid>
 				</Grid>
 			</Paper>

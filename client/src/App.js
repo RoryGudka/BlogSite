@@ -6,8 +6,8 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import UserContextProvider from './contexts/UserContextProvider';
 import Paper from '@material-ui/core/Paper';
 
-import MerchInfo from './MerchInfo/MerchInfo';
-import NavBar from './components/Navbar';
+import MerchInfo from './components/MerchInfo/MerchInfo';
+import Navbar from './components/Navbar';
 import Signup from './components/Signup';
 import Footer from './components/Footer';
 import { BlogDash, ForumDash } from './components/PostComponents/PostDashes';
@@ -19,11 +19,11 @@ function App() {
 		<Router>
 			<UserContextProvider>
 				<div id="bodyColor"></div>
-				<NavBar />
+				<Navbar />
 				<Switch>
 					<Route path="/" exact component={Landing}></Route>
 					<Route path="/login" component={Login}></Route>
-					<Route path="/item" component={MerchInfo}></Route>
+					<Route path="/item/:itemId" component={MerchInfo}></Route>
 					<Route path="/signup" component={Signup}></Route>
 					<Route path="/shop" component={MerchandisePage}></Route>
 					<Route path="/blog" component={BlogDash}></Route>

@@ -21,27 +21,32 @@ function SizeSelect({ item, classes, setSize, size }) {
 	const handleChange = (e) => {
 		setSize(e.target.value);
 	};
+
 	return (
-		<div>
-			<FormControl required className={classes.formControl}>
-				<InputLabel id="demo-simple-select-required-label">Size</InputLabel>
-				<Select
-					labelId="demo-simple-select-required-label"
-					id="demo-simple-select-required"
-					value={size}
-					onChange={handleChange}
-					className={classes.selectEmpty}
-				>
-					<MenuItem value="">
-						<em>None</em>
-					</MenuItem>
-					{item.sizes.map((size) => {
-						return <MenuItem value={size}> {size} </MenuItem>;
-					})}
-				</Select>
-				<FormHelperText>Required</FormHelperText>
-			</FormControl>
-		</div>
+		item.sizes && (
+			<div>
+				<FormControl required className={classes.formControl}>
+					<InputLabel id="demo-simple-select-required-label">Size</InputLabel>
+					<Select
+						labelId="demo-simple-select-required-label"
+						id="demo-simple-select-required"
+						value={size}
+						onChange={handleChange}
+						className={classes.selectEmpty}
+					>
+						<MenuItem value="">
+							<em>None</em>
+						</MenuItem>
+
+						{item.sizes &&
+							item.sizes.map((size) => {
+								return <MenuItem value={size}> {size} </MenuItem>;
+							})}
+					</Select>
+					<FormHelperText>Required</FormHelperText>
+				</FormControl>
+			</div>
+		)
 	);
 }
 
