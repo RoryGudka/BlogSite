@@ -8,7 +8,7 @@ const UserPageItem = ({item, likes, saves}) => {
     const saved = saves.find(p => p.doc === item.doc);
 
     const handleClick = () => {
-        history.push('/post/' + item.doc);
+        history.push('/' + item.type + 's/' + item.doc);
     }
 
     return (

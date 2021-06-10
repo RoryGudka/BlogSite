@@ -26,6 +26,9 @@ function App() {
           <Route path="/shop" component={MerchandisePage}></Route>
           <Route path="/blog" component={BlogDash}></Route>
           <Route path="/forum" component={ForumDash}></Route>
+          <Route path="/forum_posts" component={ForumDash}></Route>
+          <Route path="/blog_posts" component={ForumDash}></Route>
+          <Route path="/comments" component={ForumDash}></Route>
           <Route path="/user" component={UserPage}></Route>
         </Switch>
         <Footer />
