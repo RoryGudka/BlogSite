@@ -13,7 +13,9 @@ const BlogWrapper = props => {
     const [savedPosts, setSavedPosts] = useState(user===null?[]:user.blog_posts_saved);
 
     const handleLike = (doc, toAdd) => {
+        console.log(likedPosts.length);
         syncUserPostInteraction(likedPosts, setLikedPosts, posts, setPosts, doc, toAdd, "likes");
+        console.log(likedPosts.length);
         asyncUserPostInteraction(user, setUser, (toAdd ? likeBlogPost : unlikeBlogPost) , doc);
     }
 
@@ -37,12 +39,12 @@ const BlogWrapper = props => {
             <div id="sideBar" style={{width:"20%", display:"inline-block", verticalAlign:"top"}}>
                 <BlogSideBar posts={posts} liked={likedPosts} saved={savedPosts} 
                     selected={post} setSelected={setPost} loggedIn={user!==null}
-                    handleLike={handleLike}/>
+                    handleLike={handleLike} handleSave={handleSave}/>
             </div>
             <div style={{width:"70%", display:"inline-block", verticalAlign:"top"}}>
                 <BlogPost post={posts.find(p => p.doc === post)} loggedIn={user!==null}
-                    liked={likedPosts.findIndex(p => p.doc === post)>-1?true:false} 
-                    saved={savedPosts.findIndex(p => p.doc === post)>-1?true:false}
+                    liked={likedPosts.findIndex(p => p === post)>-1?true:false} 
+                    saved={savedPosts.findIndex(p => p === post)>-1?true:false}
                     handleLike={handleLike} handleSave={handleSave}/>
             </div>
         </Fragment>

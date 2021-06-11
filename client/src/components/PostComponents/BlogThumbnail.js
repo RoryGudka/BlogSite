@@ -60,7 +60,7 @@ const useStyles = makeStyles(({
     },
 }));
 
-function BlogThumbnail ({BlogPost, liked, saved, selected, handleSelect, loggedIn}) {
+function BlogThumbnail ({BlogPost, liked, saved, selected, handleSelect, loggedIn, handleLike, handleSave}) {
     const [elevated, setElevated] = useState(0);
     const classes = useStyles();
     const history = useHistory();
@@ -71,7 +71,8 @@ function BlogThumbnail ({BlogPost, liked, saved, selected, handleSelect, loggedI
                 <BlogDate date={BlogPost.date} />
                 <BlogTitle title={BlogPost.title} />
                 {BlogPost.img && <BlogImage image={BlogPost.img}/>}
-                <BlogFooter likes={BlogPost.likes} liked={liked} saves={BlogPost.saves} saved={saved} loggedIn={loggedIn}/>
+                <BlogFooter likes={BlogPost.likes} liked={liked} saves={BlogPost.saves} saved={saved} loggedIn={loggedIn}
+                    handleLike={handleLike} handleSave={handleSave}/>
             </CardContent>
         </Card>
     );
@@ -105,13 +106,19 @@ function BlogImage ({image}) {
     );
 }
 
-function BlogFooter ({likes, liked, saves, saved, loggedIn}) {
+function BlogFooter ({likes, liked, saves, saved, loggedIn, handleLike, handleSave}) {
     const classes = useStyles();
     return (
         <div className={classes.footer}>
-            <InteractableIcon type="favorite" interacted={liked} disabled={!loggedIn} handleInteract={(event)=>event.stopPropagation()}/>
+            <InteractableIcon type="favorite" interacted={liked} disabled={!loggedIn} handleInteract={(event)=>{
+                event.stopPropagation();
+                handleLike();
+            }}/>
             <div className={classes.footerText}>{likes}</div>
-            <InteractableIcon type="bookmark" interacted={saved} disabled={!loggedIn} handleInteract={(event)=>event.stopPropagation()}/>
+            <InteractableIcon type="bookmark" interacted={saved} disabled={!loggedIn} handleInteract={(event)=>{
+                event.stopPropagation();
+                handleSave();
+            }}/>
             <div className={classes.footerText}>{saves}</div>
         </div>
     );
