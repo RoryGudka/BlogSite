@@ -59,7 +59,7 @@ module.exports = ({app, db, verifyToken, getAll}) => {
                             ...rest, 
                             token:req.body.token,
                             user_id:req.body.user_id,
-                            cart:newCart
+                            cart:user.cart
                         }
                     });
                 })

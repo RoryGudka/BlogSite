@@ -4,6 +4,7 @@ import {Redirect} from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
 import {Grid, makeStyles, Button} from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
@@ -17,17 +18,19 @@ import PostPreview from './PostComponents/ForumPreview';
 import UserPageItem from './UserPageItem';
 import {useButtonStyles} from './../styles/Buttons';
 import '../styles/UserPage.css';
+import {useHistory} from 'react-router-dom';
 
 
 
 const UserPage = props => {
+    const history = useHistory();
     const [likes, setLikes] = useState([]);
     const [saves, setSaves] = useState([]);
     const [comments, setComments] = useState([]);
     const [blogPosts, setBlogPosts] = useState([]);
     const [forumPosts, setForumPosts] = useState([]);
     const [selected, setSelected] = useState(0);
-    const {user} = useContext(UserContext);
+    const {user, setUser} = useContext(UserContext);
 
     useEffect(() => {
         if(user !== null) {
@@ -91,31 +94,58 @@ const UserPage = props => {
 
     return (
         <Grid container direction="row" justify="space-around">
-            <Paper style={{width: "30%", margin:"20px 0"}} elevation={3}>
-                <Grid container direction="column">
-                    <Grid item style={{textAlign: "center"}}>
-                        <div style={{fontSize: 32, marginTop: "15px", fontWeight: "bold"}}>User Info</div>
+            <div style={{width: "30%", margin:"20px 0"}}>
+                <p style={{fontSize:"28px", textAlign:"center", margin:"15px 0 40px 0"}}>Welcome {user.name}</p>
+                <Paper style={{height:"50vh"}} elevation={3}>
+                    <Grid container direction="column">
+                        <Grid item style={{textAlign: "center"}}>
+                            <div style={{fontSize: 32, marginTop: "15px", fontWeight: "bold"}}>User Info</div>
+                        </Grid>
+                        <br></br>
+                        <div className="infoWrapper">
+                            <p className="infoP">Name: {user.name}</p>
+                            <IconButton style={{bottom:"10px"}}>
+                                <EditIcon />
+                            </IconButton>
+                        </div>
+                        <div className="infoWrapper">
+                            <p className="infoP">User name: {user.username}</p>
+                            <IconButton style={{bottom:"10px"}}>
+                                <EditIcon />
+                            </IconButton>
+                        </div>
+                        <div className="infoWrapper">
+                            <p className="infoP">Email: {user.email}</p>
+                            <IconButton style={{bottom:"10px"}}>
+                                <EditIcon />
+                            </IconButton>
+                        </div>
+                        <div className="infoWrapper">
+                            <p className="infoP pointer"><u>Change password</u></p>
+                        </div>
+                        <div className="infoWrapper">
+                            <p className="infoP pointer" onClick={() => {
+                                history.push('/');
+                                setUser(null);
+                        }}><u>Sign out</u></p>
+                        </div>
                     </Grid>
-                    <div style={{fontSize: 24, marginLeft: "25px", marginTop: "5px"}}>Name: {user.name}</div>
-                    <div style={{fontSize: 24, marginLeft: "25px", marginTop: "5px"}}>User name: {user.username}</div>
-                    <div style={{fontSize: 24, marginLeft: "25px", marginTop: "5px"}}>Email: {user.email}</div>
-                    <div>
-                        <Button variant="contained">Reset password</Button>
-                        <Button variant="contained">Sign Out</Button>
-                    </div>
-                </Grid>
-            </Paper>
+                </Paper>
+            </div>
             <Paper style={{width:"40%", padding:"10px", margin:"20px 0"}} elevation={3}>
                 <Paper style={{ width:"100%",textAlign:'center', marginBottom:'20px'}} elevation={3}>
                     <IconButton onClick={() => setSelected(0)}>
                         {selected === 0 ? <FavoriteIcon style={{color:'var(--Secondary)'}} /> : <FavoriteBorderIcon style={{color:'var(--Secondary)'}} />}
                     </IconButton>
+                    <p style={{display:"inline-block"}}>Likes</p>
                     <IconButton onClick={() => setSelected(1)}>
                         {selected === 1 ? <BookmarkIcon style={{color:'var(--Secondary)'}} /> : <BookmarkBorderIcon style={{color:'var(--Secondary)'}} />}
                     </IconButton>
+                    <p style={{display:"inline-block"}}>Saves</p>
                     <IconButton onClick={() => setSelected(2)}>
                         {selected === 2 ? <ChatBubbleIcon style={{color:'var(--Secondary)'}} /> : <ChatBubbleBorderIcon style={{color:'var(--Secondary)'}} />}
                     </IconButton>
+                    <p style={{display:"inline-block"}}>Comments</p>
                 </Paper>
                 {selected === 0 && likesHTML}
                 {selected === 1 && savesHTML}
