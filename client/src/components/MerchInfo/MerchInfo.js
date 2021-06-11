@@ -23,6 +23,7 @@ import { UserContext } from '../../contexts/UserContextProvider';
 //css styling for the grids in this page
 const gridStyles = makeStyles((theme) => ({
 	root: {
+		margin: '40px',
 		flexGrow: 1,
 	},
 	paper: {
@@ -37,7 +38,7 @@ const gridStyles = makeStyles((theme) => ({
 		height: 128,
 	},
 	img: {
-		margin: 'auto',
+		margin: '40px',
 		display: 'block',
 		maxWidth: '100%',
 		maxHeight: '100%',
@@ -126,6 +127,7 @@ function MerchInfo() {
 										/>
 									)}
 								</Grid>
+								<br></br>
 								<Grid item>
 									<CartButton
 										itemID={itemId}
@@ -140,6 +142,7 @@ function MerchInfo() {
 										item={item}
 									/> */}
 								</Grid>
+
 								<Grid item>
 									<Typography variant="body2" gutterBottom>
 										<Description item={item} />
