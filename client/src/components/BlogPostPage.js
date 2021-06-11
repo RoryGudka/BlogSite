@@ -7,7 +7,6 @@ import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
-import ReplyIcon from '@material-ui/icons/Reply';
 import { getCommentList, likeComment, unlikeComment, saveComment, unsaveComment } from "../utils/CommentControls";
 import { 
     getBlogPost, 
@@ -19,6 +18,7 @@ import {
 import { UserContext } from "../contexts/UserContextProvider";
 import {useLocation, useHistory} from 'react-router-dom';
 import CBFItem from './CBFItem';
+import Comment from './Comment';
 
 function BlogPostPage() {
     const history = useHistory();
@@ -37,11 +37,8 @@ function BlogPostPage() {
     const [clickedLikeComment, setClickedLikeComment] = useState(false);
     const [clickedSaveComment, setClickedSaveComment] = useState(false);
 
-    const [reply, setReply] = useState(false);
-
-    //gets and displays main post and first level comments
-    useEffect(() => {
-        //fetchBlogPosts();
+    //function that gets blog posts and comments from database
+    const getPost = () => {
         getBlogPost(location, user).then((res) => {
             setPostID(location);
             //console.log(res);
@@ -51,6 +48,12 @@ function BlogPostPage() {
             });
             setPost(res);
             });
+    }
+
+    //gets and displays main post and first level comments
+    useEffect(() => {
+        //fetchBlogPosts();
+        getPost();
     }, [location, user, updated, clickedLike, clickedSave])
 
     //functionality to buttons on post
@@ -159,15 +162,6 @@ function BlogPostPage() {
         setClickedSaveComment(false);
     }
 
-    const handleShow = (comments, number) => {
-
-        console.log('alskdfj')
-    }
-
-    const handleHide = (comments, number) => {
-        console.log('alsdkfja')
-    }
-
     const item = post;
     return (
         <div>
@@ -195,6 +189,9 @@ function BlogPostPage() {
                         ))}
                     </Paper>
                 }
+            </div>
+            <div>
+                <Comment propsInfo={['blog_posts', postID, getPost]}/>
             </div>
         </div>
     )

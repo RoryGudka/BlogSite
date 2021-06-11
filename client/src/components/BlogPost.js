@@ -51,7 +51,7 @@ function BlogIcons ({likes, saves, loggedIn, liked, saved, comments, handleLike,
             <InteractableIcon interacted={saved} disabled={!loggedIn} type="bookmark" 
                 className={classes.footerIcon} handleInteract={handleSave}/>
             <span className={classes.footerNumber}>{saves}</span>
-            <InteractableIcon interacted={false} disabled={!loggedIn} type="comment" 
+            <InteractableIcon interacted={false} disabled={false} type="comment" 
                 className={classes.footerIcon} handleInteract={handleComment}/>
             <span className={classes.footerNumber}>{comments}</span>
         </Grid>
