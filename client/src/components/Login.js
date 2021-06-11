@@ -11,7 +11,7 @@ import {likeComment, unlikeComment, saveComment, unsaveComment, addComment} from
 import {likeForumPost, unlikeForumPost, saveForumPost, unsaveForumPost} from '../utils/ForumPostControls';
 import {likeBlogPost, unlikeBlogPost, saveBlogPost, unsaveBlogPost} from '../utils/BlogPostControls';
 import {getMerchandise} from '../utils/MerchandiseControls';
-import {addToCart, removeFromCart} from '../utils/CartUtils';
+import {addToCart, removeFromCart} from '../utils/CartControls';
 
 const Login = (props) => {
   const classes = useStyles();
