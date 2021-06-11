@@ -196,6 +196,7 @@ module.exports = ({app, db, verifyToken, getAll}) => {
     });
 
     app.post("/comments/add", (req, res) => {
+        console.log(req.body);
         if (verifyToken(req.body.username, req.body.token)) {
             if(req.body.table === "blog_posts" || req.body.table === "comments" || req.body.table === "forum_posts") {
                 db.collection("comments")
@@ -223,10 +224,12 @@ module.exports = ({app, db, verifyToken, getAll}) => {
                                 });
                             })
                         }).catch(err => {
+                            console.log(err);
                             res.sendStatus(400);
                         })
                     })
                     .catch((err) => {
+                        console.log(err);
                         res.sendStatus(400);
                 });
             }

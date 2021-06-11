@@ -1,18 +1,35 @@
 .post {
-    left: 1%;
-    width: 80%;
-    padding: 20px 20px 20px 20px;
+    left: 15%;
+    width: 70%;
+    padding: 20px 30px;
     margin-top: 10px;
     margin-bottom: 20px;
 }
 
+.commentWrapper {
+    width:70%;
+    left:15%;
+    padding:20px;
+    margin:40px 0;
+}
+
 .comment-1 {
-    left: 4%;
-    width: 80%;
-    padding: 20px 20px 20px 20px;
+    padding: 20px 30px;
     margin-bottom: 20px;
 }
 
 .blogList::-webkit-scrollbar {
     display: none;
+}
+
+.commentsSectionP {
+    text-align:center;
+    font-size:26px;
+}
+
+.logInAdvisor {
+    top:30vh;
+    text-align:center;
+    font-size:32px;
+    color:grey;
 }

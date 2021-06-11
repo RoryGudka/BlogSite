@@ -1,5 +1,6 @@
 * {
   position: relative;
+  font-family: 'Inter', sans-serif;
 }
 
 body {
@@ -9,7 +10,7 @@ body {
 :root {
   --Primary: #0076be;
   --Secondary: #48bf91;
-  --Background: #cff4d2;
+  --Background: #d1ecd1;
 }
 
 #bodyColor {

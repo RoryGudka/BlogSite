@@ -20,9 +20,9 @@ const useStyles = makeStyles({
     sideBarMenu: {
         marginBottom: 5,
     },
-    chips: {
-        color: "var(--Primary)",
-        borderColor: "var(--Primary)",
+    unFilledChip: {
+        color: "var(--Secondary)",
+        borderColor: "var(--Secondary)",
     },
     sortingMenu: {
         paddingRight: 25,
@@ -82,6 +82,7 @@ function BlogSideBar({posts, liked, saved, selected, setSelected, loggedIn, hand
 
 function BlogNavBar ({curSort, handleSort, handleViewShift, atMin, atMax}) {
     const classes = useStyles();
+    const buttonClasses = useButtonStyles();
     return(
         <Grid container direction="column" className={classes.sideBarMenu}>
             <Grid item>
@@ -90,21 +91,27 @@ function BlogNavBar ({curSort, handleSort, handleViewShift, atMin, atMax}) {
                         <Grid container direction="column">
                             <InteractableIcon size="large" interacted={curSort!=="date"} disabled={curSort==="date"} 
                                 type="recent" handleInteract={()=>handleSort("date")}/>
-                            <Chip label="Recent" variant="outlined" className={classes.chips}/>
+                            <Chip label="Recent" onClick={curSort==="date"?false:()=>handleSort("date")} 
+                                variant={curSort==="date"?"outlined":"default"} 
+                                className={curSort==="date"?classes.unFilledChip:buttonClasses.secondaryRoot}/>
                         </Grid>
                     </Grid>
                     <Grid item>
                         <Grid container direction="column">
                             <InteractableIcon size="large" interacted={curSort!=="likes"} disabled={curSort==="likes"} 
                                 type="favorite" handleInteract={()=>handleSort("likes")}/>
-                            <Chip label="Likes" variant="outlined" className={classes.chips}/>
+                            <Chip label="Likes" onClick={curSort==="likes"?false:()=>handleSort("likes")} 
+                                variant={curSort==="likes"?"outlined":"default"} 
+                                className={curSort==="likes"?classes.unFilledChip:buttonClasses.secondaryRoot}/>
                         </Grid>
                     </Grid>
                     <Grid item>
                         <Grid container direction="column">
                             <InteractableIcon size="large" interacted={curSort!=="saves"} disabled={curSort==="saves"} 
                                 type="bookmark" handleInteract={()=>handleSort("saves")}/>
-                            <Chip label="Saves" variant="outlined" className={classes.chips}/>
+                            <Chip label="Saves" onClick={curSort==="saves"?false:()=>handleSort("saves")} 
+                                variant={curSort==="saves"?"outlined":"default"} 
+                                className={curSort==="saves"?classes.unFilledChip:buttonClasses.secondaryRoot}/>
                         </Grid>
                     </Grid>
                 </Grid>
