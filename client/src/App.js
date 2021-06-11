@@ -12,7 +12,7 @@ import Signup from "./components/Signup";
 import Footer from "./components/Footer";
 import { BlogDash, ForumDash } from "./components/PostComponents/PostDashes";
 import UserPage from "./components/UserPage";
-
+import ShoppingCart from "./components/ShoppingCart";
 import ForumPostPage from "./components/ForumPostPage";
 import BlogPostPage from "./components/BlogPostPage";
 import CommentPage from "./components/CommentPage";
@@ -37,6 +37,7 @@ function App() {
             <Route path="/login" component={Login}></Route>
             <Route path="/item/:itemId" component={MerchInfo}></Route>
             <Route path="/signup" component={Signup}></Route>
+            <Route path="/cart" component={ShoppingCart}></Route>
             <Route path="/shop" component={MerchandisePage}></Route>
             <Route path="/blog" component={BlogWrapper}></Route>
             <Route path="/forum" component={ForumDash}></Route>
