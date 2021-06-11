@@ -9,6 +9,7 @@ import MerchInfo from "./components/MerchInfo/MerchInfo";
 import NavBar from "./components/NavBar";
 import Signup from "./components/Signup";
 import Footer from "./components/Footer";
+import About from "./components/About";
 import ShoppingCart from "./components/ShoppingCart";
 import { BlogDash, ForumDash } from "./components/PostComponents/PostDashes";
 import UserPage from "./components/UserPage";

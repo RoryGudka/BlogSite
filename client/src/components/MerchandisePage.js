@@ -1,20 +1,16 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/Merchandise.css";
 import MerchandiseItem from "./MerchandiseItem";
 import { getAllMerchandise } from "../utils/MerchandiseControls";
-import UserContext from "../contexts/UserContextProvider";
 
 const MerchandisePage = () => {
   const [merchList, setMerchList] = useState(null);
   const [renderAll, setRenderAll] = useState(true);
-  const [renderHats, setRenderHats] = useState(false);
-  const [renderShirts, setRenderShirts] = useState(false);
+  const [renderApparel, setRenderApparel] = useState(false);
+  const [renderAcc, setRenderAcc] = useState(false);
   const [renderSkincare, setRenderSkincare] = useState(false);
 
   const [sortBy, setSortBy] = useState("Featured");
-
-  //   const { user, setUser } = useContext(UserContext);
-
   /**
    * gets all merchandise from Firestore database and stores it into the state variable: merchList
    */
@@ -23,19 +19,20 @@ const MerchandisePage = () => {
       setMerchList(res);
     });
   }, []);
+
   /**
    *
    * @returns a list of all hats in merchList
    */
-  const getAllHats = () => {
-    return merchList.filter((item) => item.category === "hats");
+  const getAllApparel = () => {
+    return merchList.filter((item) => item.category === "app");
   };
   /**
    *
    * @returns a list of all shirts in merchList
    */
-  const getAllShirts = () => {
-    return merchList.filter((item) => item.category === "shirts");
+  const getAllAcc = () => {
+    return merchList.filter((item) => item.category === "acc");
   };
   /**
    *
@@ -87,8 +84,8 @@ const MerchandisePage = () => {
    */
   const handleOrgClick = (type) => {
     setRenderAll(type === "all" ? true : false);
-    setRenderHats(type === "hats" ? true : false);
-    setRenderShirts(type === "shirts" ? true : false);
+    setRenderApparel(type === "app" ? true : false);
+    setRenderAcc(type === "acc" ? true : false);
     setRenderSkincare(type === "skincare" ? true : false);
   };
 
@@ -100,10 +97,10 @@ const MerchandisePage = () => {
         </div>
       </div>
       <div className="merchandise-options">
-        <div className="mechandise-categories">
+        <div className="merchandise-categories">
           <button onClick={() => handleOrgClick("all")}>All</button>
-          <button onClick={() => handleOrgClick("shirts")}>Shirts</button>
-          <button onClick={() => handleOrgClick("hats")}>Hats</button>
+          <button onClick={() => handleOrgClick("acc")}>Accessories</button>
+          <button onClick={() => handleOrgClick("app")}>Apparel</button>
           <button onClick={() => handleOrgClick("skincare")}>Skincare</button>
         </div>
         <form>
@@ -140,19 +137,19 @@ const MerchandisePage = () => {
               </div>
             </div>
           )}
-          {renderHats && (
+          {renderApparel && (
             <div className="merchandise-items-container">
               <div className="merchandise-items">
-                {getAllHats().map((item, key) => (
+                {getAllApparel().map((item, key) => (
                   <MerchandiseItem item={item} key={key} />
                 ))}
               </div>
             </div>
           )}
-          {renderShirts && (
+          {renderAcc && (
             <div className="merchandise-items-container">
               <div className="merchandise-items">
-                {getAllShirts().map((item, key) => (
+                {getAllAcc().map((item, key) => (
                   <MerchandiseItem item={item} key={key} />
                 ))}
               </div>
