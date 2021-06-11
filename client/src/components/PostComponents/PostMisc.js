@@ -51,17 +51,17 @@ function PostContent ({title, content}) {
 function InteractableIcon ({interacted, handleInteract, type, disabled=false, size="default"}) {
     const classes = useButtonStyles();
     return (
-        <IconButton disabled={disabled} onClick={handleInteract}>
+        <IconButton disabled={disabled} onClick={handleInteract} className={!disabled?classes.secondaryIcon : classes.disabledRoot}>
             {type==="favorite" ? 
-                (interacted ? <FavoriteIcon className={classes.secondaryIcon} fontSize={size}/> : 
-                    <FavoriteBorderIcon fontSize={size} className={!disabled?classes.secondaryIcon : classes.disabledRoot}/>)
+                (interacted ? <FavoriteIcon fontSize={size}/> : 
+                    <FavoriteBorderIcon fontSize={size} />)
                 : type==="bookmark" ? 
-                (interacted ? <BookmarkIcon className={classes.secondaryIcon} fontSize={size}/> : 
-                    <BookmarkBorderIcon fontSize={size} className={!disabled?classes.secondaryIcon : classes.disabledRoot}/>) 
+                (interacted ? <BookmarkIcon fontSize={size}/> : 
+                    <BookmarkBorderIcon fontSize={size}/>) 
                 : type==="recent" ?
-                (interacted ? <WatchLaterIcon className={classes.secondaryIcon} fontSize={size}/> : 
-                    <AccessTimeIcon fontSize={size} className={!disabled?classes.secondaryIcon : classes.disabledRoot}/>) 
-                : <ChatBubbleOutlineIcon fontSize={size} className={classes.secondaryIcon}/> 
+                (interacted ? <WatchLaterIcon fontSize={size}/> : 
+                    <AccessTimeIcon fontSize={size}/>) 
+                : <ChatBubbleOutlineIcon fontSize={size}/> 
             }
         </IconButton>
     )

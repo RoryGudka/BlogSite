@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import {getPosts, baseSort} from './../../utils/PostDashControls';
 import BlogThumbnail from './BlogThumbnail';
 import {InteractableIcon} from './PostMisc';
 import {useButtonStyles} from './../../styles/Buttons';
+import {baseSort} from './../../utils/PostDashControls';
 import {Grid, makeStyles, List, ListItem, Button} from '@material-ui/core';
 
 const useStyles = makeStyles({
@@ -24,12 +24,10 @@ const useStyles = makeStyles({
     }
 });
 
-function BlogSideBar({setPost}) {
-    console.log(setPost);
-    const [blogPosts, setBlogPosts] = useState([]);
+function BlogSideBar({posts, liked, saved, selected, setSelected, loggedIn, handleLike, handleSave}) {
     const [visiblePostsIndex, setVisiblePostsIndex] = useState(0);
-    const [selected, setSelected] = useState("");
     const [curSort, setCurSort] = useState("date");
+    const [sortedPosts, setSortedPosts] = useState([]);
     const classes = useStyles();
     const VIEWSIZE = 2;
 
@@ -42,37 +40,35 @@ function BlogSideBar({setPost}) {
     const handleSort = (propName) => {
         setVisiblePostsIndex(0);
         setCurSort(propName);
-        setBlogPosts(baseSort(blogPosts, propName));
+        setSortedPosts(baseSort(posts, propName));
     }
 
     useEffect(() => {
-        getPosts("blog")
-            .then(posts => {
-                const newPosts = baseSort(posts, curSort);
-                setBlogPosts(newPosts);
-                setPost(newPosts[0].doc)
-                if(selected === "") {
-                    setSelected(newPosts[0].doc);
-                }
-            });
-    }, []);
+        console.log('hellooooo');
+        setSortedPosts(baseSort(posts, curSort));
+    }, [posts]);
 
     return(
         <Grid container direction="column" className={classes.sideBarRoot}>
             <BlogNavBar curSort={curSort}  handleSort={(propName)=>handleSort(propName)}/>
             <List className={classes.sideBarList}>
                 <NavButtons handleViewShift={handleViewShift} atMin={visiblePostsIndex===0} 
-                    atMax={visiblePostsIndex+VIEWSIZE >= blogPosts.length}/>
-                {blogPosts.slice(visiblePostsIndex, visiblePostsIndex + VIEWSIZE).map((post, index) => {
+                    atMax={visiblePostsIndex+VIEWSIZE >= posts.length}/>
+                {sortedPosts.slice(visiblePostsIndex, visiblePostsIndex + VIEWSIZE).map((post, index) => {
+                    const ifLiked = liked.findIndex(p => p.doc===post.doc)>-1?true:false;
+                    const ifSaved = saved.findIndex(p => p.doc===post.doc)>-1?true:false;
                     return (
                         <ListItem className={classes.sideBarThumbnail}>
                             <BlogThumbnail BlogPost={post} selected={selected===post.doc} 
-                                handleSelect={()=>{setSelected(post.doc); setPost(post.doc)}}/>
+                                liked={ifLiked} saved={ifSaved} loggedIn={loggedIn}
+                                handleSelect={()=>setSelected(post.doc)}
+                                handleLike={()=>handleLike(post.doc, !ifLiked)}
+                                handleSave={()=>handleSave(post.doc, !ifSaved)}/>
                         </ListItem>
                     );
                 })}
                 <NavButtons handleViewShift={handleViewShift} atMin={visiblePostsIndex===0} 
-                    atMax={visiblePostsIndex+VIEWSIZE >= blogPosts.length}/>
+                    atMax={visiblePostsIndex+VIEWSIZE >= posts.length}/>
             </List>
         </Grid>
     );

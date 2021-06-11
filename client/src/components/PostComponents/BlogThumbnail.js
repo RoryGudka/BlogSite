@@ -3,6 +3,7 @@ import {Card, CardContent, makeStyles, Grid } from '@material-ui/core';
 import { useHistory } from 'react-router';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import {InteractableIcon} from './PostMisc';
 
 const useStyles = makeStyles(({
     root: {
@@ -59,7 +60,7 @@ const useStyles = makeStyles(({
     },
 }));
 
-function BlogThumbnail ({BlogPost, selected, handleSelect}) {
+function BlogThumbnail ({BlogPost, liked, saved, selected, handleSelect, loggedIn}) {
     const [elevated, setElevated] = useState(0);
     const classes = useStyles();
     const history = useHistory();
@@ -70,7 +71,7 @@ function BlogThumbnail ({BlogPost, selected, handleSelect}) {
                 <BlogDate date={BlogPost.date} />
                 <BlogTitle title={BlogPost.title} />
                 {BlogPost.img && <BlogImage image={BlogPost.img}/>}
-                <BlogFooter likes={BlogPost.likes} saves={BlogPost.saves}/>
+                <BlogFooter likes={BlogPost.likes} liked={liked} saves={BlogPost.saves} saved={saved} loggedIn={loggedIn}/>
             </CardContent>
         </Card>
     );
@@ -104,13 +105,13 @@ function BlogImage ({image}) {
     );
 }
 
-function BlogFooter ({likes, saves}) {
+function BlogFooter ({likes, liked, saves, saved, loggedIn}) {
     const classes = useStyles();
     return (
         <div className={classes.footer}>
-            <FavoriteBorderIcon className={classes.footerIcon}/>
+            <InteractableIcon type="favorite" interacted={liked} disabled={!loggedIn} handleInteract={(event)=>event.stopPropagation()}/>
             <div className={classes.footerText}>{likes}</div>
-            <BookmarkBorderIcon className={classes.footerIcon}/>
+            <InteractableIcon type="bookmark" interacted={saved} disabled={!loggedIn} handleInteract={(event)=>event.stopPropagation()}/>
             <div className={classes.footerText}>{saves}</div>
         </div>
     );
