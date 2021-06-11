@@ -59,3 +59,15 @@
     color:white;
     text-decoration:none;
 }
+
+.blogList {
+    max-height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.blogList::-webkit-scrollbar {
+    display: none;
+}

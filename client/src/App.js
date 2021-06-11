@@ -7,7 +7,7 @@ import UserContextProvider from './contexts/UserContextProvider';
 import Paper from '@material-ui/core/Paper';
 
 import MerchInfo from './components/MerchInfo/MerchInfo';
-import Navbar from './components/Navbar';
+import NavBar from './components/NavBar';
 import Signup from './components/Signup';
 import Footer from './components/Footer';
 import { BlogDash, ForumDash } from './components/PostComponents/PostDashes';
@@ -23,7 +23,7 @@ function App() {
     <Router>
       <UserContextProvider>
         <div id="bodyColor"></div>
-        <Navbar />
+        <NavBar />
         <Switch>
           <Route path="/" exact component={Landing}></Route>
           <Route path="/login" component={Login}></Route>
