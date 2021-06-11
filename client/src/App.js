@@ -29,6 +29,7 @@ function App() {
           <Route path="/login" component={Login}></Route>
           <Route path="/item/:itemId" component={MerchInfo}></Route>
           <Route path="/signup" component={Signup}></Route>
+          <Route path="/cart" component={ShoppingCart}></Route>
           <Route path="/shop" component={MerchandisePage}></Route>
           <Route path="/blog" component={BlogWrapper}></Route>
           <Route path="/forum" component={ForumDash}></Route>
