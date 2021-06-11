@@ -13,12 +13,9 @@ const MerchandiseItem = ({ item }) => {
 
   async function add() {
     const data = await addToCart(item.doc, user);
-    console.log("data, ", data);
     if (data) {
       setUser(data);
     }
-    console.log("data", data);
-    console.log(user.token);
   }
 
   // console.log(user);

@@ -27,7 +27,7 @@ const Footer = props => {
                     </Grid>
                 </Grid>
                 <Grid item style={{marginTop: "10px"}}>
-                    <Link to="/" style={{color:'white', fontSize:"18px", paddingTop:"5px", 
+                    <Link to="/about" style={{color:'white', fontSize:"18px", paddingTop:"5px", 
                         marginBottom:"1px", paddingRight: "20px"}}>ABOUT ME</Link>
                     <Link to="/" style={{color:'white', fontSize:"18px", paddingTop:"5px", 
                         marginBottom:"1px", paddingRight: "20px"}}>HOME</Link>
@@ -37,7 +37,7 @@ const Footer = props => {
                         marginBottom:"1px", paddingRight: "20px"}}>FORUM</Link>
                     <Link to="/shop" style={{color:'white', fontSize:"18px", paddingTop:"5px", 
                         marginBottom:"1px", paddingRight: "20px"}}>SHOP</Link>
-                    <Link to="/" style={{color:'white', fontSize:"18px", paddingTop:"5px", 
+                    <Link to="/user" style={{color:'white', fontSize:"18px", paddingTop:"5px", 
                         marginBottom:"1px"}}>USER PAGE</Link>
                 </Grid>
                 <Grid item style={{marginTop: "15px", marginBottom: "5px"}}>
