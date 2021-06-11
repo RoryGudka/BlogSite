@@ -7,7 +7,6 @@ import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
-import ReplyIcon from '@material-ui/icons/Reply';
 import { getCommentList, likeComment, unlikeComment, saveComment, unsaveComment } from "../utils/CommentControls";
 import { 
     getBlogPost, 
@@ -18,6 +17,7 @@ import {
     unsaveBlogPost } from "../utils/BlogPostControls";
 import { UserContext } from "../contexts/UserContextProvider";
 import {useLocation, useHistory} from 'react-router-dom';
+import Comment from './Comment';
 
 function BlogPostPage() {
     const history = useHistory();
@@ -36,11 +36,8 @@ function BlogPostPage() {
     const [clickedLikeComment, setClickedLikeComment] = useState(false);
     const [clickedSaveComment, setClickedSaveComment] = useState(false);
 
-    const [reply, setReply] = useState(false);
-
-    //gets and displays main post and first level comments
-    useEffect(() => {
-        //fetchBlogPosts();
+    //function that gets blog posts and comments from database
+    const getPost = () => {
         getBlogPost(location, user).then((res) => {
             setPostID(location);
             //console.log(res);
@@ -50,6 +47,12 @@ function BlogPostPage() {
             });
             setPost(res);
             });
+    }
+
+    //gets and displays main post and first level comments
+    useEffect(() => {
+        //fetchBlogPosts();
+        getPost();
     }, [location, user, updated, clickedLike, clickedSave])
 
     //functionality to buttons on post
@@ -158,15 +161,6 @@ function BlogPostPage() {
         setClickedSaveComment(false);
     }
 
-    const handleShow = (comments, number) => {
-
-        console.log('alskdfj')
-    }
-
-    const handleHide = (comments, number) => {
-        console.log('alsdkfja')
-    }
-
     const item = post;
     return (
         <div>
@@ -184,7 +178,6 @@ function BlogPostPage() {
                             <IconButton>
                                 <ChatBubbleOutlineIcon/>
                             </IconButton>{post.comments.length}
-                            <IconButton><ReplyIcon/></IconButton>
                         </p>
                     </Paper>
                 }    
@@ -206,15 +199,13 @@ function BlogPostPage() {
                                 {!clickedSaveComment ? <IconButton onClick={()=>handleSaveComment(comment.doc)}><BookmarkBorderIcon/></IconButton> : <IconButton onClick={()=>handleUnsaveComment(comment.doc)}><BookmarkIcon/></IconButton>}{comment.saves} 
                                 {/* {!clickedShow ? <IconButton onClick={()=>handleShow(comment.comments, 2)}><ChatBubbleOutlineIcon/></IconButton> : <IconButton onClick={()=>handleHide(comment.comments)}><ChatBubbleIcon/></IconButton>}{comment.comments.length} */}
                                 <IconButton onClick={() => history.push('/comments/' + comment.doc)}><ChatBubbleOutlineIcon/></IconButton>{comment.comments.length}
-                                <IconButton><ReplyIcon/></IconButton>
-                                {}
-                                {/* {comment.comments > 0 && subComments.length !== 0 && 
-                                    subComments
-                                } */}
                             </p>
                         </Paper>
                     ))
                 }
+            </div>
+            <div>
+                <Comment propsInfo={['blog_posts', postID, getPost]}/>
             </div>
         </div>
     )

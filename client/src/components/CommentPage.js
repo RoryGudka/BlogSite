@@ -7,12 +7,12 @@ import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
-import ReplyIcon from '@material-ui/icons/Reply';
 import { getCommentList, likeComment, unlikeComment, saveComment, unsaveComment } from "../utils/CommentControls";
 import { 
     getComment} from "../utils/CommentControls";
 import { UserContext } from "../contexts/UserContextProvider";
 import {useLocation, useHistory} from 'react-router-dom';
+import Comment from './Comment';
 
 function CommentPage() {
     const history = useHistory();
@@ -31,11 +31,7 @@ function CommentPage() {
     const [clickedLikeComment, setClickedLikeComment] = useState(false);
     const [clickedSaveComment, setClickedSaveComment] = useState(false);
 
-    const [reply, setReply] = useState(false);
-
-    //gets and displays main post and first level comments
-    useEffect(() => {
-        //fetchComments();
+    const getPost = () => {
         getComment(location, user).then((res) => {
             setPostID(location);
             //console.log(res);
@@ -45,6 +41,11 @@ function CommentPage() {
             });
             setPost(res);
         });
+    }
+
+    //gets and displays main post and first level comments
+    useEffect(() => {
+        getPost();
     }, [location, user, updated, clickedLike, clickedSave])
 
 
@@ -154,15 +155,6 @@ function CommentPage() {
         setClickedSaveComment(false);
     }
 
-    const handleShow = (comments, number) => {
-
-        console.log('alskdfj')
-    }
-
-    const handleHide = (comments, number) => {
-        console.log('alsdkfja')
-    }
-
     const item = post;
     return (
         <div>
@@ -183,7 +175,6 @@ function CommentPage() {
                             <IconButton>
                                 <ChatBubbleOutlineIcon/>
                             </IconButton>{post.comments.length}
-                            <IconButton><ReplyIcon/></IconButton>
                         </p>
                     </Paper>
                 }    
@@ -205,15 +196,13 @@ function CommentPage() {
                                 {!clickedSaveComment ? <IconButton onClick={()=>handleSaveComment(comment.doc)}><BookmarkBorderIcon/></IconButton> : <IconButton onClick={()=>handleUnsaveComment(comment.doc)}><BookmarkIcon/></IconButton>}{comment.saves} 
                                 {/* {!clickedShow ? <IconButton onClick={()=>handleShow(comment.comments, 2)}><ChatBubbleOutlineIcon/></IconButton> : <IconButton onClick={()=>handleHide(comment.comments)}><ChatBubbleIcon/></IconButton>}{comment.comments.length} */}
                                 <IconButton onClick={() => history.push('/comments/' + comment.doc)}><ChatBubbleOutlineIcon/></IconButton>{comment.comments.length}
-                                <IconButton><ReplyIcon/></IconButton>
-                                {}
-                                {/* {comment.comments > 0 && subComments.length !== 0 && 
-                                    subComments
-                                } */}
                             </p>
                         </Paper>
                     ))
                 }
+            </div>
+            <div>
+                <Comment propsInfo={['comments', postID, getPost]}/>
             </div>
         </div>
     )
