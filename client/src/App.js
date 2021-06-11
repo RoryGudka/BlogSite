@@ -7,7 +7,7 @@ import UserContextProvider from './contexts/UserContextProvider';
 import Paper from '@material-ui/core/Paper';
 
 import MerchInfo from './components/MerchInfo/MerchInfo';
-import Navbar from './components/NavBar';
+import NavBar from './components/NavBar';
 import Signup from './components/Signup';
 import Footer from './components/Footer';
 import { BlogDash, ForumDash } from './components/PostComponents/PostDashes';
@@ -17,6 +17,7 @@ import ForumPostPage from './components/ForumPostPage';
 import BlogPostPage from './components/BlogPostPage';
 import CommentPage from './components/CommentPage';
 import BlogWrapper from './components/BlogWrapper';
+import About from './components/About';
 
 function App() {
   return (

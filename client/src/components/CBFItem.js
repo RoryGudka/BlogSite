@@ -9,17 +9,10 @@ const CBFItem = ({disabled, item, likes, saves}) => {
     let saved;
     if(!disabled) {
         liked = Boolean(likes.find(p => {
-            console.log(p);
-            console.log(item.doc);
-            console.log(item);
             return p === item.doc
         }));
         saved = Boolean(saves.find(p => p === item.doc));
     }
-    console.log(item);
-    console.log(liked);
-    console.log(saved);
-    console.log(likes);
 
     const handleClick = () => {
         history.push('/' + item.type + 's/' + item.doc);
@@ -37,7 +30,7 @@ const CBFItem = ({disabled, item, likes, saves}) => {
                 {item.topic !== undefined && <p className="topicPMain">@{item.user} | {item.topic} | {(new Date(item.date._seconds * 1000)).toDateString()}</p>}
                 {item.title !== undefined && item.topic === undefined && <p className="datePMain">{(new Date(item.date._seconds * 1000)).toDateString()}</p>} 
                 {item.title !== undefined && <p className="titlePMain"><b>{item.title}</b></p>} 
-                <div className="innerHTML" dangerouslySetInnerHTML={{__html:item.content}}></div>
+                {item.type === "blog_post" ? <div className="innerHTML" dangerouslySetInnerHTML={{__html:item.content}}></div> : <p>{item.content}</p>}
             </div>
             <LSCBar disabled={disabled} item={item} likes={item.likes} saves={item.saves} comments={item.comments.length} liked={liked} saved={saved} />
         </Paper>

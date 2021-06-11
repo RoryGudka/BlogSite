@@ -43,8 +43,10 @@ function BlogPostPage() {
             setPostID(location);
             //console.log(res);
             getCommentList(res.comments, user).then((res) => {
-                //console.log(res);
-                setComments(res);
+                let newComments = res.sort((a, b) => {
+                    return a.date._seconds - b.date._seconds
+                })
+                setComments(newComments);
             });
             setPost(res);
             });
@@ -191,7 +193,7 @@ function BlogPostPage() {
                 }
             </div>
             <div>
-                <Comment propsInfo={['blog_posts', postID, getPost]}/>
+                {user !== null && <Comment propsInfo={['blog_posts', postID, getPost]}/>}
             </div>
         </div>
     )
