@@ -7,7 +7,7 @@ import UserContextProvider from './contexts/UserContextProvider';
 import Paper from '@material-ui/core/Paper';
 
 import MerchInfo from './components/MerchInfo/MerchInfo';
-import Navbar from './components/Navbar';
+import Navbar from './components/NavBar';
 import Signup from './components/Signup';
 import Footer from './components/Footer';
 import { BlogDash, ForumDash } from './components/PostComponents/PostDashes';
