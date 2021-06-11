@@ -23,7 +23,7 @@ function App() {
     <Router>
       <UserContextProvider>
         <div id="bodyColor"></div>
-        <Navbar />
+        <NavBar />
         <Switch>
           <Route path="/" exact component={Landing}></Route>
           <Route path="/login" component={Login}></Route>
