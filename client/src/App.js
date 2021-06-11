@@ -1,30 +1,36 @@
-import './styles/App.css';
-import Login from './components/Login';
-import Landing from './components/Landing';
-import MerchandisePage from './components/MerchandisePage';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import UserContextProvider from './contexts/UserContextProvider';
-import Paper from '@material-ui/core/Paper';
+import "./styles/App.css";
+import Login from "./components/Login";
+import Landing from "./components/Landing";
+import MerchandisePage from "./components/MerchandisePage";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import UserContextProvider from "./contexts/UserContextProvider";
+import Paper from "@material-ui/core/Paper";
 
-import MerchInfo from './components/MerchInfo/MerchInfo';
-import NavBar from './components/NavBar';
-import Signup from './components/Signup';
-import Footer from './components/Footer';
-import { BlogDash, ForumDash } from './components/PostComponents/PostDashes';
-import UserPage from './components/UserPage';
+import MerchInfo from "./components/MerchInfo/MerchInfo";
+import NavBar from "./components/NavBar";
+import Signup from "./components/Signup";
+import Footer from "./components/Footer";
+import { BlogDash, ForumDash } from "./components/PostComponents/PostDashes";
+import UserPage from "./components/UserPage";
 
-import ForumPostPage from './components/ForumPostPage';
-import BlogPostPage from './components/BlogPostPage';
-import CommentPage from './components/CommentPage';
-import BlogWrapper from './components/BlogWrapper';
-import About from './components/About';
+import ForumPostPage from "./components/ForumPostPage";
+import BlogPostPage from "./components/BlogPostPage";
+import CommentPage from "./components/CommentPage";
+import BlogWrapper from "./components/BlogWrapper";
+import About from "./components/About";
 
 function App() {
   return (
     <Router>
       <UserContextProvider>
-        <div style={{display:"flex", minHeight:"100vh", flexDirection:"column"}}>
-        <div id="bodyColor"></div>
+        <div
+          style={{
+            display: "flex",
+            minHeight: "100vh",
+            flexDirection: "column",
+          }}
+        >
+          <div id="bodyColor"></div>
           <NavBar />
           <Switch>
             <Route path="/" exact component={Landing}></Route>
@@ -40,7 +46,7 @@ function App() {
             <Route path="/about" component={About}></Route>
             <Route path="/user" component={UserPage}></Route>
           </Switch>
-          <div style={{flexGrow:1}} />
+          <div style={{ flexGrow: 1 }} />
           <Footer />
         </div>
       </UserContextProvider>
