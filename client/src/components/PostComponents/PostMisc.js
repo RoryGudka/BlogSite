@@ -51,7 +51,7 @@ function PostContent ({title, content}) {
 function InteractableIcon ({interacted, handleInteract, type, disabled=false, size="default"}) {
     const classes = useButtonStyles();
     return (
-        <IconButton disabled={disabled} onClick={handleInteract} className={!disabled?classes.secondaryIcon : classes.disabledRoot}>
+        <IconButton disabled={disabled} classes={{root: classes.secondaryIcon, disabled: classes.disabledRoot}} onClick={handleInteract}>
             {type==="favorite" ? 
                 (interacted ? <FavoriteIcon fontSize={size}/> : 
                     <FavoriteBorderIcon fontSize={size} />)

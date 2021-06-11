@@ -19,10 +19,13 @@ const useButtonStyles = makeStyles({
         color:"#48bf91",
         '&:hover': {
             color:"#37916e"
-        }
+        },
+        '&$disabledRoot':{
+            color: '#48bf91',
+        },
     },
     disabledRoot: {
-    }
+    },
 });
 
 export {useButtonStyles};
