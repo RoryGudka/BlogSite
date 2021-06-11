@@ -18,6 +18,7 @@ import {
     unsaveBlogPost } from "../utils/BlogPostControls";
 import { UserContext } from "../contexts/UserContextProvider";
 import {useLocation, useHistory} from 'react-router-dom';
+import CBFItem from './CBFItem';
 
 function BlogPostPage() {
     const history = useHistory();
@@ -172,48 +173,27 @@ function BlogPostPage() {
         <div>
             <div>
                 { post !== null && post.date !== undefined &&
-                    <Paper className='post'>
-                        {item.topic === undefined && item.user !== undefined && <p className="usernamePMain">@{item.user} | {(new Date(item.date._seconds * 1000)).toDateString()}</p>} 
-                        {item.topic !== undefined && <p className="topicPMain">@{item.user} | {item.topic} | {(new Date(item.date._seconds * 1000)).toDateString()}</p>}
-                        {item.title !== undefined && item.topic === undefined && <p className="topicPMain">{(new Date(item.date._seconds * 1000)).toDateString()}</p>} 
-                        {item.title !== undefined && <p className="titlePMain"><b>{item.title}</b></p>} 
-                        <div className="innerHTML" dangerouslySetInnerHTML={{__html:post.content}}></div>
-                        <p>
-                        {!clickedLike ? <IconButton onClick={()=>handleLike()}><FavoriteBorderIcon/></IconButton> : <IconButton onClick={()=>handleUnlike()}><FavoriteIcon/></IconButton>}{post.likes}
-                        {!clickedSave ? <IconButton onClick={()=>handleSave()}><BookmarkBorderIcon/></IconButton> : <IconButton onClick={()=>handleUnsave()}><BookmarkIcon/></IconButton>}{post.saves} 
-                            <IconButton>
-                                <ChatBubbleOutlineIcon/>
-                            </IconButton>{post.comments.length}
-                            <IconButton><ReplyIcon/></IconButton>
-                        </p>
-                    </Paper>
+                    <div style={{width:"70%", left:"15%"}}>
+                        {user !== null ? (
+                            <CBFItem disabled={false} item={{...post, doc:location}} likes={user.blog_posts_liked} saves={user.blog_posts_saved} />
+                        ) : (
+                            <CBFItem disabled={true} item={{...post, doc:location}} />
+                        )}
+                    </div>
                 }    
             </div>   
             <div>
-                {comments && 
-                    comments.map((comment) => (
-                        <Paper className='comment-1'>
-                            <div style={{display:'inline-block'}}>
-                                <Avatar src=''></Avatar>
-                            </div>
-                            {comment.topic === undefined && comment.user !== undefined && <p className="usernamePMain">@{comment.user} | {(new Date(comment.date._seconds * 1000)).toDateString()}</p>} 
-                            {comment.topic !== undefined && <p className="topicPMain">@{comment.user} | {comment.topic} | {(new Date(comment.date._seconds * 1000)).toDateString()}</p>}
-                            {comment.title !== undefined && comment.topic === undefined && <p className="topicPMain">{(new Date(comment.date._seconds * 1000)).toDateString()}</p>} 
-                            {comment.title !== undefined && <p className="titlePMain"><b>{comment.title}</b></p>} 
-                            <p>{comment.content}</p>
-                            <p>
-                                {!clickedLikeComment ? <IconButton onClick={()=>handleLikeComment(comment.doc)}><FavoriteBorderIcon/></IconButton> : <IconButton onClick={()=>handleUnlikeComment(comment.doc)}><FavoriteIcon/></IconButton>}{comment.likes}
-                                {!clickedSaveComment ? <IconButton onClick={()=>handleSaveComment(comment.doc)}><BookmarkBorderIcon/></IconButton> : <IconButton onClick={()=>handleUnsaveComment(comment.doc)}><BookmarkIcon/></IconButton>}{comment.saves} 
-                                {/* {!clickedShow ? <IconButton onClick={()=>handleShow(comment.comments, 2)}><ChatBubbleOutlineIcon/></IconButton> : <IconButton onClick={()=>handleHide(comment.comments)}><ChatBubbleIcon/></IconButton>}{comment.comments.length} */}
-                                <IconButton onClick={() => history.push('/comments/' + comment.doc)}><ChatBubbleOutlineIcon/></IconButton>{comment.comments.length}
-                                <IconButton><ReplyIcon/></IconButton>
-                                {}
-                                {/* {comment.comments > 0 && subComments.length !== 0 && 
-                                    subComments
-                                } */}
-                            </p>
-                        </Paper>
-                    ))
+                {comments && <Paper className="commentWrapper" elevation={3}>
+                    <p className="commentsSectionP">Comments</p>
+                    {comments && 
+                        comments.map((comment) => (
+                            user !== null ? (
+                                <CBFItem disabled={false} item={comment} likes={user.comments_liked} saves={user.comments_saved} />
+                            ) : (
+                                <CBFItem disabled={true} item={comment} />
+                            )
+                        ))}
+                    </Paper>
                 }
             </div>
         </div>

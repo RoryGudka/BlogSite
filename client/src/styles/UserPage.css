@@ -16,6 +16,11 @@
     margin-bottom:0px
 }
 
+.datePMain {
+    margin:0;
+    font-size:18px;
+}
+
 .titlePMain {
     font-size:32px;
     margin-top:0;
@@ -33,9 +38,11 @@
 
 .topicPMain {
     display:inline-block;
-    font-size:16px;
+    font-size:18px;
     color:grey;
-    margin-bottom:0px
+    margin-bottom:0px;
+    bottom:8px;
+    left:15px;
 }
 
 
