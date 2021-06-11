@@ -44,7 +44,7 @@ const Login = (props) => {
         removeFromCart("ESzKXURpdPUNmHGfJNeA", {...res}).then(res => {
           console.log(res);
         })
-        history.push("/");
+        history.goBack();
       }
     });
   };
