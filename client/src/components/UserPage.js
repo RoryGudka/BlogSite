@@ -2,10 +2,8 @@ import { useContext, useEffect, useState } from 'react';
 import {UserContext} from '../contexts/UserContextProvider';
 import {Redirect} from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
-import TextField from '@material-ui/core/TextField';
+import {Grid, makeStyles, Button} from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
-import CheckIcon from '@material-ui/icons/Check';
-import EditIcon from '@material-ui/icons/Edit';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
@@ -17,6 +15,7 @@ import {getBlogPostList} from '../utils/BlogPostControls';
 import {getForumPostList} from '../utils/ForumPostControls';
 import PostPreview from './PostComponents/ForumPreview';
 import UserPageItem from './UserPageItem';
+import {useButtonStyles} from './../styles/Buttons';
 import '../styles/UserPage.css';
 
 
@@ -88,23 +87,40 @@ const UserPage = props => {
             <UserPageItem item={item} likes={likes} saves={saves} />
         )
     })
+    console.log(user);
 
     return (
-        <Paper style={{width:"40%", left:"50%", padding:"10px", margin:"20px 0"}} elevation={3}>
-            <Paper style={{ width:"100%",textAlign:'center', marginBottom:'20px'}} elevation={3}>
-                <IconButton onClick={() => setSelected(0)}>
-                    {selected === 0 ? <FavoriteIcon style={{color:'var(--Secondary)'}} /> : <FavoriteBorderIcon style={{color:'var(--Secondary)'}} />}
-                </IconButton>
-                <IconButton onClick={() => setSelected(1)}>
-                    {selected === 1 ? <BookmarkIcon style={{color:'var(--Secondary)'}} /> : <BookmarkBorderIcon style={{color:'var(--Secondary)'}} />}
-                </IconButton>
-                <IconButton onClick={() => setSelected(2)}>
-                    {selected === 2 ? <ChatBubbleIcon style={{color:'var(--Secondary)'}} /> : <ChatBubbleBorderIcon style={{color:'var(--Secondary)'}} />}
-                </IconButton>
+        <Grid container direction="row" justify="space-around">
+            <Paper style={{width: "30%", margin:"20px 0"}} elevation={3}>
+                <Grid container direction="column">
+                    <Grid item style={{textAlign: "center"}}>
+                        <div style={{fontSize: 32, marginTop: "15px", fontWeight: "bold"}}>User Info</div>
+                    </Grid>
+                    <div style={{fontSize: 24, marginLeft: "25px", marginTop: "5px"}}>Name: {user.name}</div>
+                    <div style={{fontSize: 24, marginLeft: "25px", marginTop: "5px"}}>User name: {user.username}</div>
+                    <div style={{fontSize: 24, marginLeft: "25px", marginTop: "5px"}}>Email: {user.email}</div>
+                    <div>
+                        <Button variant="contained">Reset password</Button>
+                        <Button variant="contained">Sign Out</Button>
+                    </div>
+                </Grid>
             </Paper>
-            {selected === 0 && likesHTML}
-            {selected === 1 && savesHTML}
-        </Paper>
+            <Paper style={{width:"40%", padding:"10px", margin:"20px 0"}} elevation={3}>
+                <Paper style={{ width:"100%",textAlign:'center', marginBottom:'20px'}} elevation={3}>
+                    <IconButton onClick={() => setSelected(0)}>
+                        {selected === 0 ? <FavoriteIcon style={{color:'var(--Secondary)'}} /> : <FavoriteBorderIcon style={{color:'var(--Secondary)'}} />}
+                    </IconButton>
+                    <IconButton onClick={() => setSelected(1)}>
+                        {selected === 1 ? <BookmarkIcon style={{color:'var(--Secondary)'}} /> : <BookmarkBorderIcon style={{color:'var(--Secondary)'}} />}
+                    </IconButton>
+                    <IconButton onClick={() => setSelected(2)}>
+                        {selected === 2 ? <ChatBubbleIcon style={{color:'var(--Secondary)'}} /> : <ChatBubbleBorderIcon style={{color:'var(--Secondary)'}} />}
+                    </IconButton>
+                </Paper>
+                {selected === 0 && likesHTML}
+                {selected === 1 && savesHTML}
+            </Paper>
+        </Grid>
     )
 }
 
