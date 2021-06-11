@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import {
 	makeStyles,
@@ -16,7 +16,8 @@ import Description from './Components/Description';
 import ProductRating from './Components/ProductRating';
 import { getAllMerchandise } from '../../utils/MerchandiseControls';
 import { getMerchandise } from '../../utils/MerchandiseControls';
-
+import CartButton from './Components/CartButton';
+import { UserContext } from '../../contexts/UserContextProvider';
 //dummy data
 
 //css styling for the grids in this page
@@ -62,6 +63,7 @@ const useStyles = makeStyles((theme) => ({
  */
 
 function MerchInfo() {
+	const { user } = useContext(UserContext);
 	const { itemId } = useParams();
 	const [item, setItem] = useState();
 	//const item = data[1];
@@ -111,9 +113,9 @@ function MerchInfo() {
 									<Grid item>
 										<Price item={item} />
 									</Grid>
-									<Grid item>
+									{/* <Grid item>
 										<ProductRating item={item} />
-									</Grid>
+									</Grid> */}
 
 									{item.sizes && (
 										<SizeSelect
@@ -125,18 +127,23 @@ function MerchInfo() {
 									)}
 								</Grid>
 								<Grid item>
-									<AddButton
+									<CartButton
+										itemID={itemId}
+										user={user}
+										item={item}
+										size={size}
+										setSize={setSize}
+									/>
+									{/* <AddButton
 										size={size}
 										shoppingCart={shoppingCart}
 										item={item}
-									/>
+									/> */}
 								</Grid>
 								<Grid item>
-									<Paper>
-										<Typography variant="body2" gutterBottom>
-											<Description item={item} />
-										</Typography>
-									</Paper>
+									<Typography variant="body2" gutterBottom>
+										<Description item={item} />
+									</Typography>
 								</Grid>
 							</Grid>
 						</Grid>

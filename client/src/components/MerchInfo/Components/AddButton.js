@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Button } from '@material-ui/core';
+import { Button, Popover, makeStyles, Typography } from '@material-ui/core';
 import { useStyles } from '../../../styles/Button';
 /**
  *
  * @param {array} shoppingCart: an array to simulate the shopping cart of the item.
  * @returns
  */
+
 function AddButton({ shoppingCart, item, size }) {
 	const classes = useStyles();
 	// const item = merchData[1];
@@ -23,19 +24,22 @@ function AddButton({ shoppingCart, item, size }) {
 		size === '' && item.sizes
 			? alert('NO SIZE SELECTED')
 			: shoppingCart.push(itemToAdd);
+
 		e.preventDefault();
 	};
 	return (
-		<Button
-			classes={classes}
-			variant="primary"
-			onClick={onClick}
-			size="large"
-			variant="contained"
-			color="primary"
-		>
-			Add to cart
-		</Button>
+		<div>
+			<Button
+				classes={classes}
+				variant="primary"
+				onClick={onClick}
+				size="large"
+				variant="contained"
+				color="primary"
+			>
+				Add to cart
+			</Button>
+		</div>
 	);
 }
 
