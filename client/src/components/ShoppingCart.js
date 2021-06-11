@@ -1,6 +1,6 @@
 import React from "react";
 import ShoppingCartItem from "./ShoppingCartItem";
-// import "../styles/ShoppingCart.css";
+import "../styles/ShoppingCart.css";
 
 const ShoppingCart = () => {
   const tempData = [

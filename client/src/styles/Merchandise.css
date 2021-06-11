@@ -37,15 +37,15 @@ h1 {
   justify-content: center;
   /* margin: 0; */
   /* border: 3px solid pink; */
-  width: 95vw;
-  margin-inline: 5vw;
+  /* width: 95vw;
+  margin-inline: 5vw; */
 }
 
 .merchandise-items {
   /* border: 3px solid red; */
   flex-wrap: wrap;
   display: inline-flex;
-  /* justify-content: center; */
+  justify-content: center;
 }
 
 /* .merchandise-items-container {

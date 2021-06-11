@@ -27,7 +27,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={Landing}></Route>
           <Route path="/login" component={Login}></Route>
-          <Route path="/item" component={MerchInfo}></Route>
+          <Route path="/item/:itemId" component={MerchInfo}></Route>
           <Route path="/signup" component={Signup}></Route>
           <Route path="/shop" component={MerchandisePage}></Route>
           <Route path="/blog" component={BlogWrapper}></Route>
