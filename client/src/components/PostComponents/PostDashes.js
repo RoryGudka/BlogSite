@@ -59,6 +59,8 @@ function ForumDash() {
         }
     }, [user]);
 
+    if(user === null) return <p className="logInAdvisor">Log in to view forum</p>
+
     const handleLike = (doc, toAdd) => {
         syncUserPostInteraction(likedPosts, setLikedPosts, forumPosts, setForumPosts, doc, toAdd, "likes");
         asyncUserPostInteraction(user, setUser, (toAdd ? likeForumPost : unlikeForumPost) , doc);
@@ -70,7 +72,7 @@ function ForumDash() {
     }
 
     return(
-        <div>
+        <div style={{left:"20%"}}>
             {forumPosts.map((post, index) => {
                 const liked = likedPosts.findIndex(p => p === post.doc)>-1?true:false;
                 const saved = savedPosts.findIndex(p => p === post.doc)>-1?true:false;

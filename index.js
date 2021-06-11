@@ -12,6 +12,7 @@ const users_route = require('./routes/users.js');
 const merchandise_route = require('./routes/merchandise.js');
 const comments_route = require('./routes/comments.js');
 const cart_route = require('./routes/cart.js');
+const hash  = require('hash-it');
 
 //Makes sure the bodies of posts are legible
 app.use(express.json());
