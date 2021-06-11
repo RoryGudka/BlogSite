@@ -60,8 +60,23 @@ module.exports = ({ app, db, verifyToken, getAll }) => {
           );
           db.collection("users")
             .doc(req.body.user_id)
-            .update({
-              cart: user.cart,
+            .get().then(resp => {
+                let user = resp.data();
+                user.cart.splice(user.cart.findIndex(item => item === req.body.primary_key), 1);
+                db.collection('users').doc(req.body.user_id).update({
+                    cart:user.cart,
+                }).then((resp) => {
+                    const {password, ...rest} = user;
+                    res.json({
+                        status: 200,
+                        data:{
+                            ...rest, 
+                            token:req.body.token,
+                            user_id:req.body.user_id,
+                            cart:user.cart
+                        }
+                    });
+                })
             })
             .then((resp) => {
               console.log(user);
