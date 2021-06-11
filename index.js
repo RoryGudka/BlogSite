@@ -3,7 +3,7 @@ const cors = require('cors');
 const app = express();
 const jwt = require('jsonwebtoken');
 const { db } = require('./firebase.js');
-const secret = require('./secret.js').default;
+const secret = require('./secret.js');
 const blog_posts_route = require('./routes/blog_posts.js');
 const forum_posts_route = require('./routes/forum_posts.js');
 const login_route = require('./routes/login.js');
@@ -11,6 +11,7 @@ const signup_route = require('./routes/signup.js');
 const users_route = require('./routes/users.js');
 const merchandise_route = require('./routes/merchandise.js');
 const comments_route = require('./routes/comments.js');
+const cart_route = require('./routes/cart.js');
 
 //Makes sure the bodies of posts are legible
 app.use(express.json());
@@ -68,6 +69,7 @@ const getAll = (querySnapshot) => {
 
 const parameters = { app, db, verifyToken, getAll, generateToken };
 
+//Calls all of the routes and passes all potentially useful paramaters to them
 blog_posts_route(parameters);
 forum_posts_route(parameters);
 login_route(parameters);
@@ -75,6 +77,7 @@ signup_route(parameters);
 users_route(parameters);
 merchandise_route(parameters);
 comments_route(parameters);
+cart_route(parameters);
 
 /**
  * Initiates the server
