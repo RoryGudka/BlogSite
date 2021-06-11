@@ -14,9 +14,15 @@ module.exports = ({app, db, verifyToken, getAll}) => {
                 db.collection('users').doc(req.body.user_id).update({
                     cart:newCart,
                 }).then((resp) => {
+                    const {password, ...rest} = user;
                     res.json({
                         status: 200,
-                        data:{...user, cart:newCart}
+                        data:{
+                            ...rest, 
+                            token:req.body.token,
+                            user_id:req.body.user_id,
+                            cart:newCart
+                        }
                     });
                 })
             })
@@ -46,9 +52,15 @@ module.exports = ({app, db, verifyToken, getAll}) => {
                 db.collection('users').doc(req.body.user_id).update({
                     cart:user.cart,
                 }).then((resp) => {
+                    const {password, ...rest} = user;
                     res.json({
                         status: 200,
-                        data:{...user, cart:user.cart}
+                        data:{
+                            ...rest, 
+                            token:req.body.token,
+                            user_id:req.body.user_id,
+                            cart:newCart
+                        }
                     });
                 })
             })
