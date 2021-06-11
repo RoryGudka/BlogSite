@@ -6,10 +6,14 @@ import { removeFromCart } from "../utils/CartControls";
 import { UserContext } from "../contexts/UserContextProvider";
 
 const ShoppingCartItem = ({ item }) => {
+  // console.log("shpitem, ", item);
   const { user, setUser } = useContext(UserContext);
 
   async function remove() {
-    const data = await removeFromCart(item.doc, user);
+    console.log(removeFromCart(item.doc, user));
+    let data = await removeFromCart(item.doc, user);
+    console.log("rmv user: ", data);
+
     if (data) setUser(data);
   }
 
