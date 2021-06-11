@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
 import "../styles/Merchandise.css";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import { Link } from "react-router-dom";
+import { addToCart } from "../utils/CartControls";
+import { UserContext } from "../contexts/UserContextProvider";
 
 const MerchandiseItem = ({ item }) => {
+  const { user, setUser } = useContext(UserContext);
+
+  console.log(user);
+
+  async function add() {
+    const data = await addToCart(item.doc, user);
+    console.log("data, ", data);
+    if (data) {
+      setUser(data);
+    }
+    console.log("data", data);
+    console.log(user.token);
+  }
+
+  // console.log(user);
   return (
     <div className="merchandise-component">
       <Link to={`/item/${item.doc}`} className="item-link">
@@ -26,7 +43,14 @@ const MerchandiseItem = ({ item }) => {
 
         <button
           className="shopping-cart-button"
-          onClick={() => console.log(`added ${item.doc} to shopping cart`)}
+          onClick={async () => {
+            if (user) {
+              add();
+              alert(`Added ${item.name} to cart!`);
+            } else {
+              alert(`Log In to add an item to cart`);
+            }
+          }}
         >
           <AddShoppingCartIcon />
         </button>

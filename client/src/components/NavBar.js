@@ -19,6 +19,7 @@ export default function NavBar() {
   const isShop = firstPath === "shop";
   const isUser = firstPath ==="user";
   const isForum = firstPath === "forum";
+  const isAbout = firstPath === "about";
   const classes = useStyles();
 
   return (
@@ -47,6 +48,7 @@ export default function NavBar() {
           <Nav.Link><Link to="/forum"><p className={"navLink" + (isForum ? " active" : "")}>Forum</p></Link></Nav.Link>
           <Nav.Link><Link to="/shop"><p className={"navLink" + (isShop ? " active" : "")}>Shop</p></Link></Nav.Link>
           <Nav.Link><Link to="/user"><p className={"navLink" + (isUser ? " active" : "")}>Profile</p></Link></Nav.Link>
+          <Nav.Link><Link to="/about"><p className={"navLink" + (isAbout ? " active" : "")}>About Me</p></Link></Nav.Link>
         </Nav>
         <Nav className="mr-auto" />
         {user !== null ? (

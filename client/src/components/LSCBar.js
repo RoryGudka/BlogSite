@@ -11,9 +11,9 @@ import { likeBlogPost, saveBlogPost, unlikeBlogPost, unsaveBlogPost } from '../u
 import { likeForumPost, saveForumPost, unlikeForumPost, unsaveForumPost } from '../utils/ForumPostControls';
 import {useHistory} from 'react-router-dom';
 
-const LSCBar = ({item, likes, saves, comments, liked, saved}) => {
+const LSCBar = ({disabled, item, likes, saves, comments, liked, saved}) => {
     const history = useHistory();
-    const {user} = useContext(UserContext);
+    const {user, setUser} = useContext(UserContext);
     const [likedStat, setLiked] = useState(liked);
     const [savedStat, setSaved] = useState(saved);
     const [curLikes, setLikes] = useState(likes);
@@ -21,16 +21,16 @@ const LSCBar = ({item, likes, saves, comments, liked, saved}) => {
 
     const handleLikeClick = () => {
         if(likedStat) {
-            if(item.type === "comment") unlikeComment(item.doc, user);
-            else if(item.type === "blog_post") unlikeBlogPost(item.doc, user);
-            else if(item.type === "forum_post") unlikeForumPost(item.doc, user);
+            if(item.type === "comment") unlikeComment(item.doc, user).then(res => {setUser(res);});
+            else if(item.type === "blog_post") unlikeBlogPost(item.doc, user).then(res => {setUser(res);});
+            else if(item.type === "forum_post") unlikeForumPost(item.doc, user).then(res => {setUser(res);});
             setLikes(curLikes - 1);
-            setLiked(!likedStat);
+            setLiked(!likedStat)
         }
         else {
-            if(item.type === "comment") likeComment(item.doc, user);
-            else if(item.type === "blog_post") likeBlogPost(item.doc, user);
-            else if(item.type === "forum_post") likeForumPost(item.doc, user);
+            if(item.type === "comment") likeComment(item.doc, user).then(res => {setUser(res);});
+            else if(item.type === "blog_post") likeBlogPost(item.doc, user).then(res => {setUser(res);});
+            else if(item.type === "forum_post") likeForumPost(item.doc, user).then(res => {setUser(res);});
             setLikes(curLikes + 1);
             setLiked(!likedStat);
         }
@@ -39,16 +39,16 @@ const LSCBar = ({item, likes, saves, comments, liked, saved}) => {
 
     const handleSaveClick = () => {
         if(savedStat) {
-            if(item.type === "comment") unsaveComment(item.doc, user);
-            else if(item.type === "blog_post") unsaveBlogPost(item.doc, user);
-            else if(item.type === "forum_post") unsaveForumPost(item.doc, user);
+            if(item.type === "comment") unsaveComment(item.doc, user).then(res => {setUser(res);});
+            else if(item.type === "blog_post") unsaveBlogPost(item.doc, user).then(res => {setUser(res);});
+            else if(item.type === "forum_post") unsaveForumPost(item.doc, user).then(res => {setUser(res);});
             setSaves(curSaves - 1);
             setSaved(!savedStat);
         }
         else {
-            if(item.type === "comment") saveComment(item.doc, user);
-            else if(item.type === "blog_post") saveBlogPost(item.doc, user);
-            else if(item.type === "forum_post") saveForumPost(item.doc, user);
+            if(item.type === "comment") saveComment(item.doc, user).then(res => {setUser(res);});
+            else if(item.type === "blog_post") saveBlogPost(item.doc, user).then(res => {setUser(res);});
+            else if(item.type === "forum_post") saveForumPost(item.doc, user).then(res => {setUser(res);});
             setSaves(curSaves + 1);
             setSaved(!savedStat);
         }
@@ -60,11 +60,11 @@ const LSCBar = ({item, likes, saves, comments, liked, saved}) => {
 
     return (
         <div>
-            <IconButton onClick={handleLikeClick}>
+            <IconButton disabled={disabled} onClick={handleLikeClick}>
                 {likedStat ? <FavoriteIcon style={{color:"var(--Secondary)"}} /> : <FavoriteBorderIcon style={{color:"var(--Secondary)"}} />}
             </IconButton>
             {curLikes}
-            <IconButton onClick={handleSaveClick}>
+            <IconButton disabled={disabled} onClick={handleSaveClick}>
                 {savedStat ? <BookmarkIcon style={{color:"var(--Secondary)"}} /> : <BookmarkBorderIcon style={{color:"var(--Secondary)"}} />}
             </IconButton>
             {curSaves}

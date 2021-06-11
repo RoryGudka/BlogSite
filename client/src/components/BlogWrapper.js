@@ -35,7 +35,7 @@ const BlogWrapper = props => {
     }, [user]);
 
     return (
-        <Fragment>
+        <div>
             <div id="sideBar" style={{width:"20%", display:"inline-block", verticalAlign:"top"}}>
                 <BlogSideBar posts={posts} liked={likedPosts} saved={savedPosts} 
                     selected={post} setSelected={setPost} loggedIn={user!==null}
@@ -47,7 +47,7 @@ const BlogWrapper = props => {
                     saved={savedPosts.findIndex(p => p === post)>-1?true:false}
                     handleLike={handleLike} handleSave={handleSave}/>
             </div>
-        </Fragment>
+        </div>
     )
 }
 //post, liked, saved, loggedIn, handleLike, handleSave
