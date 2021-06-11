@@ -43,7 +43,7 @@ const Login = (props) => {
         getMerchandise("skQjh67y72j1QLQ2xXTT", {...res}).then(res => {
           console.log(res);
         })
-        history.push("/");
+        history.goBack();
       }
     });
   };
