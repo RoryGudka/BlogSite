@@ -43,8 +43,10 @@ function ForumPostPage() {
             setPostID(location);
             //console.log(res);
             getCommentList(res.comments, user).then((res) => {
-                //console.log(res);
-                setComments(res);
+                let newComments = res.sort((a, b) => {
+                    return a.date._seconds - b.date._seconds
+                })
+                setComments(newComments);
             });
             setPost(res);
         });
@@ -195,7 +197,7 @@ function ForumPostPage() {
                 }
             </div>
             <div>
-                <Comment propsInfo={['forum_posts', postID, getPost]}/>
+                {user !== null && <Comment propsInfo={['forum_posts', postID, getPost]}/>}
             </div>
         </div>
     )
